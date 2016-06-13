@@ -1,9 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('../services/OAuth/passport');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// route for facebook authen
+router.get('/login/facebook',
+  passport.authenticate('facebook'),
+  function(req, res, next) {
+    console.log("ok");
+  });
+
+// facebook authen callback
+router.get('/login/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/users/login',
+    failureRedirect: '/nhuan'
+  }));
+
+
 
 module.exports = router;

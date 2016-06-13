@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+/* init and configs */
+// config environment
+require('./configs/environment');
+
+// init database
+require('./configs/database');
+
 /**
  * Module dependencies.
  */
@@ -7,6 +14,7 @@
 var app = require('./configs/express');
 var debug = require('debug')('dike.com:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
