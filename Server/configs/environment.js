@@ -2,10 +2,6 @@
  * Author Hoang Duc Nhuan
  */
 
-// production
-//process.env.environment = 'production';
-
-// development
-process.env.environment = 'development';
+process.env.environment = process.argv[2];
 
 console.log('Environment: ' + process.env.environment);
