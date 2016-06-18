@@ -1,25 +1,19 @@
 var passport = require('passport');
 var config = require('./oauth');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../models/users');
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  process.nextTick(function() {
+    return done(null, user);
+  });
 });
 passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+  process.nextTick(function() {
+    return done(null, obj);
+  });
 });
-
-// config local user
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log(username);
-
-    return done(null, { id: '123' });
-  }
-));
 
 // config facebook 
 passport.use(new FacebookStrategy({
@@ -29,29 +23,31 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'name', 'picture.type(large)', 'displayName', 'about', 'gender'],
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({ facebookId: profile.id }, function(err, user) {
-      if (err)
-        return done(err);
+    process.nextTick(function() {
+      return User.findOne({ facebookId: profile.id }, function(err, user) {
+        if (err)
+          return done(err);
 
-      if (!user) {
-        var user = {
-          facebookId: profile.id,
-          name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
-          gender: profile.gender,
-          image: profile.photos[0].value
-        };
+        if (!user) {
+          var newUser = {
+            facebookId: profile.id,
+            name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
+            gender: profile.gender,
+            image: profile.photos[0].value
+          };
 
-        User.create(user, function(err, user) {
-          if (err)
-            return done(err);
+          User.create(newUser, function(err, newUser) {
+            if (err)
+              return done(err);
+
+            return done(null, newUser);
+          });
+
+        } else {
 
           return done(null, user);
-        });
-
-      } else {
-
-        return done(null, user);
-      }
+        }
+      });
     });
   }
 ));
