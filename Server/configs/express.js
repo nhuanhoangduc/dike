@@ -28,10 +28,10 @@ app.use(cookieParser());
 if (app.get('env') === 'development') {
   app.use(express.static(path.join(__dirname, '../../Client/modules')));
 }
-app.use(express.static(path.join(__dirname, '../../Client/views')));
+
 app.use(express.static(path.join(__dirname, '../../Client/production')));
 app.use(express.static(path.join(__dirname, '../../Client/libs')));
-app.use(express.static(path.join(__dirname, '../../Client/resources')));
+app.use(express.static(path.join(__dirname, '../../Client/public')));
 
 // session
 app.use(session({

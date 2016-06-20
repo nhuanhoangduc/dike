@@ -12,11 +12,18 @@
     "ejs": "^2.4.2",
     "express": "~4.13.1",
     "express-session": "^1.13.0",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-nodemon": "^2.1.0",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
+    "json-web-token": "^2.0.2",
     "mongoose": "^4.4.20",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "request": "^2.72.0",
     "serve-favicon": "~2.3.0"
   }
 }

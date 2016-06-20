@@ -15,6 +15,12 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.6"
+    "angular": "^1.5.6",
+    "angular-ui-router": "^0.3.1",
+    "angular-leaflet-directive": "^0.10.0",
+    "leaflet-plugins": "^1.6.1",
+    "angular-ui-select": "^0.18.0",
+    "angular-sanitize": "^1.5.6",
+    "leaflet-draw": "^0.3.0"
   }
 }
