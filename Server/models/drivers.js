@@ -3,6 +3,10 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'users' },
+  typeOfUser: {
+    type: String,
+    enum: ['customer', 'driver']
+  },
   start: {
     lat: Number,
     lng: Number

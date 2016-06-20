@@ -4,11 +4,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
   //
   // Now set up the states
-
-  /* home page */
   $stateProvider
-    .state('home', {
+    .state('home', { // home
       url: "/",
       templateUrl: '/home/views/home.html',
     })
+    .state('gowithme', { // go with me event
+      url: "/gowithme",
+      templateUrl: '/gowithme/views/gowithme.html',
+      controller: 'goWithMeCtrl as ctrl'
+    });
 });

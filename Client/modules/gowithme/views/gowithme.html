@@ -1,0 +1,66 @@
+<div style="margin-left:20px">
+  <div class="row">
+    <div class="col-md-4">
+
+      <!--  menus  -->
+      </br>
+      <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+          <button class="btn btn-success">Find customers</button>
+          <button class="btn btn-warning">Find drivers</button>
+        </div>
+      </div>
+      </br>
+      <!--  find customers  -->
+      <div class="row">
+        <div class="12">
+          <form class="form-horizontal">
+
+            <!-- start point -->
+            <div class="form-group">
+              <label class="col-md-2 control-label">Start</label>
+              <div class="col-md-8">
+
+                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
+                  <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
+                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                    <div style="color:white;" ng-bind-html="place.name | highlight: $select.search"></div>
+                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                  </ui-select-choices>
+                </ui-select>
+
+              </div>
+            </div>
+
+
+            <!-- end point -->
+            <div class="form-group">
+              <label class="col-md-2 control-label">End</label>
+              <div class="col-md-8">
+
+                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
+                  <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
+                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                    <div style="color:white;" ng-bind-html="place.name | highlight: $select.search"></div>
+                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                  </ui-select-choices>
+                </ui-select>
+
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-8">
+      <leaflet lf-center="ctrl.map.center" markers="ctrl.map.markers" layers="ctrl.map.layers" bounds="ctrl.map.bounds" height="480px" width="100%"></leaflet>
+    </div>
+
+  </div>
+
+</div>
