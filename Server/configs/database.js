@@ -12,6 +12,9 @@ if (process.env.environment === 'development') {
   dbUrl = 'mongodb://localhost/dike';
 }
 
+// mlab 
+// dbUrl = 'mongodb://MeetingPointsAdmin:nhuan@ds034208.mlab.com:34208/nhuandb';
+
 // connect to database
 mongoose.connect(dbUrl);
 console.log('dbUrl: ' + dbUrl);

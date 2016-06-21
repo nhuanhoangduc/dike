@@ -1,1 +1,1 @@
-var app = angular.module('MettingPointsApp', ['ui.router', 'leaflet-directive', 'ui.select', 'ngSanitize']);
+var app = angular.module('MettingPointsApp', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'leaflet-directive', 'ui.select', 'ngSanitize']);

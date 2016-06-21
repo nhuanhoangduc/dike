@@ -9,9 +9,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/",
       templateUrl: '/home/views/home.html',
     })
-    .state('gowithme', { // go with me event
-      url: "/gowithme",
-      templateUrl: '/gowithme/views/gowithme.html',
-      controller: 'goWithMeCtrl as ctrl'
+    .state('gowithme_create', { // go with me event
+      url: "/gowithme/create",
+      templateUrl: '/gowithme/views/gowithmecreate.html',
+      controller: 'goWithMeCreateCtrl as ctrl'
     });
 });

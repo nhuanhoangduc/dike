@@ -1,9 +1,10 @@
 app
-  .controller('goWithMeCtrl', function(mapServices) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices) {
     var _this = this;
 
     this.map = mapServices;
     this.places = ['hà nội'];
+    this.request = {};
 
     this.autoComplete = function(place) {
       place = this.convertString(place);
@@ -37,6 +38,24 @@ app
 
         // bound to markers
         _this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
+      });
+    };
+
+
+    /* date picker popup */
+    // date format
+    this.dateFormat = 'dd-MM-yyyy';
+
+    // user input
+    this.altInputFormats = ['dd-MM-yyyy'];
+
+    /* submit data */
+    this.submit = function() {
+      restfulServices.post('/gowithme', _this.request, function(err, response) {
+        if (err)
+          console.log(err);
+
+        console.log(response);
       });
     };
 

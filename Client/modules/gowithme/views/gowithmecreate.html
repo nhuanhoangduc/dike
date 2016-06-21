@@ -1,0 +1,182 @@
+<div style="margin-left:20px">
+  <div class="row">
+    <div class="col-md-4">
+
+      <!--  menus  -->
+      <!-- </br>
+      <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+          <button class="btn btn-success">Find customers</button>
+          <button class="btn btn-warning">Find drivers</button>
+        </div>
+      </div>
+      </br> -->
+
+
+      <!-- create new event -->
+      <br>
+      <div class="row">
+        <div class="12">
+          <form class="form-horizontal">
+
+            <!-- start point -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Start</label>
+              <div class="col-md-8">
+
+                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
+                  <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
+                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                    <div style="color:white;" ng-bind-html="place.name | highlight: $select.search"></div>
+                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                  </ui-select-choices>
+                </ui-select>
+
+              </div>
+            </div>
+            <!-- end start point -->
+
+
+            <!-- end point -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">End</label>
+              <div class="col-md-8">
+
+                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
+                  <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
+                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                    <div style="color:white;" ng-bind-html="place.name | highlight: $select.search"></div>
+                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                  </ui-select-choices>
+                </ui-select>
+
+              </div>
+            </div>
+            <!-- end end point -->
+
+
+            <!-- type of user -->
+            <div class="form-group row" ng-init="ctrl.request.typeOfUser = 'driver'">
+              <label class="col-md-3 control-label">You are</label>
+              <div class="col-md-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" ng-model="ctrl.request.typeOfUser" ng-value="'driver'"> Driver
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" ng-model="ctrl.request.typeOfUser" ng-value="'customer'"> Customer
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- end type of user -->
+
+
+            <!-- you are a driver -->
+            <div ng-show="ctrl.request.typeOfUser === 'driver'">
+
+              <!-- type of vehicle -->
+              <div class="form-group row" ng-init="ctrl.request.vehicle = 'motorbike'">
+                <label class="col-md-3 control-label">Vehicle</label>
+                <div class="col-md-5">
+                  <select ng-model="ctrl.request.vehicle" class="form-control">
+                    <option value="car">Car</option>
+                    <option value="motorbike">Motorbike</option>
+                    <option value="bicycle">Bicycle</option>
+                    <option value="bus">Bus</option>
+                    <option value="walk">Walk</option>
+                  </select>
+                </div>
+              </div>
+              <!-- end vehicle -->
+
+
+              <!-- free seats -->
+              <div class="form-group row" ng-init="ctrl.request.freeseats=1">
+                <label class="col-md-3 control-label">Free seats</label>
+                <div class="col-md-3">
+                  <input type="text" ng-model="ctrl.request.freeseats ">
+                </div>
+              </div>
+
+              <!-- cost / seat -->
+              <div class="form-group row" ng-init="ctrl.request.cost=10000">
+                <label class="col-md-3 control-label">Cost per seat</label>
+                <div class="col-md-3">
+                  <input type="text" ng-model="ctrl.request.cost ">
+                </div>
+              </div>
+
+
+            </div>
+            <!-- end driver -->
+
+
+            <!-- you are a customer -->
+            <div ng-show="ctrl.request.typeOfUser ==='customer' ">
+              <!-- cost / seat -->
+              <div class="form-group row" ng-init="ctrl.request.cost=10000">
+                <label class="col-md-3 control-label">Willingness to Pay</label>
+                <div class="col-md-3">
+                  <input type="text" ng-model="ctrl.request.cost ">
+                </div>
+              </div>
+            </div>
+            <!-- end customer -->
+
+
+            <!-- start time -->
+            <div class="row">
+              <label class="col-md-3 control-label">Start date</label>
+              <div class="col-md-6">
+                <p class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpen = true">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+                </p>
+              </div>
+            </div>
+            <!-- end time -->
+
+
+            <!-- note -->
+            <div class="form-group row">
+              <label class="col-md-3 control-label">Note</label>
+              <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="ctrl.request.note"></textarea>
+              </div>
+            </div>
+            <!-- end note -->
+
+
+            <!-- submit button -->
+            <div class="row">
+              <div class="col-md-2 col-md-offset-8">
+                <button class="btn btn-success" ng-click="ctrl.submit()">Submit</button>
+              </div>
+            </div>
+            <!-- end button -->
+
+          </form>
+        </div>
+      </div>
+      <!-- end create event -->
+
+
+    </div>
+
+    <div class="col-md-8 ">
+      <leaflet lf-center="ctrl.map.center " markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="480px " width="100% "></leaflet>
+    </div>
+
+  </div>
+
+</div>
