@@ -25,4 +25,4 @@ var getJsFiles = function(callback) {
 
 module.exports = {
   getJsFiles: getJsFiles
-}
+};
