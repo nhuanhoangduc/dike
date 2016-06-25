@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, leafletData) {
     var _this = this;
 
     this.map = mapServices;

@@ -1,5 +1,5 @@
 app
-  .service('mapServices', function(restfulServices, leafletBoundsHelpers) {
+  .service('mapServices', function(restfulServices, leafletBoundsHelpers, leafletData) {
     var bounds = leafletBoundsHelpers.createBoundsFromArray([
       [21.022693, 105.8019441],
       [21.022693, 105.81]
@@ -51,6 +51,7 @@ app
       },
 
       bounds: bounds,
+      map: {},
 
       // auto complete
       autoComplete: function(place, callback) {
@@ -85,6 +86,14 @@ app
       }
 
     };
+
+    // init map
+    leafletData.getMap().then(function(map) {
+      leafletData.getLayers().then(function(baselayers) {
+        services.map = map;
+        console.log(services.map);
+      });
+    });
 
     return services;
 
