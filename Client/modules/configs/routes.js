@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
     .state('gowithme_create', { // go with me event
       url: "/gowithme/create",
-      templateUrl: '/gowithme/views/gowithmecreate.html',
+      templateUrl: '/gowithme/views/gowithme_create.html',
       controller: 'goWithMeCreateCtrl as ctrl'
     });
 });

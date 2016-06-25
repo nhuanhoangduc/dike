@@ -1,42 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html ng-app="MettingPointsApp">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Relient - Responsive Multiperpose Theme</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link href="css/bootstrap.css" rel="stylesheet" />
 
-  <!-- Preloader CSS -->
-  <!-- 	<script src="js/pace.min.js"></script> -->
+  <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
+  <link href="css/ct-navbar.css" rel="stylesheet" />
 
-  <!-- Meta Viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <!--     Font Awesome     -->
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <!-- Meta description and keywords -->
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- Shortcut icons And Apple touch icon -->
-  <link rel="shortcut icon" href="img/favicon.png">
-  <link rel="apple-touch-icon" href="img/favicon.png">
-
-  <!-- Preloader CSS -->
-  <link rel="stylesheet" href="css/pace.css">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-
-  <!-- Universal stylesheet (Shouldbe used with all multiperpose pages) -->
-  <link rel="stylesheet" href="css/multiperpose.css">
-  <link rel="stylesheet" href="css/main.css">
-
-  <!-- Custom CSS (Page Specific) < Editable > -->
-  <link rel="stylesheet" href="css/pages/page-multi-perpose.css">
-
-  <!-- Custom CSS (color theme) < Editable > -->
-  <link rel="stylesheet" href="css/color-theme/business/green.css">
-
-  <!-- CSS Only for demo delete in original vrsion -->
-  <link rel="stylesheet" href="css/demo.css">
+  <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <style>
+  .fa-heart {
+    color: #F74933;
+  }
+  
+  .space-100 {
+    height: 100px;
+    display: block;
+  }
+  
+  pre.prettyprint {
+    background-color: #ffffff;
+    border: 1px solid #999;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .atv,
+  .str {
+    color: #05AE0E;
+  }
+  
+  .tag,
+  .pln,
+  .kwd {
+    color: #3472F7;
+  }
+  
+  .atn {
+    color: #2C93FF;
+  }
+  
+  .pln {
+    color: #333;
+  }
+  
+  .com {
+    color: #999;
+  }
+  </style>
 
   <!-- angular js -->
   <script src="/angular/angular.min.js"></script>
@@ -50,114 +68,24 @@
     <script src="<%= jsFiles[i] %>"></script>
     <% } %>
 </head>
-<!-- Body Starts Here -->
-<!-- Add class bg-1 to bg-18 for different background patterns -->
 
-<body class="bg-17">
-  <!-- Div set layout of page for full-width layout add class full-width else for boxed layout add class boxed -->
-  <div class="layout full-width">
-    <!-- Section only for demo perpose should not include in original version -->
-    <section id="demo" class="demo hidden-xs">
-      <div class="container affix">
-        <div class="row">
-          <div class="styler well custom">
-            <span class="close fa fa-times"></span>
-            <h3 class="heading txt-xs">Layout</h3>
-            <div class="ul ul-xs"><span></span></div>
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-success active">
-                <input type="radio" checked name="layout" value="full" id="layout1"> Full
-              </label>
-              <label class="btn btn-warning">
-                <input type="radio" name="layout" value="boxed" id="layout2"> Boxed
-              </label>
-            </div>
-            <h3 class="heading txt-xs">Side Nav Style</h3>
-            <div class="ul ul-xs"><span></span></div>
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-success active">
-                <input type="radio" checked name="layout" value="reveal" id="side-menu-style1"> Push
-              </label>
-              <label class="btn btn-warning">
-                <input type="radio" name="layout" value="overlay" id="side-menu-style2"> Overlay
-              </label>
-            </div>
-            <h3 class="heading txt-xs">Color Themes</h3>
-            <div class="ul ul-xs"><span></span></div>
-            <div class="color-themes"></div>
-            <h3 class="heading txt-xs">Background Patterns</h3>
-            <div class="ul ul-xs"><span></span></div>
-            <div class="bg-patterns"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="home-head">
-      <div class="container">
-        <!-- TopThin Bar Containing Contact Info and Email And Social Button etc... (Visible only only on big screens) -->
-        <div class="row top-bar-contact hidden-xs">
-          <!-- Email/Phone -->
-          <div class="col-sm-6 col-md-5 col-lg-4 contact">
-            <!-- Contact Phone -->
-            <span class="phone"><span class="fa fa-phone"></span>&nbsp;+91-1234567890</span>
-            <!-- Contact Email -->
-            <span class="email"><span class="fa fa-envelope-o"></span>&nbsp;info@example.com</span>
-          </div>
-          <!-- Social and login/signup Buttons visible only on big screens (PC, Laptop) -->
-          <div class="col-sm-6 col-md-7 col-lg-8 social">
-            <div class="btn-group">
-              <!-- Facebook -->
-              <a class="btn btn-primary btn-xs" href="#" title="Facebook"><span class="fa fa-facebook"></span></a>
-            </div>
-            <div class="btn-group">
-              <!-- Login Modal Button -->
-              <button data-toggle="modal" data-target="#login-modal" class="btn btn-success btn-xs">Login</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <nav class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <!-- Toggle Button for main navbar (Horizontal Nav) (This button visible only on mobile) -->
-            <button type="button" class="navbar-toggle collapsed left" data-toggle="collapse" data-target="#main-navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <!-- Site Name -->
-            <a class="navbar-brand" href="#">RELIENT</a>
-          </div>
+<body>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div menus></div>
-        </div>
-      </nav>
-    </section>
-    <section style="background-color: rgb(245,245,245);">
+  <!-- nav bar -->
+  <menus></menus>
+  <!-- end nav bar -->
 
-      <!-- start content -->
-      <div ui-view></div>
-      <!-- end content-->
-
-    </section>
+  <!-- main -->
+  <div class="main" style="margin-top:100px;">
+    <div ui-view></div>
   </div>
+  <!-- end main -->
 
-  <!-- jQuery -->
-  <script src="js/jquery-2.1.1.min.js"></script>
-
-  <!-- Bootstrap -->
-  <script src="js/bootstrap.min.js"></script>
-
-  <!-- Universal JS for all pages js < Editable > -->
-  <script src="js/multiperpose.js"></script>
-
-  <!-- JS for specific this page <Editable> -->
-  <script src="js/pages/page-multi-perpose.js"></script>
-
-  <!-- Style switcher for demo page only -->
-  <script src="js/style-switcher.js"></script>
 </body>
+
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+<script src="js/ct-navbar.js"></script>
+
 
 </html>
