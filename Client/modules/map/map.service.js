@@ -1,5 +1,5 @@
 app
-  .service('mapServices', function(restfulServices, leafletBoundsHelpers, leafletData) {
+  .service('mapServices', function(restfulServices, leafletBoundsHelpers, leafletData, leafletMarkerEvents) {
     var bounds = leafletBoundsHelpers.createBoundsFromArray([
       [21.022693, 105.8019441],
       [21.022693, 105.81]
@@ -37,7 +37,7 @@ app
           lat: 21.022693,
           lng: 105.8019441,
           focus: true,
-          message: "Hey, drag me if you want",
+          message: "Start point",
           draggable: true
         },
 
@@ -45,13 +45,25 @@ app
           lat: 21.022693,
           lng: 105.81,
           focus: true,
-          message: "Hey, drag me if you want",
+          message: "Finish point",
           draggable: true
         }
       },
 
       bounds: bounds,
       map: {},
+
+      // map events
+      events: {
+        markers: {
+          enable: leafletMarkerEvents.getAvailableEvents(),
+        }
+      },
+
+      // get all events
+      getEvents: function() {
+        return leafletMarkerEvents.getAvailableEvents();
+      },
 
       // auto complete
       autoComplete: function(place, callback) {
@@ -63,6 +75,13 @@ app
       // get location from a place 
       getLocation: function(placeId, callback) {
         restfulServices.get('/map/getdetail', [placeId], function(err, response) {
+          return callback(err, response);
+        });
+      },
+
+      // get place information from lat lng
+      geoCode: function(lat, lng, callback) {
+        restfulServices.get('/map/geocode', [lat, lng], function(err, response) {
           return callback(err, response);
         });
       },
@@ -88,12 +107,13 @@ app
     };
 
     // init map
-    leafletData.getMap().then(function(map) {
-      leafletData.getLayers().then(function(baselayers) {
-        services.map = map;
-        console.log(services.map);
-      });
-    });
+    // leafletData.getMap().then(function(map) {
+    //   leafletData.getLayers().then(function(baselayers) {
+    //     services.map = map;
+    //     console.log(services.map);
+    //   });
+    // });
+
 
     return services;
 

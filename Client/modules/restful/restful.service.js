@@ -4,8 +4,8 @@ app.service('restfulServices', function($http) {
 
     get: function(url, params, callback) {
 
-      for (var param in params) {
-        url += '/' + params;
+      for (var i = 0; i < params.length; i++) {
+        url += '/' + params[i];
       }
 
       $http.get(url).then(function success(response) {

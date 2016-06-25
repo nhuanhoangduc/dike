@@ -1,5 +1,6 @@
 var request = require('request');
 var key = 'AIzaSyDAJenglprl19UfLIr2vXugmM1BMqWFJME';
+var urlencode = require('urlencode');
 
 var autoComplete = function(req, res, next) {
   var place = 'ha noi';
@@ -8,7 +9,7 @@ var autoComplete = function(req, res, next) {
     place = req.params.place;
   }
 
-  var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + place + '&key=' + key;
+  var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + urlencode(place) + '&key=' + key;
   process.nextTick(function() {
     request(url, function(error, response, body) {
       if (error) {
@@ -57,7 +58,30 @@ var getDetail = function(req, res, next) {
 };
 
 
+var geoCode = function(req, res, next) {
+  var lat = req.params.lat;
+  var lng = req.params.lng;
+
+  var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng;
+  url += '&key=' + key;
+
+  // request to google geocode api
+  process.nextTick(function() {
+    request(url, function(error, response, body) {
+      if (error) {
+        return next(error);
+      }
+
+      var mapData = JSON.parse(body);
+
+      return res.send(mapData.results[0].formatted_address);
+    });
+  });
+};
+
+
 module.exports = {
   autoComplete: autoComplete,
-  getDetail: getDetail
+  getDetail: getDetail,
+  geoCode: geoCode
 };

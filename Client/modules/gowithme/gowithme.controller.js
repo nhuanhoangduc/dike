@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, leafletData) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope) {
     var _this = this;
 
     this.map = mapServices;
@@ -7,25 +7,9 @@ app
     this.request = {};
 
     this.autoComplete = function(place) {
-      place = this.convertString(place);
-
       _this.map.autoComplete(place, function(err, response) {
         _this.places = response.data;
       });
-    };
-
-    this.convertString = function(str) {
-      str = str.toLowerCase();
-
-      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ  |ặ|ẳ|ẵ/g, "a");
-      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ  |ợ|ở|ỡ/g, "o");
-      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-      str = str.replace(/đ/g, "d");
-
-      return str;
     };
 
     this.placeSelected = function(marker) {
@@ -59,6 +43,42 @@ app
       });
     };
 
+    /* set text field data from lat lng*/
+    var setTextField = function(marker, lat, lng) {
+      if (!marker.place)
+        marker.place = {};
+
+      // get geo code
+      _this.map.geoCode(lat, lng, function(err, response) {
+        marker.place.name = response.data.slice(0, 34);
+      });
+    };
+
+    // set event dragend to marker
+    $scope.$on('leafletDirectiveMarker.dragend', function(event, control) {
+      // set marker data
+      _this.map.markers[control.modelName].lat = control.model.lat;
+      _this.map.markers[control.modelName].lng = control.model.lng;
+      _this.map.markers[control.modelName].focus = true;
+
+      // bound to markers
+      _this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
+
+      // set text field data
+      setTextField(_this.map.markers[control.modelName], control.model.lat, control.model.lng);
+    });
+
+
+    /* init function */
+    (function() {
+
+      // init data for start text field
+      setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+
+      // init data for end text field
+      setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+
+    })();
   })
   .controller('goWithMeSearchCtrl', function(mapServices, restfulServices) {
     var _this = this;
@@ -68,25 +88,9 @@ app
     this.request = {};
 
     this.autoComplete = function(place) {
-      place = this.convertString(place);
-
       _this.map.autoComplete(place, function(err, response) {
         _this.places = response.data;
       });
-    };
-
-    this.convertString = function(str) {
-      str = str.toLowerCase();
-
-      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ  |ặ|ẳ|ẵ/g, "a");
-      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ  |ợ|ở|ỡ/g, "o");
-      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-      str = str.replace(/đ/g, "d");
-
-      return str;
     };
 
     this.placeSelected = function(marker) {
