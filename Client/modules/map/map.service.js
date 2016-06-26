@@ -38,7 +38,8 @@ app
           lng: 105.8019441,
           focus: true,
           message: "Start point",
-          draggable: true
+          draggable: true,
+          radius: 1000
         },
 
         end: {
@@ -46,8 +47,13 @@ app
           lng: 105.81,
           focus: true,
           message: "Finish point",
-          draggable: true
+          draggable: true,
+          radius: 1000
         }
+      },
+
+      paths: {
+
       },
 
       bounds: bounds,
@@ -110,9 +116,9 @@ app
     // leafletData.getMap().then(function(map) {
     //   leafletData.getLayers().then(function(baselayers) {
     //     services.map = map;
-    //     console.log(services.map);
     //   });
     // });
+
 
 
     return services;

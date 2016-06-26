@@ -8,8 +8,8 @@ app
         for (var key in services.user)
           delete services.user[key];
 
-        for (var key in newUser)
-          services.user[key] = newUser[key];
+        for (var newKey in newUser)
+          services.user[newKey] = newUser[newKey];
 
       },
 

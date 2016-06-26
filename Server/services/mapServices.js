@@ -2,6 +2,8 @@ var request = require('request');
 var key = 'AIzaSyDAJenglprl19UfLIr2vXugmM1BMqWFJME';
 var urlencode = require('urlencode');
 var GoWithMe = require('../models/goWithMe');
+var async = require('async');
+var _ = require('underscore');
 
 
 var autoComplete = function(req, res, next) {
@@ -84,21 +86,62 @@ var geoCode = function(req, res, next) {
 
 var search_goWithMe = function(req, res, next) {
   var startParams = [req.params.startLat, req.params.startLng];
-  console.log(startParams);
-  console.log(req.params.startRadius);
+  var endParams = [req.params.endLat, req.params.endLng];
 
-  GoWithMe
-    .find({
-      start: {
-        $near: startParams,
-        $maxDistance: (req.params.startRadius / 17.69) / 6371
-      }
-    }, function(err, results) {
-      if (err)
-        return next(err);
+  var startRadius = req.params.startRadius;
+  var endRadius = req.params.endRadius;
 
-      res.json(results);
-    });
+  async.waterfall([
+
+    // search start point
+    function(done) {
+      GoWithMe.find({
+        start: {
+          $near: startParams,
+          $maxDistance: (startRadius / 35) / 6371
+        }
+      }, function(err, results) {
+        return done(err, results);
+      })
+    },
+
+    // search end point
+    function(startResults, done) {
+      GoWithMe.find({
+        end: {
+          $near: endParams,
+          $maxDistance: (endRadius / 35) / 6371
+        }
+      }, function(err, endResults) {
+        if (err)
+          return done(err);
+
+        if (startResults.length === 0 || endResults.length === 0)
+          return done(null, []);
+
+        var results = [];
+        endResults = _.sortBy(endResults, '_id');
+
+        // filter
+        for (var i = 0; i < startResults.length; i++) {
+          var id = startResults[i]._id;
+          var index = _.sortedIndex(endResults, { _id: id });
+
+          if (id.toString() === endResults[index]._id.toString()) {
+            results.push(startResults[i]);
+          }
+        }
+
+        return done(null, results);
+      })
+    }
+
+  ], function(err, results) {
+    if (err)
+      return next(err);
+
+    res.json(results);
+  });
 
 };
 
