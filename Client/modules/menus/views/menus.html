@@ -20,14 +20,14 @@
           <a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
             <div class="logo">
 
-              <img ng-show="!ctrl.userServices.user.image" src="https://s3.amazonaws.com/creativetim_bucket/new_logo.png">
+              <img ng-show="!ctrl.user.image" src="https://s3.amazonaws.com/creativetim_bucket/new_logo.png">
 
-              <img height="60" width="60" ng-show="ctrl.userServices.user.image" src="{{ctrl.userServices.user.image}}">
+              <img height="60" width="60" ng-show="ctrl.user.image" src="{{ctrl.user.image}}">
 
             </div>
 
-            <div class="brand" ng-show="!ctrl.userServices.user.name"> Guest </div>
-            <div class="brand" ng-show="ctrl.userServices.user.name">{{ctrl.userServices.user.name}} </div>
+            <div class="brand" ng-show="!ctrl.user.name"> Guest </div>
+            <div class="brand" ng-show="ctrl.user.name">{{ctrl.user.name}} </div>
 
           </a>
           <!-- end user avatar -->
