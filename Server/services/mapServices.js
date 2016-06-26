@@ -1,6 +1,8 @@
 var request = require('request');
 var key = 'AIzaSyDAJenglprl19UfLIr2vXugmM1BMqWFJME';
 var urlencode = require('urlencode');
+var GoWithMe = require('../models/goWithMe');
+
 
 var autoComplete = function(req, res, next) {
   var place = 'ha noi';
@@ -80,8 +82,30 @@ var geoCode = function(req, res, next) {
 };
 
 
+var search_goWithMe = function(req, res, next) {
+  var startParams = [req.params.startLat, req.params.startLng];
+  console.log(startParams);
+  console.log(req.params.startRadius);
+
+  GoWithMe
+    .find({
+      start: {
+        $near: startParams,
+        $maxDistance: (req.params.startRadius / 17.69) / 6371
+      }
+    }, function(err, results) {
+      if (err)
+        return next(err);
+
+      res.json(results);
+    });
+
+};
+
+
 module.exports = {
   autoComplete: autoComplete,
   getDetail: getDetail,
-  geoCode: geoCode
+  geoCode: geoCode,
+  search_goWithMe: search_goWithMe
 };

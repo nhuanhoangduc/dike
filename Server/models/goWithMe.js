@@ -42,4 +42,7 @@ var goWithMeSchema = new Schema({
   note: String
 });
 
+goWithMeSchema.index({ start: '2d' });
+goWithMeSchema.index({ end: '2d' });
+
 module.exports = mongoose.model('gowithmes', goWithMeSchema);
