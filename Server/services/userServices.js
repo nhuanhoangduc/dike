@@ -35,7 +35,7 @@ var checkLogin = function(req, res, next) {
     if (req.session.passport && req.session.passport.user) {
       return next();
     } else {
-      return next({ status: 401, message: 'A hihi hi hi hi' });
+      return next({ status: 401, message: 'User has not logged' });
     }
   });
 };

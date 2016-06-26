@@ -14,8 +14,8 @@ router.get('/login/facebook',
 // facebook authen callback
 router.get('/login/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect: '/users/currentUser',
-    failureRedirect: '/nhuan'
+    successRedirect: '/',
+    failureRedirect: '/'
   }));
 
 

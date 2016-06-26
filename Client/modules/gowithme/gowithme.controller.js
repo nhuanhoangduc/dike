@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices) {
     var _this = this;
 
     this.map = mapServices;
@@ -78,9 +78,12 @@ app
       // init data for end text field
       setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
 
+      // update user
+      UserServices.getCurrentUser();
+
     })();
   })
-  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices) {
+  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, UserServices) {
     var _this = this;
 
     this.map = mapServices;

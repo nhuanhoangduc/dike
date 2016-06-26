@@ -1,6 +1,7 @@
 app
   .directive('menus', function() {
     return {
-      templateUrl: '/menus/views/menus.html'
+      templateUrl: '/menus/views/menus.html',
+      controller: 'MenusCtrl as ctrl'
     };
   });
