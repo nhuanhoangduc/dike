@@ -36,6 +36,17 @@
             <!-- end start point -->
 
 
+            <!-- change start radius -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Radius (m)</label>
+              <div class="col-md-8">
+                <slider ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
+              </div>
+            </div>
+            <br>
+            <!-- end change radius -->
+
+
             <!-- end point -->
             <div class="form-group">
               <label class="col-md-3 control-label">End</label>
@@ -52,6 +63,17 @@
               </div>
             </div>
             <!-- end end point -->
+
+
+            <!-- change end radius -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Radius (m)</label>
+              <div class="col-md-8">
+                <slider ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
+              </div>
+            </div>
+            <br>
+            <!-- end change radius -->
 
 
             <!-- start time -->

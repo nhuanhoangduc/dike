@@ -205,6 +205,13 @@ app
     });
 
 
+    /* radius change event */
+    this.radiusChanged = function(name) {
+      // update circle
+      _this.map.paths[name].radius = _this.map.markers[name].radius / 2;
+    };
+
+
     /* init function */
     (function() {
 

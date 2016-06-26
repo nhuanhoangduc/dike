@@ -20,6 +20,8 @@
     "angular-sanitize": "^1.5.7",
     "leaflet-draw": "^0.3.0",
     "angular-animate": "^1.5.7",
-    "angular-touch": "^1.5.7"
+    "angular-touch": "^1.5.7",
+    "angular-bootstrap-slider": "^0.1.28",
+    "seiyria-bootstrap-slider": "^7.1.1"
   }
 }
