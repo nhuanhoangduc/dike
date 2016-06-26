@@ -13,7 +13,7 @@ if (process.env.environment === 'development') {
 }
 
 // mlab 
-// dbUrl = 'mongodb://MeetingPointsAdmin:nhuan@ds034208.mlab.com:34208/nhuandb';
+dbUrl = 'mongodb://MeetingPointsAdmin:nhuan@ds034208.mlab.com:34208/nhuandb';
 
 // connect to database
 mongoose.connect(dbUrl);
