@@ -102,7 +102,7 @@ var search_goWithMe = function(req, res, next) {
         }
       }, function(err, results) {
         return done(err, results);
-      })
+      });
     },
 
     // search end point
@@ -133,7 +133,7 @@ var search_goWithMe = function(req, res, next) {
         }
 
         return done(null, results);
-      })
+      });
     }
 
   ], function(err, results) {
