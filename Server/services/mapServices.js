@@ -95,14 +95,17 @@ var search_goWithMe = function(req, res, next) {
 
     // search start point
     function(done) {
-      GoWithMe.find({
-        start: {
-          $near: startParams,
-          $maxDistance: (startRadius / 35) / 6371
-        }
-      }, function(err, results) {
-        return done(err, results);
-      });
+      GoWithMe
+        .find({
+          start: {
+            $near: startParams,
+            $maxDistance: (startRadius / 35) / 6371
+          }
+        })
+        .populate('user')
+        .exec(function(err, results) {
+          return done(err, results);
+        });
     },
 
     // search end point

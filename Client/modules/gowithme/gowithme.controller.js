@@ -102,6 +102,7 @@ app
 
     this.map = mapServices;
     this.places = ['hà nội'];
+    this.searchResults = [];
 
     this.autoComplete = function(place) {
       _this.map.autoComplete(place, function(err, response) {
@@ -124,6 +125,9 @@ app
 
         // update circle
         _this.map.paths[name].latlngs = [lat, lng];
+
+        // update results
+        _this.submit();
       });
     };
 
@@ -149,6 +153,9 @@ app
       restfulServices.get('/map/gowithmesearch', params, function(err, response) {
         if (err)
           console.log(err);
+
+        _this.searchResults = response.data;
+        console.log(response.data);
 
         for (var key in _this.map.markers) {
           if (key !== 'start' && key !== 'end')
@@ -209,6 +216,9 @@ app
     this.radiusChanged = function(name) {
       // update circle
       _this.map.paths[name].radius = _this.map.markers[name].radius / 2;
+
+      // update results
+      _this.submit();
     };
 
 

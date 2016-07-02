@@ -25,7 +25,7 @@
 
                 <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
                   <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
                     <div ng-bind-html="place.name | highlight: $select.search"></div>
                     <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
                   </ui-select-choices>
@@ -43,7 +43,7 @@
 
                 <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
                   <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places | filter: $select.search" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
                     <div ng-bind-html="place.name | highlight: $select.search"></div>
                     <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
                   </ui-select-choices>
