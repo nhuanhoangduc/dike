@@ -6,12 +6,14 @@ app
     ]);
 
     var services = {
+      // change camera to this location
       center: {
         lat: 21.022693,
         lng: 105.8019441,
         zoom: 14
       },
 
+      // google map layers
       layers: {
         baselayers: {
           googleRoadmap: {
@@ -32,6 +34,7 @@ app
         }
       },
 
+      // start and end marker
       markers: {
         start: {
           lat: 21.022693,
@@ -39,7 +42,12 @@ app
           focus: true,
           message: "Start point",
           draggable: true,
-          radius: 1000
+          radius: 1000,
+          icon: {
+            type: "awesomeMarker",
+            icon: "home",
+            markerColor: "yellow"
+          }
         },
 
         end: {
@@ -52,10 +60,12 @@ app
         }
       },
 
+      // variable store shapes
       paths: {
 
       },
 
+      // bounds to markers
       bounds: bounds,
       map: {},
 

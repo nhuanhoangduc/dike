@@ -6,6 +6,7 @@ var async = require('async');
 var _ = require('underscore');
 
 
+/* list of suggest places */
 var autoComplete = function(req, res, next) {
   var place = 'ha noi';
 
@@ -13,7 +14,10 @@ var autoComplete = function(req, res, next) {
     place = req.params.place;
   }
 
+  // google api
   var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + urlencode(place) + '&key=' + key;
+
+  //request to google placeComplete api
   process.nextTick(function() {
     request(url, function(error, response, body) {
       if (error) {
@@ -23,6 +27,7 @@ var autoComplete = function(req, res, next) {
       var mapData = JSON.parse(body);
       var places = [];
 
+      // anylize data
       for (var i = 0; i < mapData.predictions.length; i++) {
         places.push({
           name: mapData.predictions[i].description,
@@ -37,6 +42,7 @@ var autoComplete = function(req, res, next) {
 };
 
 
+/* get lat lng from a place */
 var getDetail = function(req, res, next) {
   if (!req.params.placeId) {
     return next('placeId null');
@@ -44,15 +50,18 @@ var getDetail = function(req, res, next) {
 
   placeId = req.params.placeId;
 
+  // google api url
   var url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeId + '&key=' +
     key;
 
+  // request to google details api
   process.nextTick(function() {
     request(url, function(error, response, body) {
       if (error) {
         return next(error);
       }
 
+      // get lat lng from response
       var mapData = JSON.parse(body);
       var location = mapData.result.geometry.location;
 
@@ -62,10 +71,12 @@ var getDetail = function(req, res, next) {
 };
 
 
+/* get place from lat lng*/
 var geoCode = function(req, res, next) {
   var lat = req.params.lat;
   var lng = req.params.lng;
 
+  // google api url
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng;
   url += '&key=' + key;
 
@@ -76,6 +87,7 @@ var geoCode = function(req, res, next) {
         return next(error);
       }
 
+      // get place from response
       var mapData = JSON.parse(body);
 
       return res.send(mapData.results[0].formatted_address);
@@ -84,13 +96,16 @@ var geoCode = function(req, res, next) {
 };
 
 
+/* search start points and end points with radius */
 var search_goWithMe = function(req, res, next) {
+  // request params
   var startParams = [req.params.startLat, req.params.startLng];
   var endParams = [req.params.endLat, req.params.endLng];
 
   var startRadius = req.params.startRadius;
   var endRadius = req.params.endRadius;
 
+  // find data 
   async.waterfall([
 
     // search start point
@@ -104,7 +119,6 @@ var search_goWithMe = function(req, res, next) {
         })
         .populate('user')
         .exec(function(err, results) {
-          console.log(results);
           return done(err, results);
         });
     },
@@ -119,17 +133,20 @@ var search_goWithMe = function(req, res, next) {
       }, function(err, endResults) {
         if (err)
           return done(err);
-        console.log(endResults)
+
         if (startResults.length === 0 || endResults.length === 0)
           return done(null, []);
 
         var results = [];
         endResults = _.sortBy(endResults, '_id');
 
-        // filter
+        // collect event exist both in start results and end results
         for (var i = 0; i < startResults.length; i++) {
           var id = startResults[i]._id;
           var index = _.sortedIndex(endResults, { _id: id }, '_id');
+
+          if (index >= endResults.length)
+            continue;
 
           if (id.toString() === endResults[index]._id.toString()) {
             results.push(startResults[i]);

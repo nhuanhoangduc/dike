@@ -20,7 +20,9 @@
 
             <!-- start point -->
             <div class="form-group">
-              <label class="col-md-3 control-label">Start</label>
+              <label class="col-md-3 control-label">Start
+                <i class="pe-7s-map-marker"></i>
+              </label>
               <div class="col-md-8">
 
                 <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
@@ -38,7 +40,9 @@
 
             <!-- end point -->
             <div class="form-group">
-              <label class="col-md-3 control-label">End</label>
+              <label class="col-md-3 control-label">End
+                <i class="pe-7s-map-marker"></i>
+              </label>
               <div class="col-md-8">
 
                 <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
@@ -137,9 +141,9 @@
                   <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpen = true">
-                    <i class="glyphicon glyphicon-calendar"></i>
+                      <i class="glyphicon glyphicon-calendar"></i>
                     </button>
-                </span>
+                  </span>
                 </p>
               </div>
             </div>

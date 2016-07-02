@@ -39,49 +39,119 @@
           <ul class="nav navbar-nav navbar-right">
 
 
+            <!-- go with me event -->
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="pe-7s-bicycle"></i>
+                <p>Go with me
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a ui-sref="gowithme_create" href="">Create</a>
+                </li>
+                <li>
+                  <a ui-sref="gowithme_search" href="">Join</a>
+                </li>
+              </ul>
+            </li>
+            <!-- end go with me -->
+
+
+            <!-- sport event -->
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="pe-7s-gym"></i>
+                <p>Sport
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a ui-sref="gowithme_create" href="">Create</a>
+                </li>
+                <li>
+                  <a ui-sref="gowithme_search" href="">Join</a>
+                </li>
+              </ul>
+            </li>
+            <!-- end sport event -->
+
+
+            <!-- study event -->
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="pe-7s-display1"></i>
+                <p>Study
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a ui-sref="gowithme_create" href="">Create</a>
+                </li>
+                <li>
+                  <a ui-sref="gowithme_search" href="">Join</a>
+                </li>
+              </ul>
+            </li>
+            <!-- end study event-->
+
+
             <!-- login facebook account -->
-            <li>
+            <li ng-show="!ctrl.user._id">
               <a href="/users/login/facebook">
-                <i class="pe-7s-mail"></i>
+                <i class="pe-7s-user">
+                  <span class="label">
+                    <i class="fa fa-facebook-square" aria-hidden="false" style="background:transparent;"></i>
+                  </span>
+                </i>
                 <p>Login</p>
               </a>
             </li>
             <!-- end login -->
 
 
-
-            <li>
-              <a href="#">
-                <i class="pe-7s-mail">
-                                <span class="label">23</span>
-                            </i>
-                <p>Messages</p>
-              </a>
-            </li>
-
-            <!-- go with me event -->
-            <li class="dropdown">
+            <!-- event manager -->
+            <li ng-show="ctrl.user._id" class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="pe-7s-user"></i>
-                <p>Go with me<b class="caret"></b></p>
+                <i class="pe-7s-user">
+                  <span class="label">23</span>
+                </i>
+                <p>Event manager
+                  <b class="caret"></b>
+                </p>
               </a>
               <ul class="dropdown-menu">
-                <li><a ui-sref="gowithme_create" href="">Create new</a></li>
-                <li><a ui-sref="gowithme_search" href="">Search</a></li>
+                <li>
+                  <a ui-sref="user">Your own</a>
+                </li>
+                <li>
+                  <a href="/messesage">Joined</a>
+                </li>
               </ul>
             </li>
-            <!-- end go with me -->
+            <!-- end event manager -->
+
 
             <!-- user profile -->
-            <li class="dropdown">
+            <li ng-show="ctrl.user._id" class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="pe-7s-user"></i>
-                <p>Account <b class="caret"></b></p>
+                <i class="pe-7s-piggy">
+                  <span class="label">23</span>
+                </i>
+                <p>Account
+                  <b class="caret"></b>
+                </p>
               </a>
               <ul class="dropdown-menu">
-                <li><a ui-sref="user">Profile</a></li>
-                <li><a href="/messesage">Message</a></li>
-                <li><a href="/messesage">Event manager</a></li>
+                <li>
+                  <a ui-sref="user">Profile</a>
+                </li>
+                <li>
+                  <a href="/messesage">Message</a>
+                </li>
               </ul>
             </li>
             <!-- end user profile -->
