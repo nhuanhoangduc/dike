@@ -18,5 +18,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/gowithme/search",
       templateUrl: '/gowithme/views/gowithme_search.html',
       controller: 'goWithMeSearchCtrl as ctrl'
+    })
+    .state('user', { // user profile
+      url: "/user",
+      templateUrl: '/user/views/user.html',
+      controller: 'userController as ctrl'
     });
 });

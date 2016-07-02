@@ -189,7 +189,7 @@ app
       });
     };
 
-    /* get geocode */
+    /* convert lat lng to place  */
     this.getGeoCode = function(point) {
       point.place = '';
 
