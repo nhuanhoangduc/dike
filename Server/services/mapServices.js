@@ -104,6 +104,7 @@ var search_goWithMe = function(req, res, next) {
         })
         .populate('user')
         .exec(function(err, results) {
+          console.log(results);
           return done(err, results);
         });
     },
@@ -118,7 +119,7 @@ var search_goWithMe = function(req, res, next) {
       }, function(err, endResults) {
         if (err)
           return done(err);
-
+        console.log(endResults)
         if (startResults.length === 0 || endResults.length === 0)
           return done(null, []);
 
@@ -128,7 +129,7 @@ var search_goWithMe = function(req, res, next) {
         // filter
         for (var i = 0; i < startResults.length; i++) {
           var id = startResults[i]._id;
-          var index = _.sortedIndex(endResults, { _id: id });
+          var index = _.sortedIndex(endResults, { _id: id }, '_id');
 
           if (id.toString() === endResults[index]._id.toString()) {
             results.push(startResults[i]);

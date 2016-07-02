@@ -126,23 +126,55 @@
   <!-- search results -->
   <div class="container" ng-show="ctrl.searchResults.length>0">
     <hr>
-    <div class="col-md-4">
-      <div class="card" ng-repeat="results in ctrl.searchResults">
-        <img class="card-img-top" data-src="{{results.user.image}}" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="col-md-4" ng-repeat="result in ctrl.searchResults">
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <img height="30" width="30" ng-show="result.user.image" src="{{result.user.image}}"> {{result.user.name}}
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-block">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+
+        <div class="panel-body">
+
+          <!-- start -->
+          <div class="row">
+            <div class="col-md-3">Start:</div>
+            <div class="col-md-9" ng-init="ctrl.getGeoCode(result.start)">{{result.start.place}}</div>
+          </div>
+          <!-- end start -->
+
+          <!-- end -->
+          <div class="row">
+            <div class="col-md-3">End:</div>
+            <div class="col-md-9" ng-init="ctrl.getGeoCode(result.end)">{{result.end.place}}</div>
+          </div>
+          <!-- end -->
+
+          <!-- time -->
+          <div class="row">
+            <div class="col-md-3">Time:</div>
+            <div class="col-md-9">{{result.startTime}}</div>
+          </div>
+          <!-- end time -->
+
+          <!-- vehicle -->
+          <div class="row">
+            <div class="col-md-3">Vehicle:</div>
+            <div class="col-md-9">{{result.vehicle}}</div>
+          </div>
+          <!-- end vehicle -->
+
+          <!-- free seats -->
+          <div class="row">
+            <div class="col-md-3">Seats:</div>
+            <div class="col-md-9">{{result.freeSeats}}</div>
+          </div>
+          <!-- end free seats -->
+
         </div>
+
       </div>
+
     </div>
   </div>
   <!-- end search results -->

@@ -3,6 +3,7 @@ app
 
     var services = {
 
+      // update object
       updateUser: function(newUser) {
 
         for (var key in services.user)
@@ -13,6 +14,7 @@ app
 
       },
 
+      // request to server to get current session
       getCurrentUser: function(done) {
         restfulServices.get('/users/currentUser', [], function(err, response) {
           if (err)
@@ -22,6 +24,8 @@ app
         });
       },
 
+
+      // store value of current user
       user: {}
 
     };

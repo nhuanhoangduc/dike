@@ -95,9 +95,15 @@ app
       // update user
       UserServices.getCurrentUser();
 
+      // delete current marker
+      for (var key in _this.map.markers) {
+        if (key !== 'start' && key !== 'end')
+          delete _this.map.markers[key];
+      }
+
     })();
   })
-  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices) {
+  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices, $q) {
     var _this = this;
 
     this.map = mapServices;
@@ -157,20 +163,23 @@ app
         _this.searchResults = response.data;
         console.log(response.data);
 
+        // delete current marker
         for (var key in _this.map.markers) {
           if (key !== 'start' && key !== 'end')
             delete _this.map.markers[key];
         }
 
         // draw marker results
-        for (var i = 0; i < response.data.length; i++) {
-          var marker = response.data[i];
+        for (var i = 0; i < _this.searchResults.length; i++) {
+          var marker = _this.searchResults[i];
 
+          // draw start point
           _this.map.markers[i + '_start'] = {
             lat: marker.start.lat,
             lng: marker.start.lng
           };
 
+          // draw end point
           _this.map.markers[i + '_end'] = {
             lat: marker.end.lat,
             lng: marker.end.lng
@@ -179,6 +188,16 @@ app
 
       });
     };
+
+    /* get geocode */
+    this.getGeoCode = function(point) {
+      point.place = '';
+
+      _this.map.geoCode(point.lat, point.lng, function(err, response) {
+        point.place = response.data;
+      });
+    };
+
 
     /* set text field data from lat lng*/
     var setTextField = function(marker, lat, lng) {
