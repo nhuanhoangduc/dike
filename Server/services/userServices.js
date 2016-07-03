@@ -6,7 +6,7 @@ var getCurrentUser = function() {
   return function(req, res, next) {
     if (req.session.passport && req.session.passport.user) {
       process.nextTick(function() {
-        
+
         loger.log(req.session.passport.user._id, req.ip, req.originalUrl, 'Get current user');
 
         var sessionId = req.session.id;
@@ -14,7 +14,6 @@ var getCurrentUser = function() {
           if (err) {
             return next(err);
           } else {
-            console.log(token);
             var user = req.session.passport.user;
             user.token = token;
             res.json(user);
@@ -39,6 +38,7 @@ var checkLogin = function(req, res, next) {
     }
   });
 };
+
 
 module.exports = {
   getCurrentUser: getCurrentUser,

@@ -105,6 +105,8 @@ var search_goWithMe = function(req, res, next) {
   var startRadius = req.params.startRadius;
   var endRadius = req.params.endRadius;
 
+  var typeOfUser = req.params.typeOfUser;
+
   // find data 
   async.waterfall([
 

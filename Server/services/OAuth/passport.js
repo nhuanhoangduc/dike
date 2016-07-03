@@ -33,7 +33,8 @@ passport.use(new FacebookStrategy({
             facebookId: profile.id,
             name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
             gender: profile.gender,
-            image: profile.photos[0].value
+            image: profile.photos[0].value,
+            accessToken: accessToken
           };
 
           User.create(newUser, function(err, newUser) {

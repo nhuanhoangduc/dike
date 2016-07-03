@@ -15,6 +15,7 @@
     "ejs": "^2.4.2",
     "express": "~4.13.1",
     "express-session": "^1.13.0",
+    "facebook-node-sdk": "^0.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.1",

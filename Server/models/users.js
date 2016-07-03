@@ -10,7 +10,8 @@ var userSchema = new Schema({
     enum: ['male', 'female']
   },
   image: String,
-  phone: String
+  phone: String,
+  accessToken: String
 });
 
 module.exports = mongoose.model('users', userSchema);
