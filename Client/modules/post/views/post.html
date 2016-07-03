@@ -1,0 +1,40 @@
+<div class="container" ng-show="ctrl.user._id">
+
+  <!-- event information -->
+  <div class="row">
+
+    <!-- go with me event -->
+    <div>
+
+      <!-- user infor -->
+      <div class="col-md-4">
+
+        <div class="row">
+
+          <!-- user image  -->
+          <div class="col-md-12">
+            <img height="200" width="200" ng-show="ctrl.event.user.image" src="{{ctrl.event.user.image}}">
+          </div>
+
+          <div class="col-md-12">
+          	{{ctrl.event.user.name}}
+          </div>
+          <!-- end user image -->
+
+        </div>
+
+      </div>
+      <!-- end user infor -->
+
+    </div>
+    <!-- end go with me event -->
+
+  </div>
+  <!-- end information -->
+
+</div>
+
+
+<div ng-show="!ctrl.user._id">
+  Not login
+</div>

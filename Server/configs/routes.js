@@ -7,6 +7,7 @@ var users = require('../routes/users');
 var map = require('../routes/map');
 var goWithMe = require('../routes/gowithme');
 var facebook = require('../routes/facebook');
+var post = require('../routes/post');
 
 module.exports = function(app) {
   app.use('/', routes);
@@ -14,4 +15,5 @@ module.exports = function(app) {
   app.use('/map', map);
   app.use('/goWithMe', goWithMe);
   app.use('/facebook', facebook);
+  app.use('/post', post);
 };

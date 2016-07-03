@@ -23,5 +23,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/user",
       templateUrl: '/user/views/user.html',
       controller: 'userController as ctrl'
+    })
+    .state('post', { // view a event post
+      url: "/post/:type/:eventId",
+      templateUrl: '/post/views/post.html',
+      controller: 'postController as ctrl'
     });
 });

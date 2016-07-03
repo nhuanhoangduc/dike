@@ -65,7 +65,7 @@ app
 
       },
 
-      // bounds to markers
+      // init bound variable
       bounds: bounds,
       map: {},
 
