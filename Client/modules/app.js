@@ -8,5 +8,6 @@ var app = angular.module('MettingPointsApp', [
   'ngSanitize',
   'ui.bootstrap-slider',
   'toastr',
-  'angularMoment'
+  'angularMoment',
+  'kk.timepicker'
 ]);

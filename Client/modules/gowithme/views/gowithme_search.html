@@ -1,154 +1,122 @@
-<div style="margin-left:20px; margin-right:20px;">
+<div style="margin-left:10px; margin-right:10px;">
+  <!-- search event -->
   <div class="row">
-    <div class="col-md-4">
 
-      <!--  menus  -->
-      <!-- </br>
-      <div class="row">
-        <div class="col-md-11 col-md-offset-1">
-          <button class="btn btn-success">Find customers</button>
-          <button class="btn btn-warning">Find drivers</button>
-        </div>
+    <form class="form-horizontal">
+
+      <!-- start point -->
+      <div class="form-group col-md-4">
+        <label for="placeStart" class="control-label col-md-3">Start
+          <i class="pe-7s-map-marker"></i>
+        </label>
+
+        <ui-select id="placeStart" class="col-md-9" on-select="ctrl.placeSelected('start')" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
+          <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,20)}}</ui-select-match>
+          <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+            <div ng-bind-html="place.name | highlight: $select.search"></div>
+            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+          </ui-select-choices>
+        </ui-select>
+
       </div>
-      </br> -->
+      <!-- end start point -->
 
 
-      <!-- search event -->
-      <div class="row">
-        <div class="12">
-          <form class="form-horizontal">
-
-            <!-- start point -->
-            <div class="form-group">
-              <label class="col-md-3 control-label">Start
-                <i class="pe-7s-map-marker"></i>
-              </label>
-              <div class="col-md-8">
-
-                <ui-select on-select="ctrl.placeSelected('start')" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
-                  <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-                    <div ng-bind-html="place.name | highlight: $select.search"></div>
-                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-                  </ui-select-choices>
-                </ui-select>
-
-              </div>
-            </div>
-            <!-- end start point -->
-
-
-            <!-- change start radius -->
-            <div class="form-group">
-              <label class="col-md-3 control-label">Radius (m)</label>
-              <div class="col-md-8">
-                <slider ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
-              </div>
-            </div>
-            <br>
-            <!-- end change radius -->
-
-
-            <!-- end point -->
-            <div class="form-group">
-              <label class="col-md-3 control-label">End
-                <i class="pe-7s-map-marker"></i>
-              </label>
-              <div class="col-md-8">
-
-                <ui-select on-select="ctrl.placeSelected('end')" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
-                  <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-                    <div ng-bind-html="place.name | highlight: $select.search"></div>
-                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-                  </ui-select-choices>
-                </ui-select>
-
-              </div>
-            </div>
-            <!-- end end point -->
-
-
-            <!-- change end radius -->
-            <div class="form-group">
-              <label class="col-md-3 control-label">Radius (m)</label>
-              <div class="col-md-8">
-                <slider ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
-              </div>
-            </div>
-            <br>
-            <!-- end change radius -->
-
-
-            <!-- start date -->
-            <div class="row">
-              <label class="col-md-3 control-label">Start date</label>
-              <div class="col-md-6">
-                <p class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenStart = true">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <!-- end date -->
-
-
-            <!-- start time -->
-            <!-- <div class="row">
-              <label class="col-md-3 control-label"></label>
-              <div class="col-md-6">
-                <p class="input-group">
-                  <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
-                </p>
-              </div>
-            </div> -->
-            <!-- end time -->
-
-
-            <!-- finish time -->
-            <div class="row">
-              <label class="col-md-3 control-label">Finish date</label>
-              <div class="col-md-6">
-                <p class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenEnd = true">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <!-- end finish time -->
-
-
-            <!-- start time -->
-            <!-- <div class="row">
-              <label class="col-md-3 control-label"></label>
-              <div class="col-md-6">
-                <p class="input-group">
-                  <uib-timepicker ng-model="ctrl.request.endTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
-                </p>
-              </div>
-            </div> -->
-            <!-- end time -->
-
-          </form>
-        </div>
+      <!-- change start radius -->
+      <div class="form-group col-md-3">
+        <label for="startRadius" class="control-label col-md-4">Radius(m)</label>
+        <slider id="startRadius" class="col-md-8" ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
       </div>
-      <!-- end search event -->
+      <!-- end change radius -->
 
 
-    </div>
+      <!-- start date -->
+      <div class="form-group col-md-3">
+        <label for="startDate" class="col-md-5 control-label">Start date</label>
+        <p class="input-group col-md-7">
+          <input id="startDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenStart = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+           </button>
+          </span>
+        </p>
+      </div>
+      <!-- end date -->
 
-    <div class="col-md-8 ">
+
+      <!-- start time -->
+      <div class="form-group col-md-2">
+        <input type="time" id="startTime" class="form-control col-md-11 col-md-offset-1" ng-model="ctrl.request.startTime" placeholder="HH:mm" min="00:00:00" max="23:59:59" />
+      </div>
+      <!-- end time -->
+
+    </form>
+
+  </div>
+
+  <div class="row">
+    <form class="form-horizontal">
+
+      <!-- end point -->
+      <div class="form-group col-md-4">
+        <label for="endPlace" class="control-label col-md-3">End
+          <i class="pe-7s-map-marker"></i>
+        </label>
+
+        <ui-select id="endPlace" class="col-md-9" on-select="ctrl.placeSelected('end')" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
+          <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,20)}}</ui-select-match>
+          <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+            <div ng-bind-html="place.name | highlight: $select.search"></div>
+            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+          </ui-select-choices>
+        </ui-select>
+
+      </div>
+      <!-- end end point -->
+
+
+      <!-- change end radius -->
+      <div class="form-group col-md-3">
+        <label for="endRadius" class="control-label col-md-4">Radius(m)</label>
+
+        <slider id="endRadius" class="col-md-8" ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
+
+      </div>
+      <!-- end change radius -->
+
+
+      <!-- end date -->
+      <div class="form-group col-md-3">
+        <label for="endDate" class="col-md-5 control-label">End date</label>
+        <p class="input-group col-md-7">
+          <input id="endDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenEnd = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+           </button>
+          </span>
+        </p>
+      </div>
+      <!-- end date -->
+
+
+      <!-- end time -->
+      <div class="form-group col-md-2">
+        <kk-timepicker class="col-md-11 col-md-offset-1" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
+      </div>
+      <!-- end time -->
+
+
+    </form>
+
+  </div>
+  <!-- end search event -->
+
+  <div class="row">
+    <div class="col-md-12">
       <leaflet lf-center="ctrl.map.center " paths="ctrl.map.paths" markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="350px " width="100% "></leaflet>
     </div>
-
   </div>
 
   <!-- search results -->
