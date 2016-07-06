@@ -6,5 +6,7 @@ var app = angular.module('MettingPointsApp', [
   'leaflet-directive',
   'ui.select',
   'ngSanitize',
-  'ui.bootstrap-slider'
+  'ui.bootstrap-slider',
+  'toastr',
+  'angularMoment'
 ]);

@@ -1,4 +1,4 @@
-var GoWithMe = require('../models/goWithMe');
+var Travel = require('../models/travels');
 
 
 var getPost = function(req, res, next) {
@@ -6,8 +6,8 @@ var getPost = function(req, res, next) {
   var type = req.params.type;
   var eventId = req.params.eventId;
 
-  if (type === 'gowithme')
-    model = GoWithMe;
+  if (type === 'travel')
+    model = Travel;
 
   if (!model)
     return next({ message: 'Type is incorrect' });

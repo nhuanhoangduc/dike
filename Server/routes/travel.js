@@ -1,9 +1,9 @@
 var router = require('express').Router();
-var gowithmeServices = require('../services/gowithmeServices');
+var travelServices = require('../services/travelServices');
 var userServices = require('../services/userServices');
 
 
 /* create new */
-router.post('/', userServices.checkLogin, gowithmeServices.create);
+router.post('/', userServices.checkLogin, travelServices.create);
 
 module.exports = router;

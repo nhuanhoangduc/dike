@@ -1,4 +1,4 @@
-var GoWithMe = require('../models/goWithMe');
+var Travel = require('../models/travels');
 
 
 /* create new */
@@ -6,7 +6,7 @@ var create = function(req, res, next) {
   var event = req.body;
 
   if (!event.startTime || !event.cost)
-    return next('Null value');
+    return next({ message: 'Null value' });
 
   event.user = req.session.passport.user._id;
   event.created = new Date();
@@ -17,11 +17,11 @@ var create = function(req, res, next) {
   } else { // driver
 
     if (!event.freeSeats || !event.vehicle)
-      return next('Null value');
+      return next({ message: 'Null value' });
 
   }
 
-  GoWithMe.create(event, function(err, event) {
+  Travel.create(event, function(err, event) {
     if (err)
       return next(err);
 

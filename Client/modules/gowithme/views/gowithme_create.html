@@ -133,7 +133,7 @@
             <!-- end customer -->
 
 
-            <!-- start time -->
+            <!-- start date -->
             <div class="row">
               <label class="col-md-3 control-label">Start date</label>
               <div class="col-md-6">
@@ -144,6 +144,18 @@
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
+                </p>
+              </div>
+            </div>
+            <!-- end date -->
+
+
+            <!-- start time -->
+            <div class="row">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-6">
+                <p class="input-group">
+                  <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
                 </p>
               </div>
             </div>
@@ -177,7 +189,7 @@
     </div>
 
     <div class="col-md-8 ">
-      <leaflet event-broadcast="ctrl.map.events" lf-center="ctrl.map.center " markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="480px " width="100% "></leaflet>
+      <leaflet event-broadcast="ctrl.map.events" lf-center="ctrl.map.center " markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="600px " width="100% "></leaflet>
     </div>
 
   </div>

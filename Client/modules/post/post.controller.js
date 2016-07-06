@@ -1,9 +1,9 @@
 app
-  .controller('postController', function($stateParams, postServices, UserServices) {
+  .controller('postController', function($stateParams, postServices, UserServices, toastr) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
-    this.event = {};
+    this.post = {};
     this.user = UserServices.user;
 
 
@@ -13,9 +13,12 @@ app
       // update user
       UserServices.getCurrentUser(function() {});
 
-      // get event 
+      // get event with type and event id params
       postServices.getEvent(_this.type, _this.eventId, function(err, response) {
-        _this.event = response.data;
+        if (err)
+          toastr.error('Check your connection', 'Error');
+
+        _this.post = response.data;
       });
 
 

@@ -80,20 +80,32 @@
             <!-- end change radius -->
 
 
-            <!-- start time -->
+            <!-- start date -->
             <div class="row">
               <label class="col-md-3 control-label">Start date</label>
               <div class="col-md-6">
                 <p class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
+                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpen = true">
+                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenStart = true">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
                 </p>
               </div>
             </div>
+            <!-- end date -->
+
+
+            <!-- start time -->
+            <!-- <div class="row">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-6">
+                <p class="input-group">
+                  <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
+                </p>
+              </div>
+            </div> -->
             <!-- end time -->
 
 
@@ -102,9 +114,9 @@
               <label class="col-md-3 control-label">Finish date</label>
               <div class="col-md-6">
                 <p class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
+                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpen = true">
+                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpenEnd = true">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
@@ -112,6 +124,18 @@
               </div>
             </div>
             <!-- end finish time -->
+
+
+            <!-- start time -->
+            <!-- <div class="row">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-6">
+                <p class="input-group">
+                  <uib-timepicker ng-model="ctrl.request.endTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
+                </p>
+              </div>
+            </div> -->
+            <!-- end time -->
 
           </form>
         </div>
@@ -135,7 +159,8 @@
       <div class="panel panel-default">
 
         <div class="panel-heading">
-          <img height="30" width="30" ng-show="result.user.image" src="{{result.user.image}}"> {{result.user.name}}
+          <img height="30" width="30" ng-show="result.user.image" src="{{result.user.image}}">
+          <a href="" ui-sref="post({type:'travel', eventId: result._id})">{{result.user.name}}</a>
         </div>
 
         <div class="panel-body">
@@ -157,7 +182,7 @@
           <!-- time -->
           <div class="row">
             <div class="col-md-3">Time:</div>
-            <div class="col-md-9">{{result.startTime}}</div>
+            <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
           </div>
           <!-- end time -->
 
@@ -174,6 +199,13 @@
             <div class="col-md-9">{{result.freeSeats}}</div>
           </div>
           <!-- end free seats -->
+
+          <!-- cost -->
+          <div class="row">
+            <div class="col-md-3">Cost:</div>
+            <div class="col-md-9">{{result.cost}}</div>
+          </div>
+          <!-- end cost -->
 
         </div>
 

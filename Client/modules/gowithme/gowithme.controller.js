@@ -1,19 +1,25 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices, toastr) {
     var _this = this;
 
     this.map = mapServices;
     this.places = ['hà nội'];
     this.request = {};
+    this.request.startTime = new Date();
 
     this.autoComplete = function(place) {
       _this.map.autoComplete(place, function(err, response) {
+        if (err)
+          return toastr.error('Check your connection', 'Error');
         _this.places = response.data;
       });
     };
 
     this.placeSelected = function(marker) {
       _this.map.getLocation(marker.place.placeId, function(err, response) {
+        if (err)
+          return toastr.error('Check your connection, can not get place', 'Error');
+
         var lat = response.data.lat;
         var lng = response.data.lng;
 
@@ -47,12 +53,11 @@ app
         lng: _this.map.markers.end.lng
       };
 
-
-      restfulServices.post('/gowithme', _this.request, function(err, response) {
+      restfulServices.post('/travel', _this.request, function(err, response) {
         if (err)
-          console.log(err);
+          return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
 
-        console.log(response);
+        toastr.success('Event has added', 'Success!');
       });
     };
 
@@ -63,6 +68,8 @@ app
 
       // get geo code
       _this.map.geoCode(lat, lng, function(err, response) {
+        if (err)
+          return toastr.error('Check your connection, can not get lat lng', 'Error');
         marker.place.name = response.data.slice(0, 34);
       });
     };
@@ -109,6 +116,11 @@ app
     this.map = mapServices;
     this.places = ['hà nội'];
     this.searchResults = [];
+    this.request = {};
+    this.request.startTime = new Date();
+    this.request.endTime = new Date();
+    this.moment = moment;
+
 
     this.autoComplete = function(place) {
       _this.map.autoComplete(place, function(err, response) {
@@ -153,15 +165,16 @@ app
         _this.map.markers.start.radius,
         _this.map.markers.end.lat,
         _this.map.markers.end.lng,
-        _this.map.markers.end.radius
+        _this.map.markers.end.radius,
+        _this.request.startTime,
+        _this.request.endTime
       ];
 
-      restfulServices.get('/map/gowithmesearch', params, function(err, response) {
+      restfulServices.get('/map/travelsearch', params, function(err, response) {
         if (err)
-          console.log(err);
+          return toastr.error('Check your connection', 'Error');
 
         _this.searchResults = response.data;
-        console.log(response.data);
 
         // delete current marker
         for (var key in _this.map.markers) {
@@ -241,6 +254,12 @@ app
     };
 
 
+    // parse date data to string that people can easy to read information
+    this.getFormatedDate = function(date) {
+      return _this.moment(date).format('HH:mm, DD-MM-YYYY');
+    };
+
+
     /* init function */
     (function() {
 
@@ -268,6 +287,9 @@ app
         radius: _this.map.markers.end.radius / 2,
         latlngs: [_this.map.markers.end.lat, _this.map.markers.end.lng]
       };
+
+      // request to server
+      _this.submit();
 
     })();
 

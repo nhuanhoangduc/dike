@@ -46,7 +46,9 @@ app
           icon: {
             type: "awesomeMarker",
             icon: "home",
-            markerColor: "yellow"
+            markerColor: "green",
+            prefix: 'fa',
+            spin: true
           }
         },
 
@@ -56,7 +58,14 @@ app
           focus: true,
           message: "Finish point",
           draggable: true,
-          radius: 1000
+          radius: 1000,
+          icon: {
+            type: "awesomeMarker",
+            icon: "home",
+            markerColor: "cadetblue",
+            prefix: 'fa',
+            spin: true
+          }
         }
       },
 

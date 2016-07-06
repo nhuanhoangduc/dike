@@ -12,7 +12,7 @@ router.get('/getdetail/:placeId', mapServices.getDetail);
 router.get('/geocode/:lat/:lng', mapServices.geoCode);
 
 // search data
-router.get('/gowithmesearch/:startLat/:startLng/:startRadius/:endLat/:endLng/:endRadius', mapServices.search_goWithMe);
+router.get('/travelsearch/:startLat/:startLng/:startRadius/:endLat/:endLng/:endRadius/:startTime/:endTime', mapServices.travelSearch);
 
 
 module.exports = router;

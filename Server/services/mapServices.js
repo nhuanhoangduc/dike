@@ -1,7 +1,7 @@
 var request = require('request');
 var key = 'AIzaSyDAJenglprl19UfLIr2vXugmM1BMqWFJME';
 var urlencode = require('urlencode');
-var GoWithMe = require('../models/goWithMe');
+var Travel = require('../models/travels');
 var async = require('async');
 var _ = require('underscore');
 
@@ -80,6 +80,7 @@ var geoCode = function(req, res, next) {
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng;
   url += '&key=' + key;
 
+  console.log(url);
   // request to google geocode api
   process.nextTick(function() {
     request(url, function(error, response, body) {
@@ -97,7 +98,7 @@ var geoCode = function(req, res, next) {
 
 
 /* search start points and end points with radius */
-var search_goWithMe = function(req, res, next) {
+var travelSearch = function(req, res, next) {
   // request params
   var startParams = [req.params.startLat, req.params.startLng];
   var endParams = [req.params.endLat, req.params.endLng];
@@ -105,19 +106,33 @@ var search_goWithMe = function(req, res, next) {
   var startRadius = req.params.startRadius;
   var endRadius = req.params.endRadius;
 
+  var startTime = req.params.startTime;
+  var endTime = req.params.endTime;
+
   var typeOfUser = req.params.typeOfUser;
+
 
   // find data 
   async.waterfall([
 
     // search start point
     function(done) {
-      GoWithMe
+      Travel
         .find({
-          start: {
-            $near: startParams,
-            $maxDistance: (startRadius / 35) / 6371
-          }
+          $and: [{
+            start: {
+              $near: startParams,
+              $maxDistance: (startRadius / 35) / 6371
+            }
+          }, {
+            startTime: {
+              $gte: startTime
+            }
+          }, {
+            startTime: {
+              $lte: endTime
+            }
+          }]
         })
         .populate('user')
         .exec(function(err, results) {
@@ -127,11 +142,21 @@ var search_goWithMe = function(req, res, next) {
 
     // search end point
     function(startResults, done) {
-      GoWithMe.find({
-        end: {
-          $near: endParams,
-          $maxDistance: (endRadius / 35) / 6371
-        }
+      Travel.find({
+        $and: [{
+          end: {
+            $near: endParams,
+            $maxDistance: (endRadius / 35) / 6371
+          }
+        }, {
+          startTime: {
+            $gte: startTime
+          }
+        }, {
+          startTime: {
+            $lte: endTime
+          }
+        }]
       }, function(err, endResults) {
         if (err)
           return done(err);
@@ -173,5 +198,5 @@ module.exports = {
   autoComplete: autoComplete,
   getDetail: getDetail,
   geoCode: geoCode,
-  search_goWithMe: search_goWithMe
+  travelSearch: travelSearch
 };

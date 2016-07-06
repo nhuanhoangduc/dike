@@ -1,7 +1,7 @@
 var mongoose = require('../configs/database');
 var Schema = mongoose.Schema;
 
-var goWithMeSchema = new Schema({
+var travelSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'users' },
 
   created: Date,
@@ -42,7 +42,7 @@ var goWithMeSchema = new Schema({
   note: String
 });
 
-goWithMeSchema.index({ start: '2d' });
-goWithMeSchema.index({ end: '2d' });
+travelSchema.index({ start: '2d' });
+travelSchema.index({ end: '2d' });
 
-module.exports = mongoose.model('gowithmes', goWithMeSchema);
+module.exports = mongoose.model('travels', travelSchema);
