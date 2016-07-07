@@ -30,6 +30,8 @@
     "angular-kk-timepicker": "^0.1.1"
   },
   "resolutions": {
-    "seiyria-bootstrap-slider": "^7.1.1"
+    "seiyria-bootstrap-slider": "^7.1.1",
+    "angular": "^1.0.8",
+    "moment": "^2.14.1"
   }
 }
