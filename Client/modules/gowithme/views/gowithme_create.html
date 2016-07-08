@@ -19,7 +19,7 @@
           <form class="form-horizontal">
 
             <!-- start point -->
-            <div class="form-group">
+            <div class="form-group form-group-sm">
               <label class="col-md-3 control-label">Start
                 <i class="pe-7s-map-marker"></i>
               </label>
@@ -39,7 +39,7 @@
 
 
             <!-- end point -->
-            <div class="form-group">
+            <div class="form-group form-group-sm">
               <label class="col-md-3 control-label">End
                 <i class="pe-7s-map-marker"></i>
               </label>
@@ -59,7 +59,7 @@
 
 
             <!-- type of user -->
-            <div class="form-group row" ng-init="ctrl.request.typeOfUser = 'driver'">
+            <div class="form-group form-group-sm row" ng-init="ctrl.request.typeOfUser = 'driver'">
               <label class="col-md-3 control-label">You are</label>
               <div class="col-md-2">
                 <div class="radio">
@@ -84,7 +84,7 @@
             <div ng-show="ctrl.request.typeOfUser === 'driver'">
 
               <!-- type of vehicle -->
-              <div class="form-group row" ng-init="ctrl.request.vehicle = 'motorbike'">
+              <div class="form-group form-group-sm row" ng-init="ctrl.request.vehicle = 'motorbike'">
                 <label class="col-md-3 control-label">Vehicle</label>
                 <div class="col-md-5">
                   <select ng-model="ctrl.request.vehicle" class="form-control">
@@ -100,7 +100,7 @@
 
 
               <!-- free seats -->
-              <div class="form-group row" ng-init="ctrl.request.freeSeats=1">
+              <div class="form-group form-group-sm row" ng-init="ctrl.request.freeSeats=1">
                 <label class="col-md-3 control-label">Free seats</label>
                 <div class="col-md-3">
                   <input type="text" ng-model="ctrl.request.freeSeats " class="form-control">
@@ -108,7 +108,7 @@
               </div>
 
               <!-- cost / seat -->
-              <div class="form-group row" ng-init="ctrl.request.cost=10000">
+              <div class="form-group form-group-sm row" ng-init="ctrl.request.cost=10000">
                 <label class="col-md-3 control-label">Cost per seat</label>
                 <div class="col-md-3">
                   <input type="text" ng-model="ctrl.request.cost " class="form-control">
@@ -123,7 +123,7 @@
             <!-- you are a customer -->
             <div ng-show="ctrl.request.typeOfUser ==='customer' ">
               <!-- cost / seat -->
-              <div class="form-group row" ng-init="ctrl.request.cost=10000">
+              <div class="form-group form-group-sm row" ng-init="ctrl.request.cost=10000">
                 <label class="col-md-3 control-label">Willingness to Pay</label>
                 <div class="col-md-3">
                   <input type="text" ng-model="ctrl.request.cost " class="form-control">
@@ -134,13 +134,13 @@
 
 
             <!-- start date -->
-            <div class="row">
+            <div class="row form-group-sm form-group">
               <label class="col-md-3 control-label">Start date</label>
               <div class="col-md-6">
                 <p class="input-group">
                   <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="ctrl.datePickerOpen = true">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen = true">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
@@ -151,8 +151,8 @@
 
 
             <!-- start time -->
-            <div class="row">
-              <label class="col-md-3 control-label"></label>
+            <div class="row form-group-sm form-group">
+              <label class="col-md-3 control-label">Start time</label>
               <div class="col-md-6">
                 <p class="input-group">
                   <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
@@ -163,7 +163,7 @@
 
 
             <!-- note -->
-            <div class="form-group row">
+            <div class="form-group form-group-sm row">
               <label class="col-md-3 control-label">Note</label>
               <div class="col-md-8">
                 <textarea class="form-control" rows="3" ng-model="ctrl.request.note"></textarea>

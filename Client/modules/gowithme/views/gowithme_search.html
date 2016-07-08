@@ -1,4 +1,4 @@
-<div style="margin-left:10px; margin-right:10px;">
+<div class="col-md-10">
   <!-- search event -->
   <div class="row">
 
@@ -25,7 +25,7 @@
       <!-- change start radius -->
       <div class="form-group form-group-sm col-md-1">
         <label for="startRadius">Radius (m)</label>
-        <slider style="margin-top:5px;" id="startRadius" ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
+        <slider style="margin-top:4px;" id="startRadius" ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
       </div>
       <!-- end change radius -->
 
@@ -52,7 +52,7 @@
       <div class="form-group form-group-sm  col-md-1">
         <label for="endRadius">Radius (m)</label>
 
-        <slider style="margin-top:5px;" id="endRadius" ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
+        <slider style="margin-top:4px;" id="endRadius" ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
 
       </div>
       <!-- end change radius -->
@@ -74,14 +74,11 @@
       <!-- end date -->
 
 
-
-
-
       <!-- end date -->
       <div class="form-group form-group-sm col-md-3">
         <label for="endDate">End time</label>
         <p class="input-group">
-          <input id="endDate" type="text" class="form-control input-sm" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
+          <input id="endDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenEnd = true">
               <i class="glyphicon glyphicon-calendar"></i>
@@ -91,8 +88,6 @@
         </p>
       </div>
       <!-- end date -->
-
-
 
     </form>
 
