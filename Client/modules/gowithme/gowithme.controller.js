@@ -175,6 +175,7 @@ app
           return toastr.error('Check your connection', 'Error');
 
         _this.searchResults = response.data;
+        console.log(response.data);
 
         // delete current marker
         for (var key in _this.map.markers) {

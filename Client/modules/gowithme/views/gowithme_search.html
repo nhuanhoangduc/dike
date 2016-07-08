@@ -1,4 +1,4 @@
-<div class="col-md-10">
+<div>
   <!-- search event -->
   <div class="row">
 
@@ -101,66 +101,60 @@
   </div>
 
   <!-- search results -->
-  <div class="container" ng-show="ctrl.searchResults.length>0">
-    <hr>
+  <div class="row" ng-show="ctrl.searchResults.length>0">
+    <br>
     <div class="col-md-4" ng-repeat="result in ctrl.searchResults">
-
-      <div class="panel panel-default">
-
+      <div class="panel panel-color panel-inverse">
         <div class="panel-heading">
-          <img height="30" width="30" ng-show="result.user.image" src="{{result.user.image}}">
-          <a href="" ui-sref="post({type:'travel', eventId: result._id})">{{result.user.name}}</a>
-        </div>
+          <div class="row">
+            <div class="col-md-2">
+              <img ng-src="{{result.user.image}}" width="30px" height="30px" class="img-circle">
+            </div>
+            <div class="col-md-10">
+              <a href="" ui-sref="post({type: 'travel', eventId: result._id})">
+                <h3 class="panel-title">{{result.user.name}}</h3>
+              </a>
+            </div>
+          </div>
 
+        </div>
         <div class="panel-body">
 
-          <!-- start -->
-          <div class="row">
-            <div class="col-md-3">Start:</div>
-            <div class="col-md-9" ng-init="ctrl.getGeoCode(result.start)">{{result.start.place}}</div>
+          <div class="row" ng-init="ctrl.getGeoCode(result.start)">
+            <div class="col-md-2">Start</div>
+            <div class="col-md-10">{{result.start.place}}</div>
           </div>
-          <!-- end start -->
 
-          <!-- end -->
           <div class="row">
-            <div class="col-md-3">End:</div>
-            <div class="col-md-9" ng-init="ctrl.getGeoCode(result.end)">{{result.end.place}}</div>
+            <div class="col-md-2" ng-init="ctrl.getGeoCode(result.end)">To</div>
+            <div class="col-md-10">{{result.end.place}}</div>
           </div>
-          <!-- end -->
 
-          <!-- time -->
           <div class="row">
-            <div class="col-md-3">Time:</div>
-            <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
+            <div class="col-md-2">Time</div>
+            <div class="col-md-10">{{ctrl.getFormatedDate(result.startTime)}}</div>
           </div>
-          <!-- end time -->
 
-          <!-- vehicle -->
           <div class="row">
-            <div class="col-md-3">Vehicle:</div>
-            <div class="col-md-9">{{result.vehicle}}</div>
+            <div class="col-md-2">Vehicle</div>
+            <div class="col-md-10">{{result.vehicle}}</div>
           </div>
-          <!-- end vehicle -->
 
-          <!-- free seats -->
           <div class="row">
-            <div class="col-md-3">Seats:</div>
-            <div class="col-md-9">{{result.freeSeats}}</div>
+            <div class="col-md-2">Seats</div>
+            <div class="col-md-10">{{result.freeSeats}}</div>
           </div>
-          <!-- end free seats -->
-
-          <!-- cost -->
-          <div class="row">
-            <div class="col-md-3">Cost:</div>
-            <div class="col-md-9">{{result.cost}}</div>
-          </div>
-          <!-- end cost -->
 
         </div>
-
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-md-2">Cost</div>
+            <div class="col-md-10">{{result.cost}}</div>
+          </div>
+        </div>
       </div>
-
     </div>
+
   </div>
   <!-- end search results -->
 

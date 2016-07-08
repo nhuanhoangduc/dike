@@ -1,9 +1,111 @@
-<div class="container" ng-show="ctrl.user._id">
+<div class="container card-box" ng-show="ctrl.user._id">
 
   <!-- event information -->
   <div class="row">
 
-    
+    <!-- start travel event -->
+    <div class="col-md-offset-1 col-md-7" ng-show="ctrl.type === 'travel'">
+      <div class="panel panel-border panel-danger">
+        <div class="panel-heading">
+          <h1 class="panel-title">Travel event</h1>
+        </div>
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-2">
+              <h4>Start</h4>
+            </div>
+            <div class="col-md-10">
+              <h4>{{ctrl.post.startPlace}}</h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <h4>End</h4>
+            </div>
+            <div class="col-md-10">
+              <h4>{{ctrl.post.endPlace}}</h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <h4>Start time</h4>
+            </div>
+            <div class="col-md-10">
+              <h4>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- start comments -->
+      <div class="card-box">
+        <h5>Comments</h5>
+        <hr>
+        <div class="search-item">
+          <div class="media">
+            <div class="media-left">
+              <a href="#"> <img class="media-object img-circle" alt="64x64" src="assets/images/users/avatar-1.jpg" style="width: 50px; height: 50px;"> </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading"><a href="#">Chadengle</a></h4>
+              <p>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin Cras sit amet nibh libero, in gravida nulla.
+              </p>
+              <p>
+                <span>Last updated: 2016</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+      </div>
+      <!-- end comments -->
+
+
+      <!-- editor -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box">
+            <h5 class="m-b-30 m-t-0 header-title"><b>Post comment</b></h>
+            <div class="summernote">
+              <h3>Hello Summernote</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end editor -->
+
+    </div>
+    <!-- end travel event -->
+
+    <!-- user detail -->
+    <div class="col-md-3">
+      <div class="card-box">
+        <div class="contact-card">
+          <a class="pull-left" href="#">
+            <img class="img-circle" width="60px" height="60px" ng-src="{{ctrl.user.image}}" />
+          </a>
+          <div class="member-info">
+            <h4 class="m-t-0 m-b-5 header-title"><b>{{ctrl.user.name}}</b></h4>
+            <p class="text-muted">Tel: {{ctrl.user.phone}}</p>
+            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+            <div class="m-t-20">
+              <a href="#" class="btn btn-purple waves-effect waves-light btn-sm">Send email</a>
+              <a href="#" class="btn btn-success waves-effect waves-light btn-sm m-l-5">Edit</a>
+              <a href="#" class="btn btn-pink waves-effect waves-light btn-sm m-l-5">Call</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end user detail -->
 
   </div>
   <!-- end information -->
@@ -14,3 +116,23 @@
 <div ng-show="!ctrl.user._id">
   Not login
 </div>
+
+<link href="assets/plugins/summernote/dist/summernote.css" rel="stylesheet" />
+<script src="assets/plugins/summernote/dist/summernote.min.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+
+  $('.summernote').summernote({
+    height: 100, // set editor height
+    minHeight: null, // set minimum height of editor
+    maxHeight: null, // set maximum height of editor
+    focus: false // set focus to editable area after initializing summernote
+  });
+
+  $('.inline-editor').summernote({
+    airMode: true
+  });
+
+});
+</script>
