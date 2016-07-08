@@ -8,6 +8,7 @@ var map = require('../routes/map');
 var travel = require('../routes/travel');
 var facebook = require('../routes/facebook');
 var post = require('../routes/post');
+var comment = require('../routes/comment');
 
 module.exports = function(app) {
   app.use('/', routes);
@@ -16,4 +17,5 @@ module.exports = function(app) {
   app.use('/travel', travel);
   app.use('/facebook', facebook);
   app.use('/post', post);
+  app.use('/comments', comment);
 };

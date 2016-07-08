@@ -8,9 +8,9 @@ var commentSchema = new Schema({
 
   eventId: { type: Schema.Types.ObjectId, ref: 'travels' },
 
-  update: Date,
-  
-  content: String
+  created: Date,
+
+  comment: String
 });
 
 

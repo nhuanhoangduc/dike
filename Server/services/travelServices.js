@@ -10,6 +10,7 @@ var create = function(req, res, next) {
 
   event.user = req.session.passport.user._id;
   event.created = new Date();
+  event.commentUsers = [{ userId: req.session.passport.user._id, facebookId: req.session.passport.user.facebookId }];
 
   if (event.typeOfUser === 'customer') { // customer
     delete event.freeSeats;

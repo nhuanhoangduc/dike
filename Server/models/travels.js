@@ -39,7 +39,9 @@ var travelSchema = new Schema({
     require: true
   },
 
-  note: String
+  note: String,
+
+  commentUsers: []
 });
 
 travelSchema.index({ start: '2d' });

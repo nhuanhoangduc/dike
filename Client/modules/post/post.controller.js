@@ -30,6 +30,34 @@ app
     };
 
 
+    /* load all comments for this post */
+    this.loadComments = function() {
+      postServices.getComments(_this.type, _this.eventId, function(err, response) {
+        console.log(err);
+        console.log(response);
+
+        _this.comments = response.data;
+      });
+    };
+
+
+    /* create new comment */
+    this.postComment = function() {
+      postServices.postComment(
+        this.type,
+        this.eventId,
+        this.post.user._id,
+        this.user._id,
+        this.user.facebookId,
+        this.comment,
+        function(err, response) {
+          console.log(err);
+          console.log(response);
+          _this.loadComments();
+        });
+    };
+
+
     /* init funtion */
     (function() {
 
@@ -48,6 +76,8 @@ app
         }
       });
 
+      // init comments
+      _this.loadComments();
 
     })();
 
