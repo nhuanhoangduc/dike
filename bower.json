@@ -26,7 +26,7 @@
     "Leaflet.awesome-markers": "^2.0.2",
     "angular-toastr": "^1.7.0",
     "angular-moment": "^0.10.3",
-    "moment": "^2.14.1",
+    "moment": "momentjs#^2.14.1",
     "angular-kk-timepicker": "^0.1.1"
   },
   "resolutions": {
