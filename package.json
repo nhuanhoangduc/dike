@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "bower cache clean && bower install --force-latest",
-    "start": "node ./Server/server.js development"
+    "start": "node-dev ./Server/server.js development"
   },
   "dependencies": {
     "async": "^2.0.0-rc.6",
