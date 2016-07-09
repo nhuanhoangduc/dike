@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, postServices, UserServices, toastr, mapServices, moment) {
+  .controller('postController', function($stateParams, postServices, UserServices, toastr, mapServices, moment, toastr) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -33,8 +33,8 @@ app
     /* load all comments for this post */
     this.loadComments = function() {
       postServices.getComments(_this.type, _this.eventId, function(err, response) {
-        console.log(err);
-        console.log(response);
+        if (err)
+          return toastr.error(err.data.message, 'Error');
 
         _this.comments = response.data;
       });
@@ -49,8 +49,11 @@ app
         this.user,
         this.comment,
         function(err, response) {
-          console.log(err);
-          console.log(response);
+          if (err)
+            return toastr.error(err.data.message, 'Error');
+
+          toastr.success('You has posted a new comment', 'Success');
+          _this.comment = '';
           _this.loadComments();
         });
     };
@@ -64,18 +67,20 @@ app
 
       // get event with type and event id params
       postServices.getEvent(_this.type, _this.eventId, function(err, response) {
+        console.log(err)
         if (err)
-          toastr.error('Check your connection', 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.post = response.data;
 
         if (_this.type === 'travel') {
           _this.getGeoCode(_this.post.start, _this.post.end);
         }
-      });
 
-      // init comments
-      _this.loadComments();
+        // init comments
+        _this.loadComments();
+
+      });
 
     })();
 

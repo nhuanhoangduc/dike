@@ -38,6 +38,10 @@
             </div>
           </div>
 
+          <div class="row">
+            <fb-share class="pull-right"></fb-share>
+          </div>
+
         </div>
       </div>
 
@@ -50,10 +54,13 @@
         <div class="search-item" ng-repeat="comment in ctrl.comments">
           <div class="media">
             <div class="media-left">
-              <a href="#"> <img class="media-object img-circle" alt="64x64" ng-src="{{comment.user.image}}" style="width: 50px; height: 50px;"> </a>
+              <a href="#">
+                <img class="media-object img-circle" alt="64x64" ng-src="{{comment.user.image}}" style="width: 50px; height: 50px;"> </a>
             </div>
             <div class="media-body">
-              <h4 class="media-heading"><a href="#">{{comment.user.name}}</a></h4>
+              <h4 class="media-heading">
+                <a href="#">{{comment.user.name}}</a>
+              </h4>
               <p>
                 {{comment.comment}}
               </p>
@@ -95,9 +102,14 @@
             <img class="img-circle" width="60px" height="60px" ng-src="{{ctrl.user.image}}" />
           </a>
           <div class="member-info">
-            <h4 class="m-t-0 m-b-5 header-title"><b>{{ctrl.user.name}}</b></h4>
+            <h4 class="m-t-0 m-b-5 header-title">
+              <b>{{ctrl.user.name}}</b>
+            </h4>
             <p class="text-muted">Tel: {{ctrl.user.phone}}</p>
-            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+            <p class="text-dark">
+              <i class="md md-business m-r-10"></i>
+              <small>ABC company Pvt Ltd.</small>
+            </p>
             <div class="m-t-20">
               <a href="#" class="btn btn-purple waves-effect waves-light btn-sm">Send email</a>
               <a href="#" class="btn btn-success waves-effect waves-light btn-sm m-l-5">Edit</a>
@@ -114,6 +126,8 @@
   <!-- end information -->
 
 </div>
+
+
 
 
 <div ng-show="!ctrl.user._id">
