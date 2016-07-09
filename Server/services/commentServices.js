@@ -1,5 +1,7 @@
 var TravelComments = require('../models/travelComments');
 var Travels = require('../models/travels');
+var Users = require('../models/users');
+
 var facebook = require('../services/facebookServices');
 var async = require('async');
 
@@ -52,12 +54,6 @@ var create = function(req, res, next) {
   var params = req.body;
   var model = getModelComment(params.type);
   var event = getModelEvent(params.type);
-  var facebookId = params.facebookId;
-
-  delete params.type;
-  delete params.facebookId;
-
-  console.log(params);
 
   if (!model)
     return next({ message: 'Invalid type' });
@@ -65,7 +61,6 @@ var create = function(req, res, next) {
   model.create(params, function(err, comment) {
     if (err)
       return next(err);
-
 
     async.waterfall([
 
@@ -82,25 +77,26 @@ var create = function(req, res, next) {
 
 
       function(result, cb) {
-        // if (result.commentUsers.indexOf(params.user) >= 0)
-        //   return cb(null, result.commentUsers);
+        if (result.commentUsers.indexOf(params.user) >= 0)
+          return cb(null, result.commentUsers);
 
-        result.commentUsers.push({ userId: params.user, facebookId: facebookId });
+        result.commentUsers.push(params.user);
         event.update({ _id: params.eventId }, { commentUsers: result.commentUsers }, function(err) {});
         cb(null, result.commentUsers);
       },
 
       function(commentUsers, cb) {
-        console.log(commentUsers);
-        async.each(commentUsers, function(user, nextUser) {
+        Users.find({ _id: { $in: commentUsers } }, function(err, users) {
+          if (err)
+            return cb(err);
 
-          facebook.createNotification(user.facebookId, 'has comment', '/', function() {
-            return nextUser();
+          async.each(users, function(user, nextUser) {
+            var template = user.name + ' has comment in the post';
+            facebook.createNotification(user.facebookId, template, '/', function() {
+              return nextUser();
+            });
           });
-
-        }, function() {
-          cb(null);
-        })
+        });
       }
 
     ], function() {

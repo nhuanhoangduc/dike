@@ -45,10 +45,8 @@ app
     this.postComment = function() {
       postServices.postComment(
         this.type,
-        this.eventId,
-        this.post.user._id,
-        this.user._id,
-        this.user.facebookId,
+        this.post,
+        this.user,
         this.comment,
         function(err, response) {
           console.log(err);

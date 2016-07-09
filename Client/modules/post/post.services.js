@@ -12,14 +12,13 @@ app
 
 
       // post new comment
-      postComment: function(type, id, ownUserId, userId, facebookId, comment, done) {
+      postComment: function(type, post, user, comment, done) {
         var params = {
           type: type,
-          eventId: id,
-          ownUser: ownUserId,
-          user: userId,
+          eventId: post._id,
+          ownUser: post.user._id,
+          user: user._id,
           comment: comment,
-          facebookId: facebookId,
           created: new Date()
         };
 
