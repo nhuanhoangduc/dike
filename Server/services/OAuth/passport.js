@@ -28,25 +28,29 @@ passport.use(new FacebookStrategy({
         if (err)
           return done(err);
 
-        if (!user) {
-          var newUser = {
-            facebookId: profile.id,
-            name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
-            gender: profile.gender,
-            image: profile.photos[0].value,
-            accessToken: accessToken
-          };
+        var newUser = {
+          facebookId: profile.id,
+          name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
+          gender: profile.gender,
+          image: profile.photos[0].value,
+          accessToken: accessToken
+        };
 
+        if (!user) {
           User.create(newUser, function(err, newUser) {
             if (err)
               return done(err);
 
             return done(null, newUser);
           });
-
         } else {
+          User.update({ _id: user._id }, newUser, function(err) {
+            if (err)
+              return done(err);
 
-          return done(null, user);
+            newUser._id = user._id;
+            return done(null, newUser);
+          });
         }
       });
     });

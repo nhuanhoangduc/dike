@@ -3,23 +3,32 @@
   <!-- event information -->
   <div class="row">
 
-    <!-- start travel event -->
-    <div class="col-md-8" ng-show="ctrl.type === 'travel'">
-      <div class="panel panel-flat border-top-info border-bottom-info row">
+    <!-- start event -->
+    <div class="col-md-8">
+
+
+      <!-- travel -->
+      <div class="panel panel-flat border-top-info border-bottom-info row" ng-show="ctrl.type === 'travel'">
+
+        <!-- header -->
         <div class="panel-heading">
           <h4 class="panel-title">
             <span class="label label-info">
               <i class="icon-bike"></i>
             </span>
-            Travel event
+            Travel
             <span class="label label-danger pull-right">
               <i class=" icon-database-time2"></i>
               Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
             </span>
           </h4>
         </div>
+        <!-- end header -->
+
+        <!-- content -->
         <div class="panel-body">
 
+          <!-- start place -->
           <div class="row">
             <div class="col-md-2">
               <h6>Start</h6>
@@ -28,7 +37,9 @@
               <h6>{{ctrl.post.startPlace}}</h6>
             </div>
           </div>
+          <!-- end start place -->
 
+          <!-- end place -->
           <div class="row">
             <div class="col-md-2">
               <h6>End</h6>
@@ -37,7 +48,9 @@
               <h6>{{ctrl.post.endPlace}}</h6>
             </div>
           </div>
+          <!-- end place -->
 
+          <!-- start time -->
           <div class="row">
             <div class="col-md-2">
               <h6>Start time</h6>
@@ -46,29 +59,45 @@
               <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
             </div>
           </div>
+          <!-- end start time -->
 
+
+          <!-- fb share button -->
           <div class="row">
             <fb-share class="pull-right"></fb-share>
           </div>
+          <!-- finish fb share button -->
 
         </div>
+        <!-- end content -->
+
       </div>
+      <!-- end travel -->
 
 
       <!-- start comments -->
       <div class="row">
-        <h6>Comments</h6>
         <div class="panel panel-flat timeline-content">
           <div class="panel-body">
-            <ul class="media-list chat-list content-group">
+            <!-- header -->
+            Comments
+            <hr>
+            <!-- end header -->
+
+            <!-- show each comment -->
+            <ul class="media-list content-group">
 
               <li class="media" ng-repeat="comment in ctrl.comments">
+
+                <!-- user image -->
                 <div class="media-left">
                   <a href="assets/images/placeholder.jpg">
                     <img ng-src="{{comment.user.image}}" class="img-circle" alt="">
                   </a>
                 </div>
+                <!-- finish user image -->
 
+                <!-- content -->
                 <div class="media-body">
                   <div class="media-content">
                     <span>{{comment.user.name}}</span>
@@ -81,10 +110,13 @@
                     </a>
                   </span>
                 </div>
+                <hr>
+                <!-- finish content -->
+
               </li>
 
             </ul>
-
+            <!-- end show comment -->
 
           </div>
         </div>
@@ -97,10 +129,15 @@
 
       <div class="row">
         <div class="col-xs-6 text-right pull-right">
+
+          <!-- post button -->
           <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
             <b>
               <i class="icon-circle-right2"></i>
-            </b> Send</button>
+            </b> Send
+          </button>
+          <!-- end post button -->
+
         </div>
       </div>
       <!-- end post comment -->
@@ -109,19 +146,27 @@
     <!-- end travel event -->
 
     <!-- user detail -->
-    <div class="col-md-4">
+    <div class="col-md-3">
 
       <div class="thumbnail">
+        <!-- image -->
         <div class="thumb thumb-rounded thumb-slide">
           <img ng-src="{{ctrl.post.user.image}}" alt="">
 
         </div>
+        <!-- end image -->
 
+        <!-- information -->
         <div class="caption text-center">
+
+          <!-- telephone -->
           <h6 class="text-semibold no-margin">
             {{ctrl.post.user.name}}
             <small class="display-block">Tel {{ctrl.post.user.tel}}</small>
           </h6>
+          <!-- end telephone -->
+
+          <!-- link to facebook account -->
           <ul class="icons-list mt-15">
             <li>
               <a href="#" data-popup="tooltip" title="Google Drive">
@@ -139,7 +184,11 @@
               </a>
             </li>
           </ul>
+          <!-- end link facebook account -->
+
         </div>
+        <!-- end information -->
+
       </div>
 
     </div>

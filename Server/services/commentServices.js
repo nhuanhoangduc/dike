@@ -6,6 +6,7 @@ var facebook = require('../services/facebookServices');
 var async = require('async');
 
 
+// get model for comment depend type of event
 var getModelComment = function(type) {
   var model = null;
 
@@ -16,8 +17,10 @@ var getModelComment = function(type) {
   }
 
   return model;
-}
+};
 
+
+// get model event depend type of event
 var getModelEvent = function(type) {
   var model = null;
 
@@ -28,8 +31,10 @@ var getModelEvent = function(type) {
   }
 
   return model;
-}
+};
 
+
+// get all comments with type of event and event id
 var getAll = function(req, res, next) {
   var type = req.params.type;
   var id = req.params.eventid;
@@ -41,6 +46,8 @@ var getAll = function(req, res, next) {
   model
     .find({ eventId: id })
     .populate('user')
+    .sort({ 'created': -1 })
+    .lean()
     .exec(function(err, comments) {
       if (err)
         return next(err);
@@ -50,6 +57,7 @@ var getAll = function(req, res, next) {
 };
 
 
+// create new event with type of event and event id
 var create = function(req, res, next) {
   var params = req.body;
   var model = getModelComment(params.type);
@@ -86,17 +94,23 @@ var create = function(req, res, next) {
       },
 
       function(commentUsers, cb) {
-        Users.find({ _id: { $in: commentUsers } }, function(err, users) {
-          if (err)
-            return cb(err);
+        Users
+          .find({ _id: { $in: commentUsers } })
+          .lean()
+          .exec(function(err, users) {
+            if (err)
+              return cb(err);
 
-          async.each(users, function(user, nextUser) {
-            var template = user.name + ' has comment in the post';
-            facebook.createNotification(user.facebookId, template, '/', function() {
-              return nextUser();
+            async.each(users, function(user, nextUser) {
+              if (user._id.toString() === params.ownUser.toString())
+                return;
+
+              var template = user.name + ' has comment in the post';
+              facebook.createNotification(user.facebookId, template, '/', function() {
+                return nextUser();
+              });
             });
           });
-        });
       }
 
     ], function() {
