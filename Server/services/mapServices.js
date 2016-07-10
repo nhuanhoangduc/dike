@@ -111,9 +111,11 @@ var travelSearch = function(req, res, next) {
 
   var typeOfUser = req.params.typeOfUser;
 
+  var search = {};
+
 
   // find data 
-  async.waterfall([
+  async.parallel([
 
     // search start point
     function(done) {
@@ -135,13 +137,17 @@ var travelSearch = function(req, res, next) {
           }]
         })
         .populate('user')
-        .exec(function(err, results) {
-          return done(err, results);
+        .exec(function(err, startResults) {
+          if (err)
+            return done(err);
+
+          search.start = startResults;
+          done();
         });
     },
 
     // search end point
-    function(startResults, done) {
+    function(done) {
       Travel.find({
         $and: [{
           end: {
@@ -161,34 +167,39 @@ var travelSearch = function(req, res, next) {
         if (err)
           return done(err);
 
-        if (startResults.length === 0 || endResults.length === 0)
-          return done(null, []);
-
-        var results = [];
-        endResults = _.sortBy(endResults, '_id');
-
-        // collect event exist both in start results and end results
-        for (var i = 0; i < startResults.length; i++) {
-          var id = startResults[i]._id;
-          var index = _.sortedIndex(endResults, { _id: id }, '_id');
-
-          if (index >= endResults.length)
-            continue;
-
-          if (id.toString() === endResults[index]._id.toString()) {
-            results.push(startResults[i]);
-          }
-        }
-
-        return done(null, results);
+        search.end = endResults;
+        return done();
       });
     }
 
-  ], function(err, results) {
+  ], function(err) {
     if (err)
       return next(err);
 
-    res.json(results);
+    if (search.start.length === 0 || search.end.length === 0)
+      return res.json([]);
+
+    var results = [];
+    search.end = _.sortBy(search.end, '_id');
+
+    async.each(search.start, function(start, nextItem) {
+
+      var id = start._id;
+      var index = _.sortedIndex(search.end, { _id: id }, '_id');
+
+      if (index >= search.end.length)
+        return nextItem();
+
+      if (id.toString() === search.end[index]._id.toString()) {
+        results.push(start);
+      }
+
+      nextItem();
+
+    }, function() {
+      res.json(results);
+    });
+
   });
 
 };
