@@ -5,36 +5,45 @@
 
     <!-- start travel event -->
     <div class="col-md-8" ng-show="ctrl.type === 'travel'">
-      <div class="panel panel-border panel-danger row">
+      <div class="panel panel-flat border-top-info border-bottom-info row">
         <div class="panel-heading">
-          <h1 class="panel-title">Travel event</h1>
+          <h4 class="panel-title">
+            <span class="label label-info">
+              <i class="icon-bike"></i>
+            </span>
+            Travel event
+            <span class="label label-danger pull-right">
+              <i class=" icon-database-time2"></i>
+              Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
+            </span>
+          </h4>
         </div>
         <div class="panel-body">
 
           <div class="row">
             <div class="col-md-2">
-              <h4>Start</h4>
+              <h6>Start</h6>
             </div>
             <div class="col-md-10">
-              <h4>{{ctrl.post.startPlace}}</h4>
+              <h6>{{ctrl.post.startPlace}}</h6>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-2">
-              <h4>End</h4>
+              <h6>End</h6>
             </div>
             <div class="col-md-10">
-              <h4>{{ctrl.post.endPlace}}</h4>
+              <h6>{{ctrl.post.endPlace}}</h6>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-2">
-              <h4>Start time</h4>
+              <h6>Start time</h6>
             </div>
             <div class="col-md-10">
-              <h4>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h4>
+              <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
             </div>
           </div>
 
@@ -47,75 +56,89 @@
 
 
       <!-- start comments -->
-      <div class="card-box row">
-        <h5>Comments</h5>
-        <hr>
+      <div class="row">
+        <h6>Comments</h6>
+        <div class="panel panel-flat timeline-content">
+          <div class="panel-body">
+            <ul class="media-list chat-list content-group">
 
-        <div class="search-item" ng-repeat="comment in ctrl.comments">
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object img-circle" alt="64x64" ng-src="{{comment.user.image}}" style="width: 50px; height: 50px;"> </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">
-                <a href="#">{{comment.user.name}}</a>
-              </h4>
-              <p>
-                {{comment.comment}}
-              </p>
-              <p>
-                <span>Last updated: {{ctrl.getFormatedDate(comment.created)}}</span>
-              </p>
-            </div>
+              <li class="media" ng-repeat="comment in ctrl.comments">
+                <div class="media-left">
+                  <a href="assets/images/placeholder.jpg">
+                    <img ng-src="{{comment.user.image}}" class="img-circle" alt="">
+                  </a>
+                </div>
+
+                <div class="media-body">
+                  <div class="media-content">
+                    <span>{{comment.user.name}}</span>
+                    <br> {{comment.comment}}
+                  </div>
+                  <span class="media-annotation display-block mt-10">
+                    Updated: {{ctrl.getFormatedDate(comment.created)}}
+                    <a href="#">
+                      <i class="icon-pin-alt position-right text-muted"></i>
+                    </a>
+                  </span>
+                </div>
+              </li>
+
+            </ul>
+
+
           </div>
         </div>
 
       </div>
       <!-- end comments -->
 
+      <!-- post comment -->
+      <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
 
-      <!-- editor -->
       <div class="row">
-        <div class="col-sm-12">
-          <p>Post comment</p>
-          <textarea class="form-control" rows="3" ng-model="ctrl.comment"></textarea>
+        <div class="col-xs-6 text-right pull-right">
+          <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
+            <b>
+              <i class="icon-circle-right2"></i>
+            </b> Send</button>
         </div>
       </div>
-      <!-- end editor -->
-
-      <!-- submit comment -->
-      <div class="row">
-        <br>
-        <button class="pull-right btn-custom btn-rounded btn btn-purple" ng-click="ctrl.postComment()">Submit</button>
-      </div>
-      <!-- end submit -->
+      <!-- end post comment -->
 
     </div>
     <!-- end travel event -->
 
     <!-- user detail -->
     <div class="col-md-4">
-      <div class="card-box">
-        <div class="contact-card">
-          <a class="pull-left" href="#">
-            <img class="img-circle" width="60px" height="60px" ng-src="{{ctrl.user.image}}" />
-          </a>
-          <div class="member-info">
-            <h4 class="m-t-0 m-b-5 header-title">
-              <b>{{ctrl.user.name}}</b>
-            </h4>
-            <p class="text-muted">Tel: {{ctrl.user.phone}}</p>
-            <p class="text-dark">
-              <i class="md md-business m-r-10"></i>
-              <small>ABC company Pvt Ltd.</small>
-            </p>
-            <div class="m-t-20">
-              <a href="#" class="btn btn-purple waves-effect waves-light btn-sm">Send email</a>
-              <a href="#" class="btn btn-success waves-effect waves-light btn-sm m-l-5">Edit</a>
-              <a href="#" class="btn btn-pink waves-effect waves-light btn-sm m-l-5">Call</a>
-            </div>
-          </div>
+
+      <div class="thumbnail">
+        <div class="thumb thumb-rounded thumb-slide">
+          <img ng-src="{{ctrl.post.user.image}}" alt="">
+
+        </div>
+
+        <div class="caption text-center">
+          <h6 class="text-semibold no-margin">
+            {{ctrl.post.user.name}}
+            <small class="display-block">Tel {{ctrl.post.user.tel}}</small>
+          </h6>
+          <ul class="icons-list mt-15">
+            <li>
+              <a href="#" data-popup="tooltip" title="Google Drive">
+                <i class="icon-google-drive"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" data-popup="tooltip" title="Twitter">
+                <i class="icon-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" data-popup="tooltip" title="Github">
+                <i class="icon-github"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -126,6 +149,8 @@
   <!-- end information -->
 
 </div>
+
+<br>
 
 
 
