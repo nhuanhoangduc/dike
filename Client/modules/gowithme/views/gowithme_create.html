@@ -62,13 +62,13 @@
             <div class="form-group form-group-sm row" ng-init="ctrl.request.typeOfUser = 'driver'">
               <label class="col-md-3 control-label">You are</label>
               <div class="col-md-9">
-                <div class="radio radio-purple radio-inline">
-                  <input type="radio" id="inlineRadio1" ng-model="ctrl.request.typeOfUser" ng-value="'driver'" checked>
-                  <label for="inlineRadio1"> Inline One </label>
+                <div class="radio-inline">
+                  <input type="radio" id="inlineRadio1" class="styled" ng-model="ctrl.request.typeOfUser" ng-value="'driver'" checked>
+                  <label for="inlineRadio1">Driver </label>
                 </div>
-                <div class="radio radio-pink radio-inline">
-                  <input type="radio" id="inlineRadio2" ng-model="ctrl.request.typeOfUser" ng-value="'customer'">
-                  <label for="inlineRadio2"> Inline Two </label>
+                <div class="radio-inline">
+                  <input type="radio" id="inlineRadio2" class="styled" ng-model="ctrl.request.typeOfUser" ng-value="'customer'">
+                  <label for="inlineRadio2">Customer </label>
                 </div>
               </div>
 
@@ -99,7 +99,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.freeSeats=1">
                 <label class="col-md-3 control-label">Free seats</label>
                 <div class="col-md-3">
-                  <input type="text" ng-model="ctrl.request.freeSeats " class="form-control">
+                  <input type="text" class="form-control border-teal border-lg text-teal" ng-model="ctrl.request.freeSeats " class="form-control">
                 </div>
               </div>
 
@@ -107,7 +107,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.cost=10000">
                 <label class="col-md-3 control-label">Cost per seat</label>
                 <div class="col-md-3">
-                  <input type="text" ng-model="ctrl.request.cost " class="form-control">
+                  <input type="text" class="form-control border-teal border-lg text-teal" ng-model="ctrl.request.cost " class="form-control">
                 </div>
               </div>
 
@@ -148,7 +148,7 @@
 
             <!-- start time -->
             <div class="row form-group-sm form-group">
-              <label class="col-md-3 control-label">Start time</label>
+              <label class="col-md-3 control-label" style="margin-top:35px;">Start time</label>
               <div class="col-md-6">
                 <p class="input-group">
                   <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>

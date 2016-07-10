@@ -1,4 +1,4 @@
-var app = angular.module('MettingPointsApp', [
+var app = angular.module('MeetingPointsApp', [
   'ui.router',
   'ui.bootstrap',
   'ngAnimate',
