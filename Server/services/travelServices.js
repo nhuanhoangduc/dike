@@ -36,7 +36,7 @@ var update = function(req, res, next) {
   var event = req.body;
 
   if (!event.startTime || !event.cost)
-    return next({ message: 'Null value' });
+    return next({ message: 'Start time or cost is null value' });
 
   event.user = req.session.passport.user._id;
   event.created = new Date();
@@ -48,19 +48,32 @@ var update = function(req, res, next) {
   } else { // driver
 
     if (!event.freeSeats || !event.vehicle)
-      return next({ message: 'Null value' });
+      return next({ message: 'FreeSeats or vehicle is null value' });
 
   }
 
-  if (event.user.toString() !== req.user._id.toString())
-    return next({ message: 'Only user who created this event can edit' });
+  Travels
+    .findOne({ _id: event._id })
+    .lean()
+    .exec(function(err, travel) {
+      if (err)
+        return next(err);
 
-  Travels.update({ _id: event._id }, event, function(err, event) {
-    if (err)
-      return next(err);
+      if (!travel)
+        return next({ message: 'Cannot find travel event' });
 
-    return res.json(event);
-  });
+      if (travel.user.toString() !== req.user._id.toString())
+        return next({ message: 'Only user who created this event can edit' });
+
+      Travels.update({ _id: event._id }, event, function(err) {
+        if (err)
+          return next(err);
+
+        return res.sendStatus(200);
+      });
+
+    })
+
 };
 
 
