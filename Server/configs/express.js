@@ -12,6 +12,17 @@ var app = express();
 // set environment
 app.set('env', process.env.environment);
 
+
+// config static file
+if (app.get('env') === 'development') {
+  app.use(express.static(path.join(__dirname, '../../Client/modules')));
+}
+
+app.use(express.static(path.join(__dirname, '../../Client/production')));
+app.use(express.static(path.join(__dirname, '../../Client/libs')));
+app.use(express.static(path.join(__dirname, '../../Client/public')));
+
+
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
@@ -24,14 +35,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.enable('trust proxy');
 
-// config static file
-if (app.get('env') === 'development') {
-  app.use(express.static(path.join(__dirname, '../../Client/modules')));
-}
-
-app.use(express.static(path.join(__dirname, '../../Client/production')));
-app.use(express.static(path.join(__dirname, '../../Client/libs')));
-app.use(express.static(path.join(__dirname, '../../Client/public')));
 
 // session
 app.use(session({
