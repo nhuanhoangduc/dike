@@ -55,7 +55,7 @@ app
       };
 
       if (_this.id) { // update
-        
+
         restfulServices.put('/travel', _this.request, function(err, response) {
           if (err)
             return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
@@ -115,7 +115,7 @@ app
       setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
 
       // update user
-      UserServices.getCurrentUser();
+      UserServices.getCurrentUser(function() {});
 
       // delete current marker
       for (var key in _this.map.markers) {
@@ -311,7 +311,7 @@ app
       setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
 
       // update user
-      UserServices.getCurrentUser();
+      UserServices.getCurrentUser(function() {});
 
       // add start circle
       _this.map.paths.start = {
