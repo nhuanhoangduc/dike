@@ -91,7 +91,7 @@ var geoCode = function(req, res, next) {
       // get place from response
       var mapData = JSON.parse(body);
 
-      return res.send(mapData.results[0].formatted_address);
+      return res.json(mapData.results[0].formatted_address);
     });
   });
 };

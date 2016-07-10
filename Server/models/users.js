@@ -11,7 +11,8 @@ var userSchema = new Schema({
   },
   image: String,
   phone: String,
-  accessToken: String
+  accessToken: String,
+  created: Date
 });
 
 module.exports = mongoose.model('users', userSchema);

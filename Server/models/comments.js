@@ -6,7 +6,9 @@ var commentSchema = new Schema({
 
   user: { type: Schema.Types.ObjectId, ref: 'users' },
 
-  eventId: { type: Schema.Types.ObjectId, ref: 'travels' },
+  eventId: { type: Schema.Types.ObjectId },
+
+  type: String,
 
   created: Date,
 

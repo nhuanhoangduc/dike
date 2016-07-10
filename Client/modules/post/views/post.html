@@ -62,11 +62,32 @@
           <!-- end start time -->
 
 
-          <!-- fb share button -->
+          <!-- other controls -->
           <div class="row">
+
+            <!-- edit and delete -->
+            <div class="pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
+
+              <!-- edit -->
+              <a href="#" ui-sref="gowithme_edit({id: ctrl.post._id})" type="button" class="btn border-success text-success-600 btn-flat btn-icon btn-rounded">
+                <i class="icon-pencil6"></i>
+              </a>
+
+              <!-- delete -->
+              <a type="button" class="btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
+                <i class="icon-bin2"></i>
+              </a>
+
+            </div>
+            <!-- finish edit and delete -->
+
+
+            <!-- fb share button -->
             <fb-share class="pull-right"></fb-share>
+            <!-- finish fb share -->
+
           </div>
-          <!-- finish fb share button -->
+          <!-- finish other controls-->
 
         </div>
         <!-- end content -->

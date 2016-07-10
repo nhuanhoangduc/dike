@@ -14,6 +14,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: '/gowithme/views/gowithme_create.html',
       controller: 'goWithMeCreateCtrl as ctrl'
     })
+    .state('gowithme_edit', { // go with me edit
+      url: '/gowithme/edit/:id',
+      templateUrl: '/gowithme/views/gowithme_create.html',
+      controller: 'goWithMeCreateCtrl as ctrl'
+    })
     .state('gowithme_search', { // go with me search
       url: "/gowithme/search",
       templateUrl: '/gowithme/views/gowithme_search.html',

@@ -1,4 +1,4 @@
-var Travel = require('../models/travels');
+var Travels = require('../models/travels');
 
 
 /* create new */
@@ -22,7 +22,7 @@ var create = function(req, res, next) {
 
   }
 
-  Travel.create(event, function(err, event) {
+  Travels.create(event, function(err, event) {
     if (err)
       return next(err);
 
@@ -31,7 +31,59 @@ var create = function(req, res, next) {
 };
 
 
+/* update */
+var update = function(req, res, next) {
+  var event = req.body;
+
+  if (!event.startTime || !event.cost)
+    return next({ message: 'Null value' });
+
+  event.user = req.session.passport.user._id;
+  event.created = new Date();
+  event.commentUsers = [req.session.passport.user._id];
+
+  if (event.typeOfUser === 'customer') { // customer
+    delete event.freeSeats;
+    delete event.vehicle;
+  } else { // driver
+
+    if (!event.freeSeats || !event.vehicle)
+      return next({ message: 'Null value' });
+
+  }
+
+  if (event.user.toString() !== req.user._id.toString())
+    return next({ message: 'Only user who created this event can edit' });
+
+  Travels.update({ _id: event._id }, event, function(err, event) {
+    if (err)
+      return next(err);
+
+    return res.json(event);
+  });
+};
+
+
+// find a travel event with id
+var getById = function(req, res, next) {
+  Travels
+    .findOne({ _id: req.params.id })
+    .lean()
+    .exec(function(err, travel) {
+      if (err)
+        return next(err);
+
+      if (travel.user.toString() !== req.user._id.toString())
+        return next({ message: 'Only user who created this event can edit' });
+
+      res.json(travel);
+    });
+};
+
+
 
 module.exports = {
-  create: create
+  create: create,
+  update: update,
+  getById: getById
 };

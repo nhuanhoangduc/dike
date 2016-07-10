@@ -19,7 +19,7 @@ var getPost = function(req, res, next) {
       if (err)
         return next(err);
 
-      res.send(event);
+      res.json(event);
     });
 };
 

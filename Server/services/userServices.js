@@ -32,6 +32,7 @@ var getCurrentUser = function() {
 var checkLogin = function(req, res, next) {
   process.nextTick(function() {
     if (req.session.passport && req.session.passport.user) {
+      req.user = req.session.passport.user;
       return next();
     } else {
       return next({ status: 401, message: 'User has not logged' });

@@ -1,23 +1,9 @@
-var TravelComments = require('../models/travelComments');
+var Comments = require('../models/comments');
 var Travels = require('../models/travels');
 var Users = require('../models/users');
 
 var facebook = require('../services/facebookServices');
 var async = require('async');
-
-
-// get model for comment depend type of event
-var getModelComment = function(type) {
-  var model = null;
-
-  switch (type) {
-    case 'travel':
-      model = TravelComments;
-      break;
-  }
-
-  return model;
-};
 
 
 // get model event depend type of event
@@ -38,13 +24,10 @@ var getModelEvent = function(type) {
 var getAll = function(req, res, next) {
   var type = req.params.type;
   var id = req.params.eventid;
-  var model = getModelComment(type);
 
-  if (!model)
-    return next({ message: 'Invalid type' });
 
-  model
-    .find({ eventId: id })
+  Comments
+    .find({ eventId: id, type: type })
     .populate('user')
     .sort({ 'created': -1 })
     .lean()
@@ -52,7 +35,7 @@ var getAll = function(req, res, next) {
       if (err)
         return next(err);
 
-      res.send(comments);
+      res.json(comments);
     });
 };
 
@@ -60,13 +43,10 @@ var getAll = function(req, res, next) {
 // create new event with type of event and event id
 var create = function(req, res, next) {
   var params = req.body;
-  var model = getModelComment(params.type);
   var event = getModelEvent(params.type);
 
-  if (!model)
-    return next({ message: 'Invalid type' });
 
-  model.create(params, function(err, comment) {
+  Comments.create(params, function(err, comment) {
     if (err)
       return next(err);
 
@@ -102,10 +82,10 @@ var create = function(req, res, next) {
               return cb(err);
 
             async.each(users, function(user, nextUser) {
-              if (user._id.toString() === params.ownUser.toString())
+              if (user._id.toString() === params.user.toString())
                 return;
 
-              var template = user.name + ' has comment in the post';
+              var template = params.name + ' has comment in the post';
               facebook.createNotification(user.facebookId, template, '/', function() {
                 return nextUser();
               });
@@ -118,7 +98,7 @@ var create = function(req, res, next) {
     });
 
 
-    res.send(comment);
+    res.json(comment);
   });
 };
 

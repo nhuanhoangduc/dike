@@ -37,6 +37,7 @@ passport.use(new FacebookStrategy({
         };
 
         if (!user) {
+          newUser.created = new Date();
           User.create(newUser, function(err, newUser) {
             if (err)
               return done(err);
