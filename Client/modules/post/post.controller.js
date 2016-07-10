@@ -32,6 +32,8 @@ app
 
     /* load all comments for this post */
     this.loadComments = function() {
+      UserServices.getCurrentUser(function() {});
+      
       postServices.getComments(_this.type, _this.eventId, function(err, response) {
         if (err)
           return toastr.error(err.data.message, 'Error');
@@ -43,6 +45,8 @@ app
 
     /* create new comment */
     this.postComment = function() {
+      UserServices.getCurrentUser(function() {});
+
       postServices.postComment(
         this.type,
         this.post,

@@ -41,7 +41,14 @@ var checkLogin = function(req, res, next) {
 };
 
 
+var logout = function(req, res, next) {
+  req.session.destroy();
+  res.sendStatus(200);
+};
+
+
 module.exports = {
   getCurrentUser: getCurrentUser,
-  checkLogin: checkLogin
+  checkLogin: checkLogin,
+  logout: logout
 };

@@ -19,4 +19,8 @@ router.get('/login/facebook/callback',
   }));
 
 
+// user logout
+router.get('/logout', userServices.logout);
+
+
 module.exports = router;
