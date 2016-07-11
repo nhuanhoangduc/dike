@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices, toastr, $stateParams) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices, toastr, $stateParams, $state) {
     var _this = this;
 
     this.map = mapServices;
@@ -61,6 +61,7 @@ app
             return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
 
           toastr.success('Event has updated', 'Success!');
+          $state.go('post', { type: 'travel', eventId: _this.id }, { reload: true });
         });
 
       } else { // add new
@@ -70,6 +71,7 @@ app
             return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
 
           toastr.success('Event has added', 'Success!');
+          $state.go('post', { type: 'travel', eventId: response.data._id }, { reload: true });
         });
 
       }

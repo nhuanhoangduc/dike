@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, postServices, UserServices, restfulServices, toastr, mapServices, moment, toastr) {
+  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, toastr) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -84,7 +84,7 @@ app
             return toastr.error(err.data.message, 'Error');
 
           toastr.success('You has deleted your event', 'Success');
-          _this.loadComments();
+          $state.go('gowithme_search');
         });
 
       }
