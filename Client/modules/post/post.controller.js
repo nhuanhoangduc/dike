@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, postServices, UserServices, toastr, mapServices, moment, toastr) {
+  .controller('postController', function($stateParams, postServices, UserServices, restfulServices, toastr, mapServices, moment, toastr) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -56,6 +56,17 @@ app
           _this.comment = '';
           _this.loadComments();
         });
+    };
+
+    // delete comment
+    this.deleteComment = function(id) {
+      restfulServices.delete('/comments', [id], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        toastr.success('You has deleted your comment', 'Success');
+        _this.loadComments();
+      });
     };
 
 

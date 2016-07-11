@@ -16,7 +16,6 @@ app
         var params = {
           type: type,
           eventId: post._id,
-          ownUser: post.user._id,
           user: user._id,
           name: user.name,
           comment: comment,

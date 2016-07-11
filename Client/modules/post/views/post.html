@@ -121,8 +121,15 @@
                 <!-- content -->
                 <div class="media-body">
                   <div class="media-content">
-                    <span>{{comment.user.name}}</span>
-                    <br> {{comment.comment}}
+                    <span>
+                      {{comment.user.name}}
+                      <a href="" class="pull-right" data-toggle="tooltip" title="Delete" ng-show="comment.user._id.toString() === ctrl.user._id.toString()" ng-click="ctrl.deleteComment(comment._id)">
+                        <i class="icon-bin2" style="color:#2c3e50; font-size: 12px;"></i>
+                      </a>
+                    </span>
+                    <p>
+                      {{comment.comment}}
+                    </p>
                   </div>
                   <span class="media-annotation display-block mt-10">
                     Updated: {{ctrl.getFormatedDate(comment.created)}}

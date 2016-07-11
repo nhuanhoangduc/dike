@@ -103,7 +103,33 @@ var create = function(req, res, next) {
 };
 
 
+var remove = function(req, res, next) {
+  Comments
+    .findOne({ _id: req.params.id })
+    .lean()
+    .exec(function(err, comment) {
+      if (err)
+        return next(err);
+
+      if (!comment)
+        return next({ message: 'Cannot find this comment' });
+
+      if (req.user._id.toString() !== comment.user.toString())
+        return next({ message: 'Only user who posted this comment can delete it' });
+
+      Comments.remove({ _id: req.params.id }, function(err) {
+        if (err)
+          return next(err);
+
+        res.sendStatus(200);
+      });
+
+    });
+};
+
+
 module.exports = {
   create: create,
-  getAll: getAll
+  getAll: getAll,
+  remove: remove
 };

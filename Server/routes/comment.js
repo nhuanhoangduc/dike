@@ -8,5 +8,7 @@ router.get('/:type/:eventid', userServices.checkLogin, commentServices.getAll);
 /* add new */
 router.post('/', userServices.checkLogin, commentServices.create);
 
+router.delete('/:id', userServices.checkLogin, commentServices.remove);
+
 
 module.exports = router;
