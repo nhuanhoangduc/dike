@@ -58,15 +58,36 @@ app
         });
     };
 
+
     // delete comment
     this.deleteComment = function(id) {
-      restfulServices.delete('/comments', [id], function(err, res) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
+      if (confirm('Are you sure you want to delete this comment?')) {
 
-        toastr.success('You has deleted your comment', 'Success');
-        _this.loadComments();
-      });
+        restfulServices.delete('/comments', [id], function(err, res) {
+          if (err)
+            return toastr.error(err.data.message, 'Error');
+
+          toastr.success('You has deleted your comment', 'Success');
+          _this.loadComments();
+        });
+
+      }
+    };
+
+
+    // delete event
+    this.deleteEvent = function() {
+      if (confirm('Are you sure you want to delete this event?')) {
+
+        restfulServices.delete('/post', [_this.type, _this.post._id], function(err, res) {
+          if (err)
+            return toastr.error(err.data.message, 'Error');
+
+          toastr.success('You has deleted your event', 'Success');
+          _this.loadComments();
+        });
+
+      }
     };
 
 

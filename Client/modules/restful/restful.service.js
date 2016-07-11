@@ -38,8 +38,8 @@ app.service('restfulServices', function($http) {
 
     delete: function(url, params, callback) {
 
-      for (var param in params) {
-        url += '/' + params;
+      for (var i = 0; i < params.length; i++) {
+        url += '/' + params[i];
       }
 
       $http.delete(url).then(function success(response) {

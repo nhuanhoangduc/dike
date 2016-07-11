@@ -14,4 +14,4 @@ var commentSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('travelcomments', commentSchema);
+module.exports = mongoose.model('comments', commentSchema);

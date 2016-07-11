@@ -1,4 +1,6 @@
-var Travel = require('../models/travels');
+var Travels = require('../models/travels');
+var Comments = require('../models/comments');
+var async = require('async');
 
 
 var getPost = function(req, res, next) {
@@ -7,7 +9,7 @@ var getPost = function(req, res, next) {
   var eventId = req.params.eventId;
 
   if (type === 'travel')
-    model = Travel;
+    model = Travels;
 
   if (!model)
     return next({ message: 'Type is incorrect' });
@@ -24,6 +26,58 @@ var getPost = function(req, res, next) {
 };
 
 
+var deletePost = function(req, res, next) {
+  var model = null;
+  var type = req.params.type;
+  var eventId = req.params.eventId;
+
+  if (type === 'travel')
+    model = Travels;
+
+  if (!model)
+    return next({ message: 'Type is incorrect' });
+
+  model
+    .findOne({ _id: eventId })
+    .populate('user')
+    .exec(function(err, event) {
+      if (err)
+        return next(err);
+
+      if (event.user._id.toString() !== req.user._id)
+        return next({ message: 'Only user who has created this event can delete it.' });
+
+
+      async.parallel([
+
+        function(done) {
+          Comments.remove({
+            eventId: eventId,
+            type: type
+          }, function(err) {
+            console.log(err);
+            return done();
+          });
+        },
+
+
+        function(done) {
+          model.remove({ _id: eventId }, function(err) {
+            console.log(err);
+            return done();
+          });
+        }
+
+      ], function() {
+        res.sendStatus(200);
+      });
+
+
+    });
+};
+
+
 module.exports = {
-  getPost: getPost
+  getPost: getPost,
+  deletePost: deletePost
 };
