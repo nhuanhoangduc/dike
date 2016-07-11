@@ -1,5 +1,165 @@
-<div class="container">
+<!-- Page header -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-title">
+      <h4>
+        User profile
+      </h4>
+    </div>
+  </div>
+</div>
+<!-- /page header -->
 
-  <div class="row">nhuan</div>
+
+<!-- Page container -->
+<div class="page-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+
+      <!-- Toolbar -->
+      <div class="navbar navbar-default navbar-component navbar-xs">
+        <ul class="nav navbar-nav visible-xs-block">
+          <li class="full-width text-center">
+            <a data-toggle="collapse" data-target="#navbar-filter">
+              <i class="icon-menu7"></i>
+            </a>
+          </li>
+        </ul>
+
+        <div class="navbar-collapse collapse" id="navbar-filter">
+          <ul class="nav navbar-nav element-active-slate-400">
+            <li class="active">
+              <a href="">
+                <i class="icon-menu7 position-left"></i> Setting</a>
+            </li>
+            <li>
+              <a href="">
+                <i class="icon-calendar3 position-left"></i> Activity
+                <span class="badge badge-success badge-inline position-right">32</span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="icon-cog3 position-left"></i> Event</a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <!-- /toolbar -->
+
+
+      <!-- User profile -->
+      <div class="row">
+        <div class="col-lg-9">
+
+          <div class="panel panel-flat border-left-success">
+            <div class="panel-heading">
+              <h6 class="panel-title">Change your user information</h6>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-offset-1 col-md-3">
+                  <h6>Tel me your telephone</h6>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group has-feedback has-feedback-left">
+                    <input type="text" class="form-control input-lg bg-success" placeholder="Phone number">
+                    <div class="form-control-feedback">
+                      <i class="icon-mobile3"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-offset-1 col-md-3">
+                  <h6>Share your location</h6>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group has-feedback has-feedback-left">
+                    <input type="text" class="form-control input-lg bg-purple" placeholder="Location">
+                    <div class="form-control-feedback">
+                      <i class="icon-location4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-offset-8 col-md-1">
+                  <button type="button" class="btn btn-warning btn-labeled btn-xs pull-right">
+                    <b>
+                      <i class="icon-pencil4"></i>
+                    </b> Save
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+          <!-- User thumbnail -->
+          <div class="thumbnail">
+            <div class="thumb thumb-rounded thumb-slide">
+              <img ng-src="{{ctrl.user.image}}" alt="">
+              <div class="caption">
+                <span>
+                  <a href="#" class="btn bg-success-400 btn-icon btn-xs" data-popup="lightbox">
+                    <i class="icon-plus2"></i>
+                  </a>
+                  <a href="user_pages_profile.html" class="btn bg-success-400 btn-icon btn-xs">
+                    <i class="icon-link"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="caption text-center">
+              <h6 class="text-semibold no-margin">Hanna Dorman
+                <small class="display-block">UX/UI designer</small>
+              </h6>
+              <ul class="icons-list mt-15">
+                <li>
+                  <a href="#" data-popup="tooltip" title="Google Drive">
+                    <i class="icon-google-drive"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-popup="tooltip" title="Twitter">
+                    <i class="icon-twitter"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-popup="tooltip" title="Github">
+                    <i class="icon-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /user thumbnail -->
+
+        </div>
+      </div>
+      <!-- /user profile -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
 
 </div>
+<!-- /page container -->

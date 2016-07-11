@@ -11,7 +11,9 @@ var userSchema = new Schema({
   },
   image: String,
   phone: String,
+  location: String,
   accessToken: String,
+  status: String,
   created: Date
 });
 
