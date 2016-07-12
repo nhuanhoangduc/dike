@@ -1,5 +1,5 @@
 <!-- Page header -->
-<div class="page-header">
+<div class="page-header" ng-show="ctrl.user._id">
   <div class="page-header-content">
     <div class="page-title">
       <h4>
@@ -12,7 +12,7 @@
 
 
 <!-- Page container -->
-<div class="page-container">
+<div class="page-container" ng-show="ctrl.user._id">
 
   <!-- Page content -->
   <div class="page-content">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-md-5">
                   <div class="form-group has-feedback has-feedback-left">
-                    <input type="text" class="form-control input-lg bg-success" placeholder="Phone number">
+                    <input type="text" class="form-control input-lg bg-success" placeholder="Phone number" ng-model="ctrl.user.phone">
                     <div class="form-control-feedback">
                       <i class="icon-mobile3"></i>
                     </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-5">
                   <div class="form-group has-feedback has-feedback-left">
-                    <input type="text" class="form-control input-lg bg-purple" placeholder="Location">
+                    <input type="text" class="form-control input-lg bg-purple" placeholder="Location" ng-model="ctrl.user.location">
                     <div class="form-control-feedback">
                       <i class="icon-location4"></i>
                     </div>
@@ -94,7 +94,7 @@
 
               <div class="row">
                 <div class="col-md-offset-8 col-md-1">
-                  <button type="button" class="btn btn-warning btn-labeled btn-xs pull-right">
+                  <button type="button" class="btn btn-default btn-labeled btn-xs pull-right" ng-click="ctrl.updateUser()">
                     <b>
                       <i class="icon-pencil4"></i>
                     </b> Save
@@ -113,36 +113,18 @@
           <div class="thumbnail">
             <div class="thumb thumb-rounded thumb-slide">
               <img ng-src="{{ctrl.user.image}}" alt="">
-              <div class="caption">
-                <span>
-                  <a href="#" class="btn bg-success-400 btn-icon btn-xs" data-popup="lightbox">
-                    <i class="icon-plus2"></i>
-                  </a>
-                  <a href="user_pages_profile.html" class="btn bg-success-400 btn-icon btn-xs">
-                    <i class="icon-link"></i>
-                  </a>
-                </span>
-              </div>
             </div>
 
             <div class="caption text-center">
-              <h6 class="text-semibold no-margin">Hanna Dorman
-                <small class="display-block">UX/UI designer</small>
+              <h6 class="text-semibold no-margin">{{ctrl.user.name}}
+                <small class="display-block">Tel: {{ctrl.user.phone || 'Not set'}}</small>
+                <small class="display-block">Location: {{ctrl.user.location || 'Not set'}}</small>
+                <small class="display-block">Status: {{ctrl.user.status || 'Not set'}}</small>
               </h6>
               <ul class="icons-list mt-15">
                 <li>
-                  <a href="#" data-popup="tooltip" title="Google Drive">
-                    <i class="icon-google-drive"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-popup="tooltip" title="Twitter">
-                    <i class="icon-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-popup="tooltip" title="Github">
-                    <i class="icon-github"></i>
+                  <a ng-href="https://www.facebook.com/{{ctrl.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                    <i class="icon-facebook2"></i>
                   </a>
                 </li>
               </ul>

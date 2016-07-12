@@ -33,7 +33,7 @@ passport.use(new FacebookStrategy({
           name: profile.name.familyName + ' ' + (profile.name.middleName ? profile.name.middleName + ' ' : '') + profile.name.givenName,
           gender: profile.gender,
           image: profile.photos[0].value,
-          accessToken: accessToken
+          accessToken: accessToken,
         };
 
         if (!user) {
@@ -45,6 +45,10 @@ passport.use(new FacebookStrategy({
             return done(null, newUser);
           });
         } else {
+          newUser.phone = user.phone;
+          newUser.status = user.status;
+          newUser.location = user.location;
+
           User.update({ _id: user._id }, newUser, function(err) {
             if (err)
               return done(err);

@@ -69,13 +69,13 @@
             <div class="pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
 
               <!-- edit -->
-              <a href="#" ui-sref="gowithme_edit({id: ctrl.post._id})" type="button" class="btn border-success text-success-600 btn-flat btn-icon btn-rounded">
-                <i class="icon-pencil6"></i>
+              <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
+                <i class="icon-pencil5" style="color:#16a085; font-size:15px;"></i>
               </a>
 
               <!-- delete -->
-              <a type="button" class="btn border-warning text-warning-600 btn-flat btn-icon btn-rounded" ng-click="ctrl.deleteEvent()">
-                <i class="icon-bin2"></i>
+              <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
+                <i class="icon-bin2" style="color:#c0392b; font-size:15px;"></i>
               </a>
 
             </div>
@@ -190,25 +190,17 @@
           <!-- telephone -->
           <h6 class="text-semibold no-margin">
             {{ctrl.post.user.name}}
-            <small class="display-block">Tel {{ctrl.post.user.tel}}</small>
+            <small class="display-block">Tel: {{ctrl.post.user.phone || 'Not set'}}</small>
+            <small class="display-block">Location: {{ctrl.post.user.location || 'Not set'}}</small>
+            <small class="display-block">Status: {{ctrl.post.user.status || 'Not set'}}</small>
           </h6>
           <!-- end telephone -->
 
           <!-- link to facebook account -->
           <ul class="icons-list mt-15">
             <li>
-              <a href="#" data-popup="tooltip" title="Google Drive">
-                <i class="icon-google-drive"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" data-popup="tooltip" title="Twitter">
-                <i class="icon-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" data-popup="tooltip" title="Github">
-                <i class="icon-github"></i>
+              <a ng-href="https://www.facebook.com/{{ctrl.post.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                <i class="icon-facebook2"></i>
               </a>
             </li>
           </ul>

@@ -19,6 +19,9 @@ router.get('/login/facebook/callback',
   }));
 
 
+router.put('/', userServices.checkLogin, userServices.update);
+
+
 // user logout
 router.get('/logout', userServices.logout);
 

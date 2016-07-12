@@ -1,6 +1,8 @@
 var loger = require('./loger');
 var jwt = require('json-web-token');
 var webTokenConfig = require('../configs/webToken');
+var Users = require('../models/users');
+
 
 var getCurrentUser = function() {
   return function(req, res, next) {
@@ -47,8 +49,24 @@ var logout = function(req, res, next) {
 };
 
 
+var update = function(req, res, next) {
+  console.log(req.body);
+  if (req.user._id !== req.body._id)
+    return next({ message: 'Undefined user' });
+
+  Users.update({ _id: req.body._id }, req.body, function(err) {
+    if (err)
+      return next(err);
+
+    req.session.passport.user = req.body;
+    res.sendStatus(200);
+  });
+};
+
+
 module.exports = {
   getCurrentUser: getCurrentUser,
   checkLogin: checkLogin,
-  logout: logout
+  logout: logout,
+  update: update
 };
