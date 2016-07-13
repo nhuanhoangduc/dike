@@ -3,6 +3,7 @@ app
     var _this = this;
 
     this.user = UserServices.user;
+    this.menu = 'profile';
 
 
     this.updateUser = function() {

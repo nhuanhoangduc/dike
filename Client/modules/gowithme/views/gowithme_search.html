@@ -66,7 +66,7 @@
           <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenStart = true">
               <i class="glyphicon glyphicon-calendar"></i>
-           </button>
+            </button>
           </span>
           <kk-timepicker id="startTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
         </p>
@@ -82,7 +82,7 @@
           <span class="input-group-btn">
             <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenEnd = true">
               <i class="glyphicon glyphicon-calendar"></i>
-           </button>
+            </button>
           </span>
           <kk-timepicker id="endTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
         </p>
@@ -104,15 +104,15 @@
   <div class="row clearfix" ng-show="ctrl.searchResults.length>0">
     <br>
     <div class="col-md-3" ng-repeat="result in ctrl.searchResults">
-      <div class="panel">
-        <div class="panel-heading">
+      <div class="panel text-grey">
+        <div class="panel-heading border-slate border-lg" style="height:50px;">
           <div class="row">
             <div class="col-md-2">
               <img ng-src="{{result.user.image}}" width="30px" height="30px" class="img-circle">
             </div>
             <div class="col-md-10">
               <a href="" ui-sref="post({type: 'travel', eventId: result._id})">
-                <h3 class="panel-title">{{result.user.name}}</h3>
+                <h5 class="panel-title" style="color:#7f8c8d;">{{result.user.name}}</h5>
               </a>
             </div>
           </div>
@@ -121,35 +121,35 @@
         <div class="panel-body">
 
           <div class="row" ng-init="ctrl.getGeoCode(result.start)">
-            <div class="col-md-2">Start</div>
-            <div class="col-md-10">{{result.start.place}}</div>
+            <div class="col-md-3">Start:</div>
+            <div class="col-md-9">{{result.start.place}}</div>
           </div>
 
           <div class="row">
-            <div class="col-md-2" ng-init="ctrl.getGeoCode(result.end)">To</div>
-            <div class="col-md-10">{{result.end.place}}</div>
+            <div class="col-md-3" ng-init="ctrl.getGeoCode(result.end)">To:</div>
+            <div class="col-md-9">{{result.end.place}}</div>
           </div>
 
           <div class="row">
-            <div class="col-md-2">Time</div>
-            <div class="col-md-10">{{ctrl.getFormatedDate(result.startTime)}}</div>
+            <div class="col-md-3">Time:</div>
+            <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
           </div>
 
           <div class="row">
-            <div class="col-md-2">Vehicle</div>
-            <div class="col-md-10">{{result.vehicle}}</div>
+            <div class="col-md-3">Vehicle:</div>
+            <div class="col-md-9">{{result.vehicle}}</div>
           </div>
 
           <div class="row">
-            <div class="col-md-2">Seats</div>
-            <div class="col-md-10">{{result.freeSeats}}</div>
+            <div class="col-md-3">Seats</div>
+            <div class="col-md-9">{{result.freeSeats}}</div>
           </div>
 
         </div>
         <div class="panel-footer">
           <div class="row">
-            <div class="col-md-2">Cost</div>
-            <div class="col-md-10">{{result.cost}}</div>
+            <div class="col-md-3">Cost</div>
+            <div class="col-md-9">{{result.cost}}</div>
           </div>
         </div>
       </div>

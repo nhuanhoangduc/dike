@@ -83,7 +83,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.vehicle = 'motorbike'">
                 <label class="col-md-3 control-label">Vehicle</label>
                 <div class="col-md-5">
-                  <select ng-model="ctrl.request.vehicle" class="form-control">
+                  <select ng-model="ctrl.request.vehicle" class="form-control bg-slate">
                     <option value="car">Car</option>
                     <option value="motorbike">Motorbike</option>
                     <option value="bicycle">Bicycle</option>
@@ -99,7 +99,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.freeSeats=1">
                 <label class="col-md-3 control-label">Free seats</label>
                 <div class="col-md-3">
-                  <input type="text" class="form-control border-teal border-lg text-teal" ng-model="ctrl.request.freeSeats " class="form-control">
+                  <input type="text" class="form-control border-slate text-slate border-lg" ng-model="ctrl.request.freeSeats " class="form-control">
                 </div>
               </div>
 
@@ -107,7 +107,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.cost=10000">
                 <label class="col-md-3 control-label">Cost per seat</label>
                 <div class="col-md-3">
-                  <input type="text" class="form-control border-teal border-lg text-teal" ng-model="ctrl.request.cost " class="form-control">
+                  <input type="text" class="form-control border-slate text-slate border-lg" ng-model="ctrl.request.cost " class="form-control">
                 </div>
               </div>
 
@@ -122,7 +122,7 @@
               <div class="form-group form-group-sm row" ng-init="ctrl.request.cost=10000">
                 <label class="col-md-3 control-label">Willingness to Pay</label>
                 <div class="col-md-3">
-                  <input type="text" ng-model="ctrl.request.cost " class="form-control">
+                  <input type="text" ng-model="ctrl.request.cost " class="form-control border-slate text-slate border-lg">
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@
               <label class="col-md-3 control-label">Start date</label>
               <div class="col-md-6">
                 <p class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
+                  <input type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen = true">
                       <i class="glyphicon glyphicon-calendar"></i>

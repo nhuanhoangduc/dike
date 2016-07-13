@@ -17,10 +17,10 @@
               <i class="icon-bike"></i>
             </span>
             Travel
-            <span class="label label-danger pull-right">
+            <em class="text-muted text-size-mini pull-right">
               <i class=" icon-database-time2"></i>
               Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
-            </span>
+            </em>
           </h4>
         </div>
         <!-- end header -->
@@ -31,7 +31,7 @@
           <!-- start place -->
           <div class="row">
             <div class="col-md-2">
-              <h6>Start</h6>
+              <h6>Start:</h6>
             </div>
             <div class="col-md-10">
               <h6>{{ctrl.post.startPlace}}</h6>
@@ -42,7 +42,7 @@
           <!-- end place -->
           <div class="row">
             <div class="col-md-2">
-              <h6>End</h6>
+              <h6>End:</h6>
             </div>
             <div class="col-md-10">
               <h6>{{ctrl.post.endPlace}}</h6>
@@ -53,7 +53,7 @@
           <!-- start time -->
           <div class="row">
             <div class="col-md-2">
-              <h6>Start time</h6>
+              <h6>Start time:</h6>
             </div>
             <div class="col-md-10">
               <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
@@ -66,19 +66,21 @@
           <div class="row">
 
             <!-- edit and delete -->
-            <div class="pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
+            <ul class="icons-list pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
 
-              <!-- edit -->
-              <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
-                <i class="icon-pencil5" style="color:#16a085; font-size:15px;"></i>
-              </a>
+              <li class="text-primary-600">
+                <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
+                  <i class="icon-pencil7"></i>
+                </a>
+              </li>
 
-              <!-- delete -->
-              <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
-                <i class="icon-bin2" style="color:#c0392b; font-size:15px;"></i>
-              </a>
+              <li class="text-danger-600">
+                <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
+                  <i class="icon-trash"></i>
+                </a>
+              </li>
 
-            </div>
+            </ul>
             <!-- finish edit and delete -->
 
 
@@ -153,7 +155,9 @@
       <!-- end comments -->
 
       <!-- post comment -->
-      <textarea name="enter-message" class="form-control content-group" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
+      <div class="row">
+        <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
+      </div>
 
       <div class="row">
         <div class="col-xs-6 text-right pull-right">
