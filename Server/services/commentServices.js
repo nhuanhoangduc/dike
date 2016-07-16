@@ -128,8 +128,42 @@ var remove = function(req, res, next) {
 };
 
 
+var getByUser = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Comments
+    .find({ user: userId })
+    .lean()
+    .exec(function(err, comments) {
+      if (err)
+        return next(err);
+
+      res.json(comments);
+    });
+};
+
+
+var getByUserCount = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Comments
+    .count({ user: userId })
+    .lean()
+    .exec(function(err, count) {
+      if (err)
+        return next(err);
+
+      res.json(count);
+    });
+};
+
+
 module.exports = {
   create: create,
   getAll: getAll,
-  remove: remove
+  remove: remove,
+  getByUser: getByUser,
+  getByUserCount: getByUserCount
 };

@@ -1,6 +1,43 @@
 var Travels = require('../models/travels');
 
 
+/* get by user */
+var getByUser = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .find({
+      user: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+      if (err)
+        return next(err);
+
+      res.json(travels);
+    });
+};
+
+
+var getByUserCount = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .count({
+      user: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+      if (err)
+        return next(err);
+
+      res.json(travels);
+    });
+};
+
+
 /* create new */
 var create = function(req, res, next) {
   var event = req.body;
@@ -98,5 +135,7 @@ var getById = function(req, res, next) {
 module.exports = {
   create: create,
   update: update,
-  getById: getById
+  getById: getById,
+  getByUser: getByUser,
+  getByUserCount: getByUserCount
 };

@@ -39,7 +39,13 @@
             <li ng-class="{'active': ctrl.menu === 'event'}" ng-click="ctrl.menu = 'event'">
               <a href="">
                 <i class="icon-calendar3 position-left"></i> Events
-                <span class="badge badge-success badge-inline position-right">32</span>
+                <span class="badge badge-info badge-inline position-right">{{ctrl.travelCount}}</span>
+              </a>
+            </li>
+            <li ng-class="{'active': ctrl.menu === 'comment'}" ng-click="ctrl.menu = 'comment'">
+              <a href="">
+                <i class=" icon-bubble-dots3 position-left"></i> Comments
+                <span class="badge badge-warning badge-inline position-right">{{ctrl.commentCount}}</span>
               </a>
             </li>
           </ul>
@@ -58,7 +64,11 @@
           <div class="panel panel-flat border-left-success">
             <div class="panel-heading">
               <h6 class="panel-title" ng-show="ctrl.menu === 'profile'">Change your user information</h6>
-              <h6 class="panel-title" ng-show="ctrl.menu === 'event'">Events</h6>
+              <h6 class="panel-title" ng-show="ctrl.menu === 'event'">
+                Events
+                <hr>
+              </h6>
+              <h6 class="panel-title" ng-show="ctrl.menu === 'comment'">Your comments</h6>
             </div>
 
             <div class="panel-body">
@@ -107,36 +117,71 @@
 
 
               <!-- events -->
-              <table class="table tasks-list table-lg" ng-show="ctrl.menu === 'event'">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Period</th>
-                    <th>Task Description</th>
-                    <th>Priority</th>
-                    <th>Latest update</th>
-                    <th>Status</th>
-                    <th>Assigned users</th>
-                    <th class="text-center text-muted" style="width: 30px;">
-                      <i class="icon-checkmark3"></i>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <th>#</th>
-                  <th>Period</th>
-                  <th>Task Description</th>
-                  <th>Priority</th>
-                  <th>Latest update</th>
-                  <th>Status</th>
-                  <th>Assigned users</th>
-                  <th class="text-center text-muted" style="width: 30px;">
-                    <i class="icon-checkmark3"></i>
-                  </th>
-                  </tr>
-                </tbody>
-              </table>
+              <div ng-show="ctrl.menu === 'event'">
+                Travels
+                <!-- travel -->
+                <table class="table tasks-list table-lg">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Created</th>
+                      <th>Start</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="travel in ctrl.travels" style="color: #879394; font-size: 12px;">
+                      <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
+                        <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
+                          #{{$index+1}}
+                        </a>
+                      </th>
+                      <th>{{travel.start.place}}</th>
+                      <th>{{travel.end.place}}</th>
+                      <th>{{ctrl.getFormatedDate(travel.created)}}</th>
+                      <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
+                      <th>
+                        <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
+                        <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- finish travel -->
+
+              </div>
               <!-- finish event -->
+
+
+              <!-- comments -->
+              <div ng-show="ctrl.menu === 'comment'">
+                <table class="table tasks-list table-lg">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Event</th>
+                      <th>Content</th>
+                      <th>Created</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="comment in ctrl.comments" style="color: #879394; font-size: 12px;">
+                      <th>
+                        <a href="" ui-sref="post({type:comment.type, eventId: comment.eventId})">
+                          #{{$index+1}}
+                        </a>
+                      </th>
+                      <th>{{comment.type}}</th>
+                      <th>{{comment.comment}}</th>
+                      <th>{{ctrl.getFormatedDate(comment.created)}}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- finish comments -->
 
 
             </div>
