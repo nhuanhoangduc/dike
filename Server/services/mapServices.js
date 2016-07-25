@@ -4,6 +4,7 @@ var urlencode = require('urlencode');
 var Travel = require('../models/travels');
 var async = require('async');
 var _ = require('underscore');
+var polyline = require('polyline');
 
 
 /* list of suggest places */
@@ -205,9 +206,51 @@ var travelSearch = function(req, res, next) {
 };
 
 
+var direction = function(req, res, next) {
+
+  var startLat = req.params.startLat;
+  var startLng = req.params.startLng;
+
+  var endLat = req.params.endLat;
+  var endLng = req.params.endLng;
+
+  // google api url
+  var url = 'https://maps.googleapis.com/maps/api/directions/json?';
+  url += 'origin=' + startLat + ',' + startLng;
+  url += '&destination=' + endLat + ',' + endLng;
+  url += '&mode=walking';
+  url += '&key=' + key;
+
+  console.log(url);
+  // request to google geocode api
+  process.nextTick(function() {
+    request(url, function(error, response, body) {
+      if (error) {
+        return next(error);
+      }
+
+      try {
+        // get place from response
+        var mapData = JSON.parse(body);
+      } catch (e) {
+        return next(e);
+      }
+
+      return res.json({
+        points: polyline.decode(mapData.routes[0].overview_polyline.points),
+        distance: mapData.routes[0].legs[0].distance.text,
+        duration: mapData.routes[0].legs[0].duration.text
+      });
+    });
+  });
+
+};
+
+
 module.exports = {
   autoComplete: autoComplete,
   getDetail: getDetail,
   geoCode: geoCode,
-  travelSearch: travelSearch
+  travelSearch: travelSearch,
+  direction: direction
 };

@@ -152,8 +152,10 @@ app
 
     })();
   })
-  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices, $q) {
+  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices, $q, $stateParams, toastr) {
     var _this = this;
+    var id = $stateParams.id;
+
 
     this.map = mapServices;
     this.places = ['hà nội'];
@@ -306,33 +308,87 @@ app
     /* init function */
     (function() {
 
-      // init data for start text field
-      setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+      if (id) {
 
-      // init data for end text field
-      setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+        restfulServices.get('/travel/public', [id], function(err, res) {
+          if (err)
+            return toastr.error(err.message, 'Lỗi');
+
+          var travel = res.data;
+
+          _this.map.markers.start = travel.start;
+          _this.map.markers.start.radius = 2;
+
+          _this.map.markers.end = travel.end;
+          _this.map.markers.end.radius = 2;
+
+          // init data for start text field
+          setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+
+          // init data for end text field
+          setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+
+          // add start circle
+          _this.map.paths.start = {
+            type: "circle",
+            color: "green",
+            radius: _this.map.markers.start.radius / 2,
+            latlngs: [_this.map.markers.start.lat, _this.map.markers.start.lng]
+          };
+
+          // add end circle
+          _this.map.paths.end = {
+            type: "circle",
+            color: "red",
+            radius: _this.map.markers.end.radius / 2,
+            latlngs: [_this.map.markers.end.lat, _this.map.markers.end.lng]
+          };
+
+          restfulServices.get('/map/direction', [travel.start.lat, travel.start.lng, travel.end.lat, travel.end.lng], function(err, res) {
+            if (err)
+              return;
+            console.log(res.data);
+            _this.map.paths.direction = {
+              color: 'red',
+              weight: 5,
+              latlngs: res.data.points,
+              message: '<p>Distance: ' + res.data.distance + ' - Duration: ' + res.data.duration + '</p>'
+            };
+          });
+
+        });
+
+      } else {
+
+        // init data for start text field
+        setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+
+        // init data for end text field
+        setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+
+        // add start circle
+        _this.map.paths.start = {
+          type: "circle",
+          color: "green",
+          radius: _this.map.markers.start.radius / 2,
+          latlngs: [_this.map.markers.start.lat, _this.map.markers.start.lng]
+        };
+
+        // add end circle
+        _this.map.paths.end = {
+          type: "circle",
+          color: "red",
+          radius: _this.map.markers.end.radius / 2,
+          latlngs: [_this.map.markers.end.lat, _this.map.markers.end.lng]
+        };
+
+        // request to server
+        _this.submit();
+
+      }
 
       // update user
       UserServices.getCurrentUser(function() {});
-
-      // add start circle
-      _this.map.paths.start = {
-        type: "circle",
-        color: "green",
-        radius: _this.map.markers.start.radius / 2,
-        latlngs: [_this.map.markers.start.lat, _this.map.markers.start.lng]
-      };
-
-      // add end circle
-      _this.map.paths.end = {
-        type: "circle",
-        color: "red",
-        radius: _this.map.markers.end.radius / 2,
-        latlngs: [_this.map.markers.end.lat, _this.map.markers.end.lng]
-      };
-
-      // request to server
-      _this.submit();
 
     })();
 

@@ -115,7 +115,7 @@ var update = function(req, res, next) {
 
 
 // find a travel event with id
-var getById = function(req, res, next) {
+var getById_login = function(req, res, next) {
   Travels
     .findOne({ _id: req.params.id })
     .lean()
@@ -130,6 +130,19 @@ var getById = function(req, res, next) {
     });
 };
 
+// find a travel event with id
+var getById = function(req, res, next) {
+  Travels
+    .findOne({ _id: req.params.id })
+    .lean()
+    .exec(function(err, travel) {
+      if (err)
+        return next(err);
+
+      res.json(travel);
+    });
+};
+
 
 
 module.exports = {
@@ -137,5 +150,6 @@ module.exports = {
   update: update,
   getById: getById,
   getByUser: getByUser,
-  getByUserCount: getByUserCount
+  getByUserCount: getByUserCount,
+  getById_login: getById_login
 };

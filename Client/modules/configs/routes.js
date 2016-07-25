@@ -20,7 +20,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'goWithMeCreateCtrl as ctrl'
     })
     .state('gowithme_search', { // go with me search
-      url: "/gowithme/search",
+      url: "/gowithme/search?id",
       templateUrl: '/gowithme/views/gowithme_search.html',
       controller: 'goWithMeSearchCtrl as ctrl'
     })

@@ -13,7 +13,9 @@ router.get('/getbyuser', userServices.checkLogin, travelServices.getByUser);
 router.get('/getbyusercount', userServices.checkLogin, travelServices.getByUserCount);
 
 /* find one */
-router.get('/:id', userServices.checkLogin, travelServices.getById);
+router.get('/:id', userServices.checkLogin, travelServices.getById_login);
+router.get('/public/:id', travelServices.getById);
+
 
 
 module.exports = router;

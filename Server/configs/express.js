@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('../services/OAuth/passport');
 var session = require('express-session');
+var compression = require('compression');
 
 var app = express();
 
@@ -25,7 +26,11 @@ app.use(express.static(path.join(__dirname, '../../Client/public')));
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
+app.set('view cache', true);
 app.set('view engine', 'ejs');
+
+// use compression
+app.use(compression());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
