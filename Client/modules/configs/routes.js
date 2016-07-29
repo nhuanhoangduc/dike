@@ -9,6 +9,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/",
       templateUrl: '/home/views/home.html',
     })
+    .state('gowithme', { // go with me create
+      url: "/gowithme",
+      templateUrl: '/gowithme/views/gowithme.html'
+    })
     .state('gowithme_create', { // go with me create
       url: "/gowithme/create",
       templateUrl: '/gowithme/views/gowithme_create.html',
