@@ -1,1 +1,51 @@
-nhuan nhuan
+<style>
+.searchFont {
+  color: #7f8c8d;
+  size: 2px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.userFont a {
+  font-weight: 500;
+  font-size: 30px;
+  color: #2c3e50;
+}
+</style>
+
+
+<div style="margin-left:20px; margin-top:20px; margin-right: 20px;">
+
+  <div class="row" style="margin-bottom: 40px;" ng-repeat="travel in ctrl.travels">
+
+    <div class="col-md-offset-2 col-md-6" ng-class="{'bg-slate-300': travel.changeBackground}" ng-mouseover="travel.changeBackground=true" ng-mouseleave="travel.changeBackground=false">
+
+      <div class="row">
+
+        <div class="col-md-12 userFont">
+          <a href="" ui-sref="gowithme_search({id: travel._id})">
+            {{travel.user.name}}
+          </a>
+        </div>
+
+      </div>
+
+      <div class="row searchFont" ng-init="ctrl.getGeoCode(travel.start, travel.end)">
+        <div class="col-md-12">
+          <i class="icon-location3"></i>
+          From: {{travel.start.place}} ~ 1-3km
+        </div>
+      </div>
+
+      <div class="row searchFont">
+        <div class="col-md-12">
+          <i class="icon-location3"></i>
+          To: {{travel.end.place}} ~ 1-3km
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

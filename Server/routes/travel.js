@@ -16,6 +16,8 @@ router.get('/getbyusercount', userServices.checkLogin, travelServices.getByUserC
 router.get('/:id', userServices.checkLogin, travelServices.getById_login);
 router.get('/public/:id', travelServices.getById);
 
+router.get('/nearby/:startLat/:startLng/:endLat/:endLng', travelServices.searchNearBy);
+
 
 
 module.exports = router;

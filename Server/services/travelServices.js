@@ -140,6 +140,7 @@ var getById_login = function(req, res, next) {
 var getById = function(req, res, next) {
   Travels
     .findOne({ _id: req.params.id })
+    .populate('user')
     .lean()
     .exec(function(err, travel) {
       if (err)
