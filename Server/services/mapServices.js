@@ -247,6 +247,7 @@ var direction = function(req, res, next) {
 };
 
 
+
 module.exports = {
   autoComplete: autoComplete,
   getDetail: getDetail,
