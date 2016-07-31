@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, toastr) {
+  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -134,7 +134,7 @@ app
 
     this.getEvent = function() {
       postServices.getEvent(_this.type, _this.eventId, function(err, response) {
-        console.log(err)
+
         if (err)
           return toastr.error(err.data.message, 'Error');
 

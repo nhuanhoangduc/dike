@@ -56,7 +56,6 @@ gulp.task('dev', function(done) {
   runSequence(
     'jslint Server',
     'jslint Client',
-    'minify client js files',
     done
   );
 

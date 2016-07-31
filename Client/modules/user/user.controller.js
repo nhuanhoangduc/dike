@@ -68,7 +68,7 @@ app
 
     this.isFinish = function(startTime) {
       var now = _this.moment();
-      var startTime = _this.moment(startTime);
+      startTime = _this.moment(startTime);
 
       return (now > startTime);
     };

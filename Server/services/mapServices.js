@@ -229,9 +229,11 @@ var direction = function(req, res, next) {
         return next(error);
       }
 
+      var mapData;
+
       try {
         // get place from response
-        var mapData = JSON.parse(body);
+        mapData = JSON.parse(body);
       } catch (e) {
         return next(e);
       }
