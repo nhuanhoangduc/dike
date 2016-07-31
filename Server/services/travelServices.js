@@ -44,6 +44,44 @@ var getByUserCount = function(req, res, next) {
 };
 
 
+var getByUserJoin = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .find({
+      join: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+
+      if (err)
+        return next(err);
+
+      res.json(travels);
+      
+    });
+};
+
+
+var getByUserCountJoin = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .count({
+      join: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+      if (err)
+        return next(err);
+
+      res.json(travels);
+    });
+};
+
+
 /* create new */
 var create = function(req, res, next) {
   var event = req.body;
@@ -256,6 +294,8 @@ module.exports = {
   getById: getById,
   getByUser: getByUser,
   getByUserCount: getByUserCount,
+  getByUserJoin: getByUserJoin,
+  getByUserCountJoin: getByUserCountJoin,
   getById_login: getById_login,
   searchNearBy: searchNearBy
 };

@@ -12,6 +12,9 @@ router.put('/', userServices.checkLogin, travelServices.update);
 router.get('/getbyuser', userServices.checkLogin, travelServices.getByUser);
 router.get('/getbyusercount', userServices.checkLogin, travelServices.getByUserCount);
 
+router.get('/join/getbyuser', userServices.checkLogin, travelServices.getByUserJoin);
+router.get('/join/getbyusercount', userServices.checkLogin, travelServices.getByUserCountJoin);
+
 /* find one */
 router.get('/:id', userServices.checkLogin, travelServices.getById_login);
 router.get('/public/:id', travelServices.getById);

@@ -1,12 +1,12 @@
 <!-- Page header -->
 <div class="page-header" ng-show="ctrl.user._id">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h4>
-        User profile
-      </h4>
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4>
+                User profile
+            </h4>
+        </div>
     </div>
-  </div>
 </div>
 <!-- /page header -->
 
@@ -14,217 +14,266 @@
 <!-- Page container -->
 <div class="page-container" ng-show="ctrl.user._id">
 
-  <!-- Page content -->
-  <div class="page-content">
+    <!-- Page content -->
+    <div class="page-content">
 
-    <!-- Main content -->
-    <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="content-wrapper">
 
-      <!-- Toolbar -->
-      <div class="navbar navbar-default navbar-component navbar-xs">
-        <ul class="nav navbar-nav visible-xs-block">
-          <li class="full-width text-center">
-            <a data-toggle="collapse" data-target="#navbar-filter">
-              <i class="icon-menu7"></i>
-            </a>
-          </li>
-        </ul>
-
-        <div class="navbar-collapse collapse" id="navbar-filter">
-          <ul class="nav navbar-nav element-active-slate-400">
-            <li ng-class="{'active': ctrl.menu === 'profile'}" ng-click="ctrl.menu = 'profile'">
-              <a href="">
-                <i class="icon-menu7 position-left"></i> Setting</a>
-            </li>
-            <li ng-class="{'active': ctrl.menu === 'event'}" ng-click="ctrl.menu = 'event'">
-              <a href="">
-                <i class="icon-calendar3 position-left"></i> Events
-                <span class="badge badge-info badge-inline position-right">{{ctrl.travelCount}}</span>
-              </a>
-            </li>
-            <li ng-class="{'active': ctrl.menu === 'comment'}" ng-click="ctrl.menu = 'comment'">
-              <a href="">
-                <i class=" icon-bubble-dots3 position-left"></i> Comments
-                <span class="badge badge-warning badge-inline position-right">{{ctrl.commentCount}}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-      <!-- /toolbar -->
-
-
-      <!-- User profile -->
-      <div class="row">
-
-        <!-- profile -->
-        <div class="col-lg-9">
-
-          <div class="panel panel-flat border-left-success">
-            <div class="panel-heading">
-              <h6 class="panel-title" ng-show="ctrl.menu === 'profile'">Change your user information</h6>
-              <h6 class="panel-title" ng-show="ctrl.menu === 'event'">
-                Events
-                <hr>
-              </h6>
-              <h6 class="panel-title" ng-show="ctrl.menu === 'comment'">Your comments</h6>
-            </div>
-
-            <div class="panel-body">
-
-              <!-- change information -->
-              <div ng-show="ctrl.menu === 'profile'">
-                <div class="row">
-                  <div class="col-md-offset-1 col-md-3">
-                    <h6>Tel me your telephone</h6>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group has-feedback has-feedback-left">
-                      <input type="text" class="form-control input-lg bg-success" placeholder="Phone number" ng-model="ctrl.user.phone">
-                      <div class="form-control-feedback">
-                        <i class="icon-mobile3"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-offset-1 col-md-3">
-                    <h6>Share your location</h6>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group has-feedback has-feedback-left">
-                      <input type="text" class="form-control input-lg bg-purple" placeholder="Location" ng-model="ctrl.user.location">
-                      <div class="form-control-feedback">
-                        <i class="icon-location4"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-offset-8 col-md-1">
-                    <button type="button" class="btn btn-default btn-labeled btn-xs pull-right" ng-click="ctrl.updateUser()">
-                      <b>
-                        <i class="icon-pencil4"></i>
-                      </b> Save
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <!-- finish change information -->
-
-
-              <!-- events -->
-              <div ng-show="ctrl.menu === 'event'">
-                Travels
-                <!-- travel -->
-                <table class="table tasks-list table-lg">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Start</th>
-                      <th>End</th>
-                      <th>Created</th>
-                      <th>Start</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="travel in ctrl.travels" style="color: #879394; font-size: 12px;">
-                      <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
-                        <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
-                          #{{$index+1}}
+            <!-- Toolbar -->
+            <div class="navbar navbar-default navbar-component navbar-xs">
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li class="full-width text-center">
+                        <a data-toggle="collapse" data-target="#navbar-filter">
+                            <i class="icon-menu7"></i>
                         </a>
-                      </th>
-                      <th>{{travel.start.place}}</th>
-                      <th>{{travel.end.place}}</th>
-                      <th>{{ctrl.getFormatedDate(travel.created)}}</th>
-                      <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
-                      <th>
-                        <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
-                        <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
-                      </th>
-                    </tr>
-                  </tbody>
-                </table>
-                <!-- finish travel -->
+                    </li>
+                </ul>
 
-              </div>
-              <!-- finish event -->
+                <div class="navbar-collapse collapse" id="navbar-filter">
+                    <ul class="nav navbar-nav element-active-slate-400">
 
+                        <li ng-class="{'active': ctrl.menu === 'profile'}" ng-click="ctrl.menu = 'profile'">
+                            <a href="">
+                                <i class="icon-menu7 position-left"></i> Setting</a>
+                        </li>
 
-              <!-- comments -->
-              <div ng-show="ctrl.menu === 'comment'">
-                <table class="table tasks-list table-lg">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Event</th>
-                      <th>Content</th>
-                      <th>Created</th>
+                        <li ng-class="{'active': ctrl.menu === 'event'}" ng-click="ctrl.menu = 'event'">
+                            <a href="">
+                                <i class="icon-calendar3 position-left"></i> Events
+                                <span class="badge badge-info badge-inline position-right">{{ctrl.travelCount}}</span>
+                            </a>
+                        </li>
 
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="comment in ctrl.comments" style="color: #879394; font-size: 12px;">
-                      <th>
-                        <a href="" ui-sref="post({type:comment.type, eventId: comment.eventId})">
-                          #{{$index+1}}
-                        </a>
-                      </th>
-                      <th>{{comment.type}}</th>
-                      <th>{{comment.comment}}</th>
-                      <th>{{ctrl.getFormatedDate(comment.created)}}</th>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- finish comments -->
+                        <li ng-class="{'active': ctrl.menu === 'comment'}" ng-click="ctrl.menu = 'comment'">
+                            <a href="">
+                                <i class=" icon-bubble-dots3 position-left"></i> Comments
+                                <span class="badge badge-warning badge-inline position-right">{{ctrl.commentCount}}</span>
+                            </a>
+                        </li>
 
+                        <li ng-class="{'active': ctrl.menu === 'join'}" ng-click="ctrl.menu = 'join'">
+                            <a href="">
+                                <i class=" icon-bubble-dots3 position-left"></i> Join Events
+                                <span class="badge badge-warning badge-inline position-right">{{ctrl.joinTravelCount}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
 
             </div>
-          </div>
+            <!-- /toolbar -->
+
+
+            <!-- User profile -->
+            <div class="row">
+
+                <!-- profile -->
+                <div class="col-lg-9">
+
+                    <div class="panel panel-flat border-left-success">
+                        <div class="panel-heading">
+                            <h6 class="panel-title" ng-show="ctrl.menu === 'profile'">Change your user information</h6>
+                            <h6 class="panel-title" ng-show="ctrl.menu === 'event'">
+                                Events
+                                <hr>
+                            </h6>
+                            <h6 class="panel-title" ng-show="ctrl.menu === 'comment'">Your comments</h6>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <!-- change information -->
+                            <div ng-show="ctrl.menu === 'profile'">
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-3">
+                                        <h6>Tel me your telephone</h6>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input type="text" class="form-control input-lg bg-success" placeholder="Phone number" ng-model="ctrl.user.phone">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-mobile3"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-md-3">
+                                        <h6>Share your location</h6>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group has-feedback has-feedback-left">
+                                            <input type="text" class="form-control input-lg bg-purple" placeholder="Location" ng-model="ctrl.user.location">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-location4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-offset-8 col-md-1">
+                                        <button type="button" class="btn btn-default btn-labeled btn-xs pull-right" ng-click="ctrl.updateUser()">
+                                            <b>
+                                                <i class="icon-pencil4"></i>
+                                            </b> Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- finish change information -->
+
+
+                            <!-- events -->
+                            <div ng-show="ctrl.menu === 'event'">
+                                Travels
+                                <!-- travel -->
+                                <table class="table tasks-list table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Created</th>
+                                            <th>Start</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="travel in ctrl.travels" style="color: #879394; font-size: 12px;">
+                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
+                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
+                                                    #{{$index+1}}
+                                                </a>
+                                            </th>
+                                            <th>{{travel.start.place}}</th>
+                                            <th>{{travel.end.place}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
+                                            <th>
+                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
+                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- finish travel -->
+
+                            </div>
+                            <!-- finish event -->
+
+
+                            <!-- comments -->
+                            <div ng-show="ctrl.menu === 'comment'">
+                                <table class="table tasks-list table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Event</th>
+                                            <th>Content</th>
+                                            <th>Created</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="comment in ctrl.comments" style="color: #879394; font-size: 12px;">
+                                            <th>
+                                                <a href="" ui-sref="post({type:comment.type, eventId: comment.eventId})">
+                                                    #{{$index+1}}
+                                                </a>
+                                            </th>
+                                            <th>{{comment.type}}</th>
+                                            <th>{{comment.comment}}</th>
+                                            <th>{{ctrl.getFormatedDate(comment.created)}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- finish comments -->
+
+                            <!-- join events -->
+                            <div ng-show="ctrl.menu === 'join'">
+                                Travels
+                                <!-- travel -->
+                                <table class="table tasks-list table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Created</th>
+                                            <th>Start</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="travel in ctrl.joinTravels" style="color: #879394; font-size: 12px;">
+                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
+                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
+                                                    #{{$index+1}}
+                                                </a>
+                                            </th>
+                                            <th>{{travel.start.place}}</th>
+                                            <th>{{travel.end.place}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
+                                            <th>
+                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
+                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- finish travel -->
+
+                            </div>
+                            <!-- /join events -->
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- finish profile -->
+
+
+                <div class="col-lg-3">
+
+                    <!-- User thumbnail -->
+                    <div class="thumbnail">
+                        <div class="thumb thumb-rounded thumb-slide">
+                            <img ng-src="{{ctrl.user.image}}" alt="">
+                        </div>
+
+                        <div class="caption text-center">
+                            <h6 class="text-semibold no-margin">{{ctrl.user.name}}
+                                <small class="display-block">Tel: {{ctrl.user.phone || 'Not set'}}</small>
+                                <small class="display-block">Location: {{ctrl.user.location || 'Not set'}}</small>
+                                <small class="display-block">Status: {{ctrl.user.status || 'Not set'}}</small>
+                            </h6>
+                            <ul class="icons-list mt-15">
+                                <li>
+                                    <a ng-href="https://www.facebook.com/{{ctrl.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                                        <i class="icon-facebook2"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /user thumbnail -->
+
+                </div>
+            </div>
+            <!-- /user profile -->
 
         </div>
-        <!-- finish profile -->
-
-
-        <div class="col-lg-3">
-
-          <!-- User thumbnail -->
-          <div class="thumbnail">
-            <div class="thumb thumb-rounded thumb-slide">
-              <img ng-src="{{ctrl.user.image}}" alt="">
-            </div>
-
-            <div class="caption text-center">
-              <h6 class="text-semibold no-margin">{{ctrl.user.name}}
-                <small class="display-block">Tel: {{ctrl.user.phone || 'Not set'}}</small>
-                <small class="display-block">Location: {{ctrl.user.location || 'Not set'}}</small>
-                <small class="display-block">Status: {{ctrl.user.status || 'Not set'}}</small>
-              </h6>
-              <ul class="icons-list mt-15">
-                <li>
-                  <a ng-href="https://www.facebook.com/{{ctrl.user.facebookId}}" data-popup="tooltip" title="Facebook account">
-                    <i class="icon-facebook2"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- /user thumbnail -->
-
-        </div>
-      </div>
-      <!-- /user profile -->
+        <!-- /main content -->
 
     </div>
-    <!-- /main content -->
-
-  </div>
-  <!-- /page content -->
+    <!-- /page content -->
 
 
 </div>

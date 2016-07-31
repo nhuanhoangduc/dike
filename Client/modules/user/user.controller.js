@@ -12,6 +12,9 @@ app
     this.comments = [];
     this.commentCount = 0;
 
+    this.joinTravels = [];
+    this.joinTravelCount = 0;
+
     this.updateUser = function() {
       restfulServices.put('/users', this.user, function(err, res) {
         UserServices.getCurrentUser(function() {});
@@ -88,6 +91,30 @@ app
     };
 
 
+    /* join travel */
+
+    // load join travels and join travel count 
+    this.loadJoinTravels = function() {
+
+      restfulServices.get('/travel/join/getbyuser', [], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.joinTravels = res.data;
+      });
+
+      restfulServices.get('/travel/join/getbyusercount', [], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.joinTravelCount = res.data;
+      });
+
+    };
+
+    /* end join travel */
+
+
     // init
     (function() {
 
@@ -96,6 +123,7 @@ app
 
       _this.loadTravel();
       _this.loadComments();
+      _this.loadJoinTravels();
 
     })();
 
