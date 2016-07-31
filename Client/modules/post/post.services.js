@@ -12,14 +12,15 @@ app
 
 
       // post new comment
-      postComment: function(type, post, user, comment, done) {
+      postComment: function(type, post, user, comment, isJoin, done) {
         var params = {
           type: type,
           eventId: post._id,
           user: user._id,
           name: user.name,
           comment: comment,
-          created: new Date()
+          created: new Date(),
+          join: isJoin
         };
 
         restfulServices.post('/comments', params, function(err, response) {

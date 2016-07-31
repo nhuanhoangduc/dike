@@ -26,6 +26,46 @@ var getPost = function(req, res, next) {
 };
 
 
+var join = function(req, res, next) {
+
+  var model = null;
+  var type = req.params.type;
+  var eventId = req.params.eventId;
+  var user = req.user;
+
+  if (type === 'travel')
+    model = Travels;
+
+  if (!model)
+    return next({ message: 'Type is incorrect' });
+
+  model
+    .findOne({ _id: eventId })
+    .populate('user')
+    .exec(function(err, event) {
+
+      if (err)
+        return next(err);
+
+      var index = event.join.indexOf(user._id);
+
+      if (index >= 0)
+        event.join.splice(index, 1);
+      else
+        event.join.push(user._id);
+
+      model.update({ _id: event._id }, { join: event.join }, function(err) {
+        if (err)
+          return next(err);
+
+        res.sendStatus(200);
+      });
+
+    });
+
+};
+
+
 var deletePost = function(req, res, next) {
   var model = null;
   var type = req.params.type;
@@ -79,5 +119,6 @@ var deletePost = function(req, res, next) {
 
 module.exports = {
   getPost: getPost,
-  deletePost: deletePost
+  deletePost: deletePost,
+  join: join
 };

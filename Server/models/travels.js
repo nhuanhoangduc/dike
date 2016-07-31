@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 var travelSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'users' },
 
+  join: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+
   created: Date,
 
   typeOfUser: {

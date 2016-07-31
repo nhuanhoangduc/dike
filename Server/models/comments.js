@@ -8,6 +8,8 @@ var commentSchema = new Schema({
 
   type: String,
 
+  join: Boolean,
+
   created: Date,
 
   comment: String

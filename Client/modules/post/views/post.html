@@ -1,225 +1,257 @@
 <div ng-show="ctrl.user._id" style="margin-left:20px; margin-top:20px; margin-right: 20px;">
 
-  <!-- event information -->
-  <div class="row">
+    <!-- event information -->
+    <div class="row">
 
-    <!-- start event -->
-    <div class="col-md-offset-2 col-md-6">
-
-
-      <!-- travel -->
-      <div class="panel panel-flat border-top-info border-bottom-info row" ng-show="ctrl.type === 'travel'">
-
-        <!-- header -->
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <span class="label label-info">
-              <i class="icon-bike"></i>
-            </span>
-            Travel
-            <em class="text-muted text-size-mini pull-right">
-              <i class=" icon-database-time2"></i>
-              Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
-            </em>
-          </h4>
-        </div>
-        <!-- end header -->
-
-        <!-- content -->
-        <div class="panel-body">
-
-          <!-- start place -->
-          <div class="row">
-            <div class="col-md-2">
-              <h6>Start:</h6>
-            </div>
-            <div class="col-md-10">
-              <h6>{{ctrl.post.startPlace}}</h6>
-            </div>
-          </div>
-          <!-- end start place -->
-
-          <!-- end place -->
-          <div class="row">
-            <div class="col-md-2">
-              <h6>End:</h6>
-            </div>
-            <div class="col-md-10">
-              <h6>{{ctrl.post.endPlace}}</h6>
-            </div>
-          </div>
-          <!-- end place -->
-
-          <!-- start time -->
-          <div class="row">
-            <div class="col-md-2">
-              <h6>Start time:</h6>
-            </div>
-            <div class="col-md-10">
-              <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
-            </div>
-          </div>
-          <!-- end start time -->
+        <!-- start event -->
+        <div class="col-md-offset-2 col-md-6">
 
 
-          <!-- other controls -->
-          <div class="row">
+            <!-- travel -->
+            <div class="panel panel-flat border-top-info border-bottom-info row" ng-show="ctrl.type === 'travel'">
 
-            <!-- edit and delete -->
-            <ul class="icons-list pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
-
-              <li class="text-primary-600">
-                <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
-                  <i class="icon-pencil7"></i>
-                </a>
-              </li>
-
-              <li class="text-danger-600">
-                <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
-                  <i class="icon-trash"></i>
-                </a>
-              </li>
-
-            </ul>
-            <!-- finish edit and delete -->
-
-
-            <!-- fb share button -->
-            <fb-share class="pull-right"></fb-share>
-            <!-- finish fb share -->
-
-          </div>
-          <!-- finish other controls-->
-
-        </div>
-        <!-- end content -->
-
-      </div>
-      <!-- end travel -->
-
-
-      <!-- start comments -->
-      <div class="row">
-        <div class="panel panel-flat timeline-content">
-          <div class="panel-body">
-            <!-- header -->
-            Comments
-            <hr>
-            <!-- end header -->
-
-            <!-- show each comment -->
-            <ul class="media-list content-group">
-
-              <li class="media" ng-repeat="comment in ctrl.comments">
-
-                <!-- user image -->
-                <div class="media-left">
-                  <a href="assets/images/placeholder.jpg">
-                    <img ng-src="{{comment.user.image}}" class="img-circle" alt="">
-                  </a>
+                <!-- header -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="label label-info">
+                            <i class="icon-bike"></i>
+                        </span>
+                        Travel
+                        <em class="text-muted text-size-mini pull-right">
+                            <i class=" icon-database-time2"></i>
+                            Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
+                        </em>
+                    </h4>
                 </div>
-                <!-- finish user image -->
+                <!-- end header -->
 
                 <!-- content -->
-                <div class="media-body">
-                  <div class="media-content">
-                    <span>
-                      {{comment.user.name}}
-                      <a href="" class="pull-right" data-toggle="tooltip" title="Delete" ng-show="comment.user._id.toString() === ctrl.user._id.toString()" ng-click="ctrl.deleteComment(comment._id)">
-                        <i class="icon-bin2" style="color:#2c3e50; font-size: 12px;"></i>
-                      </a>
-                    </span>
-                    <p>
-                      {{comment.comment}}
-                    </p>
-                  </div>
-                  <span class="media-annotation display-block mt-10">
-                    Updated: {{ctrl.getFormatedDate(comment.created)}}
-                    <a href="#">
-                      <i class="icon-pin-alt position-right text-muted"></i>
-                    </a>
-                  </span>
+                <div class="panel-body">
+
+                    <!-- start place -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Start:</h6>
+                        </div>
+                        <div class="col-md-10">
+                            <h6>{{ctrl.post.startPlace}}</h6>
+                        </div>
+                    </div>
+                    <!-- end start place -->
+
+                    <!-- end place -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>End:</h6>
+                        </div>
+                        <div class="col-md-10">
+                            <h6>{{ctrl.post.endPlace}}</h6>
+                        </div>
+                    </div>
+                    <!-- end place -->
+
+                    <!-- start time -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Start time:</h6>
+                        </div>
+                        <div class="col-md-10">
+                            <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
+                        </div>
+                    </div>
+                    <!-- end start time -->
+
+
+                    <!-- other controls -->
+                    <div class="row">
+
+                        <!-- join button -->
+                        <ul class="icons-list pull-left">
+
+                            <li>
+                                <label class="label bg-slate" ng-click="ctrl.join()">
+                                    <a href="" style="color:white;">
+                                        <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
+                                            Unjoin {{ctrl.post.join.length}}
+                                        </span>
+                                        <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)<0">
+                                            Join {{ctrl.post.join.length}}
+                                        </span>
+                                    </a>
+                                </label>
+                            </li>
+
+
+                        </ul>
+                        <!-- end join button -->
+
+
+                        <!-- edit and delete -->
+                        <ul class="icons-list pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
+
+                            <li class="text-primary-600">
+                                <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
+                                    <i class="icon-pencil7"></i>
+                                </a>
+                            </li>
+
+                            <li class="text-danger-600">
+                                <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <!-- finish edit and delete -->
+
+
+                        <!-- fb share button -->
+                        <fb-share class="pull-right"></fb-share>
+                        <!-- finish fb share -->
+
+                    </div>
+                    <!-- finish other controls-->
+
                 </div>
-                <hr>
-                <!-- finish content -->
+                <!-- end content -->
 
-              </li>
+            </div>
+            <!-- end travel -->
 
-            </ul>
-            <!-- end show comment -->
 
-          </div>
+            <!-- start comments -->
+            <div class="row">
+                <div class="panel panel-flat timeline-content">
+                    <div class="panel-body">
+                        <!-- header -->
+                        <span>
+
+                            <a href="" ng-click="ctrl.changeComment(false)">
+                                Comments
+                            </a>
+
+                            <a href="" ng-click="ctrl.changeComment(true)" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
+                                | Joint Comments
+                            </a>
+
+                        </span>
+
+                        <hr>
+                        <!-- end header -->
+
+                        <!-- show each comment -->
+                        <ul class="media-list content-group">
+
+                            <li class="media" ng-repeat="comment in ctrl.comments">
+
+                                <!-- user image -->
+                                <div class="media-left">
+                                    <a href="assets/images/placeholder.jpg">
+                                        <img ng-src="{{comment.user.image}}" class="img-circle" alt="">
+                                    </a>
+                                </div>
+                                <!-- finish user image -->
+
+                                <!-- content -->
+                                <div class="media-body">
+                                    <div class="media-content">
+                                        <span>
+                                            {{comment.user.name}}
+                                            <a href="" class="pull-right" data-toggle="tooltip" title="Delete" ng-show="comment.user._id.toString() === ctrl.user._id.toString()" ng-click="ctrl.deleteComment(comment._id)">
+                                                <i class="icon-bin2" style="color:#2c3e50; font-size: 12px;"></i>
+                                            </a>
+                                        </span>
+                                        <p>
+                                            {{comment.comment}}
+                                        </p>
+                                    </div>
+                                    <span class="media-annotation display-block mt-10">
+                                        Updated: {{ctrl.getFormatedDate(comment.created)}}
+                                        <a href="#">
+                                            <i class="icon-pin-alt position-right text-muted"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <hr>
+                                <!-- finish content -->
+
+                            </li>
+
+                        </ul>
+                        <!-- end show comment -->
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- end comments -->
+
+            <!-- post comment -->
+            <div class="row">
+                <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 text-right pull-right">
+
+                    <!-- post button -->
+                    <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
+                        <b>
+                            <i class="icon-circle-right2"></i>
+                        </b> Send
+                    </button>
+                    <!-- end post button -->
+
+                </div>
+            </div>
+            <!-- end post comment -->
+
         </div>
+        <!-- end travel event -->
 
-      </div>
-      <!-- end comments -->
+        <!-- user detail -->
+        <div class="col-md-2">
 
-      <!-- post comment -->
-      <div class="row">
-        <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
-      </div>
+            <div class="thumbnail">
+                <!-- image -->
+                <div class="thumb thumb-rounded thumb-slide">
+                    <img ng-src="{{ctrl.post.user.image}}" alt="">
 
-      <div class="row">
-        <div class="col-xs-6 text-right pull-right">
+                </div>
+                <!-- end image -->
 
-          <!-- post button -->
-          <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
-            <b>
-              <i class="icon-circle-right2"></i>
-            </b> Send
-          </button>
-          <!-- end post button -->
+                <!-- information -->
+                <div class="caption text-center">
+
+                    <!-- telephone -->
+                    <h6 class="text-semibold no-margin">
+                        {{ctrl.post.user.name}}
+                        <small class="display-block">Tel: {{ctrl.post.user.phone || 'Not set'}}</small>
+                        <small class="display-block">Location: {{ctrl.post.user.location || 'Not set'}}</small>
+                        <small class="display-block">Status: {{ctrl.post.user.status || 'Not set'}}</small>
+                    </h6>
+                    <!-- end telephone -->
+
+                    <!-- link to facebook account -->
+                    <ul class="icons-list mt-15">
+                        <li>
+                            <a ng-href="https://www.facebook.com/{{ctrl.post.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                                <i class="icon-facebook2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- end link facebook account -->
+
+                </div>
+                <!-- end information -->
+
+            </div>
 
         </div>
-      </div>
-      <!-- end post comment -->
+        <!-- end user detail -->
 
     </div>
-    <!-- end travel event -->
-
-    <!-- user detail -->
-    <div class="col-md-2">
-
-      <div class="thumbnail">
-        <!-- image -->
-        <div class="thumb thumb-rounded thumb-slide">
-          <img ng-src="{{ctrl.post.user.image}}" alt="">
-
-        </div>
-        <!-- end image -->
-
-        <!-- information -->
-        <div class="caption text-center">
-
-          <!-- telephone -->
-          <h6 class="text-semibold no-margin">
-            {{ctrl.post.user.name}}
-            <small class="display-block">Tel: {{ctrl.post.user.phone || 'Not set'}}</small>
-            <small class="display-block">Location: {{ctrl.post.user.location || 'Not set'}}</small>
-            <small class="display-block">Status: {{ctrl.post.user.status || 'Not set'}}</small>
-          </h6>
-          <!-- end telephone -->
-
-          <!-- link to facebook account -->
-          <ul class="icons-list mt-15">
-            <li>
-              <a ng-href="https://www.facebook.com/{{ctrl.post.user.facebookId}}" data-popup="tooltip" title="Facebook account">
-                <i class="icon-facebook2"></i>
-              </a>
-            </li>
-          </ul>
-          <!-- end link facebook account -->
-
-        </div>
-        <!-- end information -->
-
-      </div>
-
-    </div>
-    <!-- end user detail -->
-
-  </div>
-  <!-- end information -->
+    <!-- end information -->
 
 </div>
 
@@ -229,5 +261,5 @@
 
 
 <div ng-show="!ctrl.user._id">
-  Not login
+    Not login
 </div>
