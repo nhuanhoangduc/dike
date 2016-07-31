@@ -130,7 +130,7 @@
                                 Comments
                             </a>
 
-                            <a href="" ng-click="ctrl.changeComment(true)" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
+                            <a href="" ng-click="ctrl.changeComment(true)" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0 || ctrl.user._id === ctrl.post.user._id">
                                 | Joint Comments
                             </a>
 
