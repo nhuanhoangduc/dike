@@ -12,7 +12,10 @@ var travelSchema = new Schema({
 
   commentUsers: [],
 
-  reports: Number,
+  reports: {
+    type: Number,
+    default: 0
+  },
 
   disable: {
     type: Boolean,

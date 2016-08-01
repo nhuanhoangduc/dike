@@ -28,8 +28,9 @@ var getEvents = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .find()
+    .find({ disable: false })
     .lean()
+    .populate('user')
     .sort({ created: -1 })
     .exec(function(err, events) {
 
@@ -54,6 +55,7 @@ var getReportedEvents = function(req, res, next) {
   model
     .find()
     .lean()
+    .populate('user')
     .sort({ reports: -1 })
     .exec(function(err, events) {
 
@@ -78,6 +80,7 @@ var getDisabledEvents = function(req, res, next) {
   model
     .find({ disable: true })
     .lean()
+    .populate('user')
     .sort({ created: -1 })
     .exec(function(err, events) {
 
