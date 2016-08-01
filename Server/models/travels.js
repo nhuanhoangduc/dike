@@ -8,6 +8,17 @@ var travelSchema = new Schema({
 
   created: Date,
 
+  note: String,
+
+  commentUsers: [],
+
+  reports: Number,
+
+  disable: {
+    type: Boolean,
+    default: false
+  },
+
   typeOfUser: {
     type: String,
     enum: ['customer', 'driver']
@@ -39,11 +50,8 @@ var travelSchema = new Schema({
   cost: {
     type: Number,
     require: true
-  },
+  }
 
-  note: String,
-
-  commentUsers: []
 });
 
 travelSchema.index({ start: '2d' });

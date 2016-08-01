@@ -9,6 +9,7 @@ var travel = require('../routes/travel');
 var facebook = require('../routes/facebook');
 var post = require('../routes/post');
 var comment = require('../routes/comment');
+var admin = require('../routes/admin');
 
 module.exports = function(app) {
   app.use('/', routes);
@@ -18,4 +19,5 @@ module.exports = function(app) {
   app.use('/facebook', facebook);
   app.use('/post', post);
   app.use('/comments', comment);
+  app.use('/admin', admin);
 };

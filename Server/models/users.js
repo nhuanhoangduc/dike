@@ -14,7 +14,11 @@ var userSchema = new Schema({
   location: String,
   accessToken: String,
   status: String,
-  created: Date
+  created: Date,
+  disable: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('users', userSchema);

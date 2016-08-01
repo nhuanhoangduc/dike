@@ -61,6 +61,10 @@ passport.use(new FacebookStrategy({
 
           });
         } else {
+
+          if (user.disable)
+            return done('<h1 style="color:red; text-align: center;"> User has been blocked </h1>');
+
           newUser.phone = user.phone;
           newUser.status = user.status;
           newUser.location = user.location;
@@ -87,10 +91,15 @@ passport.use(new FacebookStrategy({
               });
 
           });
+
         }
+
       });
+
     });
+
   }
+  
 ));
 
 module.exports = passport;
