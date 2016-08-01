@@ -43,6 +43,18 @@ var checkLogin = function(req, res, next) {
 };
 
 
+var checkAdmin = function(req, res, next) {
+
+  if (req.session.passport && req.session.passport.user && req.session.passport.user.isAdmin) {
+    req.user = req.session.passport.user;
+    return next();
+  } else {
+    return next({ status: 401, message: 'User has not logged' });
+  }
+
+};
+
+
 var logout = function(req, res, next) {
   req.session.destroy();
   res.sendStatus(200);
@@ -68,5 +80,6 @@ module.exports = {
   getCurrentUser: getCurrentUser,
   checkLogin: checkLogin,
   logout: logout,
-  update: update
+  update: update,
+  checkAdmin: checkAdmin
 };

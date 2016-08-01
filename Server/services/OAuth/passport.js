@@ -2,6 +2,8 @@ var passport = require('passport');
 var config = require('./oauth');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../../models/users');
+var Admins = require('../../models/admins');
+
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
@@ -42,7 +44,21 @@ passport.use(new FacebookStrategy({
             if (err)
               return done(err);
 
-            return done(null, newUser);
+            Admins
+              .findOne({
+                facebookId: newUser.facebookId
+              })
+              .lean()
+              .exec(function(err, admin) {
+
+                if (err || !admin)
+                  return done(null, newUser);
+
+                newUser.isAdmin = true;
+                return done(null, newUser);
+
+              });
+
           });
         } else {
           newUser.phone = user.phone;
@@ -54,7 +70,22 @@ passport.use(new FacebookStrategy({
               return done(err);
 
             newUser._id = user._id;
-            return done(null, newUser);
+
+            Admins
+              .findOne({
+                facebookId: newUser.facebookId
+              })
+              .lean()
+              .exec(function(err, admin) {
+
+                if (err || !admin)
+                  return done(null, newUser);
+
+                newUser.isAdmin = true;
+                return done(null, newUser);
+
+              });
+
           });
         }
       });
