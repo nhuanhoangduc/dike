@@ -18,7 +18,8 @@ var userSchema = new Schema({
   disable: {
     type: Boolean,
     default: false
-  }
+  },
+  lastLogin: Date
 });
 
 module.exports = mongoose.model('users', userSchema);

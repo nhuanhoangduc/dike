@@ -53,7 +53,7 @@ var getReportedEvents = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .find()
+    .find({ reports: { $gt: 0 } })
     .lean()
     .populate('user')
     .sort({ reports: -1 })
@@ -144,7 +144,7 @@ var unBlockEvent = function(req, res, next) {
 var getUsers = function(req, res, next) {
 
   Users
-    .find()
+    .find({ disable: false })
     .lean()
     .exec(function(err, users) {
 

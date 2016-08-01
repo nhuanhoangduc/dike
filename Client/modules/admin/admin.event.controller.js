@@ -70,7 +70,7 @@ app
         if (err)
           return toastr.error(err.message, 'Error');
 
-        toastr.success('Event has blocked', 'Success');
+        toastr.warning('Event has blocked', 'Success');
         _this.loadEvents();
 
       });

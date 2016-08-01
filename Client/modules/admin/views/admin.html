@@ -1,12 +1,12 @@
-<div style="margin-left: 20px; margin-top: 20px;">
+<div style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
 
     <div class="row">
 
-        <div class="col-md-7">
+        <div class="col-md-7" ng-controller="adminEventCtrl as eventCtrl">
             <!-- Daily financials -->
-            <div class="panel panel-flat" ng-controller="adminEventCtrl as eventCtrl">
+            <div class="panel panel-flat">
                 <div class="panel-heading">
-                    <h6 class="panel-title">Daily financials</h6>
+                    <h6 class="panel-title">Events manager</h6>
                 </div>
 
                 <div class="panel-body">
@@ -77,14 +77,69 @@
                                         {{event.reports}}
                                     </th>
                                     <th>
-                                        <button class="btn btn-xs btn-danger" ng-click="eventCtrl.blockEvent(event._id)" ng-show="eventCtrl.action==='available'">Block</button>
-                                        <button class="btn btn-xs btn-success" ng-click="eventCtrl.unBlockEvent(event._id)" ng-show="eventCtrl.action==='blocked'">Unblock</button>
+                                        <button class="btn btn-xs btn-danger" ng-click="eventCtrl.blockEvent(event._id)" ng-show="!event.disable">Block</button>
+                                        <button class="btn btn-xs btn-success" ng-click="eventCtrl.unBlockEvent(event._id)" ng-show="event.disable">Unblock</button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- finish travel -->
+                    </div>
 
+                </div>
+            </div>
+            <!-- /daily financials -->
+        </div>
 
-                                        <div ng-show="eventCtrl.action==='reported'">
-                                            <button class="btn btn-xs btn-danger" ng-click="eventCtrl.blockEvent(event._id)" ng-show="!event.disable">Block</button>
-                                            <button class="btn btn-xs btn-success" ng-click="eventCtrl.unBlockEvent(event._id)" ng-show="event.disable">Unblock</button>
-                                        </div>
+        <div class="col-md-5" ng-controller="adminUserCtrl as userCtrl">
+            <!-- Daily financials -->
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Users manager</h6>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- options -->
+                            <div class="form-group" style="margin-top:30px;">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="nhuan" value="available" ng-model="userCtrl.action" ng-change="userCtrl.loadUsers()">Available</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="nhuan" value="blocked" ng-model="userCtrl.action" ng-change="userCtrl.loadUsers()">Blocked</label>
+                                </div>
+                            </div>
+                            <!-- /options -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- travel -->
+                        <table class="table tasks-list table-lg">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Last login</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in userCtrl.users" style="color: #879394; font-size: 12px;">
+                                    <th>#{{$index+1}}</th>
+                                    <th>
+                                        <a ng-href="https://www.facebook.com/{{user.facebookId}}">
+                                            {{user.name}}
+                                        </a>
+                                    </th>
+                                    <th>{{userCtrl.getFormatedDate(user.lastLogin)}}</th>
+                                    <th>{{userCtrl.getFormatedDate(user.created)}}</th>
+                                    <th>
+                                        <button class="btn btn-xs btn-danger" ng-click="userCtrl.blockUser(user._id)" ng-show="!user.disable">Block</button>
+                                        <button class="btn btn-xs btn-success" ng-click="userCtrl.unBlockUser(user._id)" ng-show="user.disable">Unblock</button>
                                     </th>
                                 </tr>
                             </tbody>

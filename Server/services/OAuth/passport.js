@@ -36,6 +36,7 @@ passport.use(new FacebookStrategy({
           gender: profile.gender,
           image: profile.photos[0].value,
           accessToken: accessToken,
+          lastLogin: new Date()
         };
 
         if (!user) {
@@ -99,7 +100,7 @@ passport.use(new FacebookStrategy({
     });
 
   }
-  
+
 ));
 
 module.exports = passport;
