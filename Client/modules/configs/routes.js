@@ -8,6 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', { // home
       url: "/",
       templateUrl: '/home/views/home.html',
+      controller: 'HomeCtrl as ctrl'
     })
     .state('gowithme', { // go with me create
       url: "/gowithme?startLat&startLng&endLat&endLng",
