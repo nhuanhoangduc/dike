@@ -1,7 +1,8 @@
 module.exports = {
-  domain: 'localhost',
-  port: 3000,
+  // domain: 'localhost',
+  // port: 80,
 
-  // heroku
-  //domain: 'meetingpoint.herokuapp.com'
+  main
+  omain: 'www.fudiemhen.com',
+  port: 80
 };
