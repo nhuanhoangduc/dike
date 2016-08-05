@@ -53,9 +53,9 @@ var getReportedEvents = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .find({ reports: { $gt: 0 } })
+    .find({ 'reports.0': { '$exists': true } })
     .lean()
-    .populate('user')
+    .populate('user reports')
     .sort({ reports: -1 })
     .exec(function(err, events) {
 

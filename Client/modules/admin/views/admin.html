@@ -74,7 +74,11 @@
                                         <label ng-show="!eventCtrl.isFinish(event.startTime)" class="label bg-primary">Available</label>
                                     </th>
                                     <th ng-show="eventCtrl.action==='reported'">
-                                        {{event.reports}}
+                                        [
+                                        <div ng-repeat="user in event.reports">
+                                            {{user.name}},
+                                        </div>
+                                        ]
                                     </th>
                                     <th>
                                         <button class="btn btn-xs btn-danger" ng-click="eventCtrl.blockEvent(event._id)" ng-show="!event.disable">Block</button>

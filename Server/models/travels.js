@@ -12,10 +12,9 @@ var travelSchema = new Schema({
 
   commentUsers: [],
 
-  reports: {
-    type: Number,
-    default: 0
-  },
+  reports: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+
+  favorites: [],
 
   disable: {
     type: Boolean,

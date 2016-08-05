@@ -121,6 +121,42 @@ app
 
     };
 
+    // report an event
+    this.report = function() {
+
+      if (confirm('Are you sure you want to report this event?')) {
+
+        restfulServices.get('/post/report', [_this.type, _this.post._id], function(err, res) {
+          if (err)
+            return toastr.error(err.message, 'Error');
+
+          toastr.warning('You has reported this event', 'Success');
+          _this.getEvent();
+
+        });
+
+      }
+
+    };
+
+    // favorite an event
+    this.favorite = function() {
+
+      restfulServices.get('/post/favorite', [_this.type, _this.post._id], function(err, res) {
+        if (err)
+          return toastr.error(err.message, 'Error');
+
+        if (_this.post.favorites.indexOf(_this.user._id) < 0)
+          toastr.info('Added to your favorites', 'Success');
+        else
+          toastr.info('Removed from your favorites', 'Success');
+
+        _this.getEvent();
+
+      });
+
+    };
+
 
     // delete event
     this.deleteEvent = function() {
@@ -130,7 +166,7 @@ app
           if (err)
             return toastr.error(err.data.message, 'Error');
 
-          toastr.success('You has deleted your event', 'Success');
+          toastr.warning('You has deleted your event', 'Success');
           $state.go('gowithme_search');
         });
 

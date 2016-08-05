@@ -3,6 +3,24 @@ var Comments = require('../models/comments');
 var async = require('async');
 
 
+/* events */
+var getModel = function(type) {
+
+  var model = null;
+
+  switch (type) {
+
+    case 'travel':
+      model = Travels;
+      break;
+
+  }
+
+  return model;
+
+};
+
+
 var getPost = function(req, res, next) {
   var model = null;
   var type = req.params.type;
@@ -41,7 +59,6 @@ var join = function(req, res, next) {
 
   model
     .findOne({ _id: eventId })
-    .populate('user')
     .exec(function(err, event) {
 
       if (err)
@@ -117,8 +134,82 @@ var deletePost = function(req, res, next) {
 };
 
 
+var report = function(req, res, next) {
+
+  var user = req.user;
+  var type = req.params.type;
+  var eventId = req.params.eventId;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
+    .findOne({ _id: eventId })
+    .exec(function(err, event) {
+
+      if (err)
+        return next(err);
+
+      var index = event.reports.indexOf(user._id);
+
+      if (index >= 0)
+        event.reports.splice(index, 1);
+      else
+        event.reports.push(user._id);
+
+      model.update({ _id: event._id }, { reports: event.reports }, function(err) {
+        if (err)
+          return next(err);
+
+        res.sendStatus(200);
+      });
+
+    });
+
+};
+
+
+var favorite = function(req, res, next) {
+
+  var user = req.user;
+  var type = req.params.type;
+  var eventId = req.params.eventId;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
+    .findOne({ _id: eventId })
+    .exec(function(err, event) {
+
+      if (err)
+        return next(err);
+
+      var index = event.favorites.indexOf(user._id);
+
+      if (index >= 0)
+        event.favorites.splice(index, 1);
+      else
+        event.favorites.push(user._id);
+
+      model.update({ _id: event._id }, { favorites: event.favorites }, function(err) {
+        if (err)
+          return next(err);
+
+        res.sendStatus(200);
+      });
+
+    });
+
+};
+
+
 module.exports = {
   getPost: getPost,
   deletePost: deletePost,
-  join: join
+  join: join,
+  report: report,
+  favorite: favorite
 };

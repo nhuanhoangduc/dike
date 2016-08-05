@@ -9,6 +9,12 @@ router.get('/:type/:eventId', userServices.checkLogin, postServices.getPost);
 // join event
 router.get('/join/:type/:eventId', userServices.checkLogin, postServices.join);
 
+// report event
+router.get('/report/:type/:eventId', userServices.checkLogin, postServices.report);
+
+// favorite event
+router.get('/favorite/:type/:eventId', userServices.checkLogin, postServices.favorite);
+
 // delete a post
 router.delete('/:type/:eventId', userServices.checkLogin, postServices.deletePost);
 

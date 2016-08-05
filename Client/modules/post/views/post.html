@@ -35,15 +35,19 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a href="">
+                                    <a href="" ng-click="ctrl.favorite()">
                                         Favorite
-                                        <span class="icon-star-empty3 pull-right"></span>
-                                        <span style="color: #F7CA18;" class="icon-star-full2 pull-right"></span>
+                                        <span class="icon-star-empty3 pull-right" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)<0"></span>
+                                        <span style="color: #F7CA18;" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)>=0" class="icon-star-full2 pull-right"></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="" ng-click="ctrl.report()" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)<0">
                                         Report
+                                        <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
+                                    </a>
+                                    <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
+                                        You has reported
                                         <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
                                     </a>
                                 </li>
