@@ -1,3 +1,14 @@
+<style type="text/css">
+.postContent {
+    color: #7a7c7f;
+    font-family: 'Verdana', sans-serif;
+    font-size: 12px;
+    line-height: 26px;
+    margin-left: 20px;
+}
+</style>
+
+
 <div ng-show="ctrl.user._id" style="margin-left:20px; margin-top:20px; margin-right: 20px;">
 
     <!-- event information -->
@@ -17,10 +28,33 @@
                             <i class="icon-bike"></i>
                         </span>
                         Travel
+
+                        <div class="pull-right" style="margin-left: 20px; padding-top: 0px; margin-top: -6px">
+                            <a href="" data-toggle="dropdown">
+                                <span style="color: black;" class="icon-menu7"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">
+                                        Favorite
+                                        <span class="icon-star-empty3 pull-right"></span>
+                                        <span style="color: #F7CA18;" class="icon-star-full2 pull-right"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        Report
+                                        <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <em class="text-muted text-size-mini pull-right">
                             <i class=" icon-database-time2"></i>
                             Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
                         </em>
+
                     </h4>
                 </div>
                 <!-- end header -->
@@ -29,38 +63,75 @@
                 <div class="panel-body">
 
                     <!-- start place -->
-                    <div class="row">
+                    <div class="row postContent">
                         <div class="col-md-2">
-                            <h6>Start:</h6>
+                            Start:
                         </div>
                         <div class="col-md-10">
-                            <h6>{{ctrl.post.startPlace}}</h6>
+                            {{ctrl.post.startPlace}}
                         </div>
                     </div>
                     <!-- end start place -->
 
                     <!-- end place -->
-                    <div class="row">
+                    <div class="row postContent">
                         <div class="col-md-2">
-                            <h6>End:</h6>
+                            End:
                         </div>
                         <div class="col-md-10">
-                            <h6>{{ctrl.post.endPlace}}</h6>
+                            {{ctrl.post.endPlace}}
                         </div>
                     </div>
                     <!-- end place -->
 
                     <!-- start time -->
-                    <div class="row">
+                    <div class="row postContent">
                         <div class="col-md-2">
-                            <h6>Start time:</h6>
+                            Time:
                         </div>
                         <div class="col-md-10">
-                            <h5>{{ctrl.getFormatedDate(ctrl.post.startTime)}}</h5>
+                            {{ctrl.getFormatedDate(ctrl.post.startTime)}}
                         </div>
                     </div>
                     <!-- end start time -->
 
+                    <div class="row postContent">
+                        <div class="col-md-2">
+                            Vehicle:
+                        </div>
+                        <div class="col-md-10">
+                            {{ctrl.post.vehicle}}
+                        </div>
+                    </div>
+
+                    <div class="row postContent">
+                        <div class="col-md-2">
+                            Seats:
+                        </div>
+                        <div class="col-md-10">
+                            {{ctrl.post.freeSeats}}
+                        </div>
+                    </div>
+
+                    <div class="row postContent">
+                        <div class="col-md-2">
+                            Cost:
+                        </div>
+                        <div class="col-md-10">
+                            {{ctrl.post.cost}}
+                        </div>
+                    </div>
+
+                    <div class="row postContent">
+                        <div class="col-md-2">
+                            Note:
+                        </div>
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="3" cols="5" ng-model="ctrl.post.note"></textarea>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <!-- other controls -->
                     <div class="row">

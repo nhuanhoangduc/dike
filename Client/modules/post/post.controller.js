@@ -91,7 +91,13 @@ app
             return toastr.error(err.data.message, 'Error');
 
           toastr.success('You has deleted your comment', 'Success');
-          _this.loadComments();
+
+          // init comments
+          if (_this.isJoin)
+            _this.loadJoinComments();
+          else
+            _this.loadComments();
+
         });
 
       }
