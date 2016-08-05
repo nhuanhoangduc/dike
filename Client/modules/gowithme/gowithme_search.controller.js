@@ -194,6 +194,9 @@ app
             latlngs: [_this.map.markers.end.lat, _this.map.markers.end.lng]
           };
 
+          // bound to markers
+          _this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
+
           restfulServices.get('/map/direction', [travel.start.lat, travel.start.lng, travel.end.lat, travel.end.lng], function(err, res) {
             if (err)
               return;
