@@ -1,58 +1,71 @@
 <style>
-.searchFont {
-  color: #7f8c8d;
-  size: 2px;
-  font-style: italic;
-  font-weight: 500;
-}
+    .searchFont {
+        color: #7f8c8d;
+        size: 2px;
+        font-style: italic;
+        font-weight: 500;
+    }
 
-.userFont a {
-  font-weight: 500;
-  font-size: 20px;
-  color: #2c3e50;
-}
+    .userFont a {
+        font-weight: 500;
+        font-size: 20px;
+        color: #2c3e50;
+    }
+
+    .searchresult {
+        -webkit-box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.23);
+        box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .hoversearch {
+        background-color: #DADFE1;
+    }
 </style>
 
 
 <div style="margin-left:20px; margin-top:20px; margin-right: 20px;">
 
-  <div class="row" style="margin-bottom: 40px;" ng-repeat="travel in ctrl.travels">
-
-    <div class="col-md-offset-2 col-md-6" ng-class="{'bg-slate-300': travel.changeBackground}" ng-mouseover="travel.changeBackground=true" ng-mouseleave="travel.changeBackground=false">
-
-      <div class="row">
-
-        <div class="col-md-12 userFont">
-          <a href="" ui-sref="gowithme_search({id: travel._id})">
-            {{travel.user.name}}
-          </a>
+    <div class="row" ng-show="ctrl.travels.length === 0">
+        <div class="col-md-offset-2 col-md-6">
+            <h4 class="userFont" style="color: #7f8c8d">Không có chuyến đi nào có tuyến đường này</h4>
         </div>
-
-      </div>
-
-      <div class="row searchFont" ng-init="ctrl.getGeoCode(travel.start, travel.end)">
-        <div class="col-md-12">
-          <i class="icon-location3"></i>
-          From: {{travel.start.place}} ~ 1-3km
-        </div>
-      </div>
-
-      <div class="row searchFont">
-        <div class="col-md-12">
-          <i class="icon-location3"></i>
-          To: {{travel.end.place}} ~ 1-3km
-        </div>
-      </div>
-
-      <div class="row searchFont">
-        <div class="col-md-12">
-          <i class="icon-alarm"></i>
-          Start: {{travel.startTime}}
-        </div>
-      </div>
-
     </div>
 
-  </div>
+    <div class=" row " style="margin-bottom: 40px; " ng-repeat="travel in ctrl.travels ">
+
+        <div class="col-md-offset-2 col-md-6 searchresult" ng-class="{ 'hoversearch': travel.changeBackground} " ng-mouseover="travel.changeBackground=true " ng-mouseleave="travel.changeBackground=false ">
+
+            <div class="row ">
+
+                <div class="col-md-12 userFont ">
+                    <a href=" " ui-sref="gowithme_search({id: travel._id}) ">
+            {{travel.user.name}}
+          </a>
+                </div>
+
+            </div>
+
+            <div class="row searchFont " ng-init="ctrl.getGeoCode(travel.start, travel.end) ">
+                <div class="col-md-12 ">
+                    <i class="icon-location3 "></i> From: {{travel.start.place}} ~ 1-3km
+                </div>
+            </div>
+
+            <div class="row searchFont ">
+                <div class="col-md-12 ">
+                    <i class="icon-location3 "></i> To: {{travel.end.place}} ~ 1-3km
+                </div>
+            </div>
+
+            <div class="row searchFont ">
+                <div class="col-md-12 ">
+                    <i class="icon-alarm "></i> Start: {{travel.startTime}}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
