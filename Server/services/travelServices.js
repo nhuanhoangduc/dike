@@ -59,7 +59,7 @@ var getByUserJoin = function(req, res, next) {
         return next(err);
 
       res.json(travels);
-      
+
     });
 };
 
@@ -71,6 +71,44 @@ var getByUserCountJoin = function(req, res, next) {
   Travels
     .count({
       join: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+      if (err)
+        return next(err);
+
+      res.json(travels);
+    });
+};
+
+
+var getByUserFavorite = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .find({
+      favorites: userId
+    })
+    .lean()
+    .exec(function(err, travels) {
+
+      if (err)
+        return next(err);
+
+      res.json(travels);
+
+    });
+};
+
+
+var getByUserCountFavorite = function(req, res, next) {
+  var user = req.user;
+  var userId = user._id;
+
+  Travels
+    .count({
+      favorites: userId
     })
     .lean()
     .exec(function(err, travels) {
@@ -297,5 +335,7 @@ module.exports = {
   getByUserJoin: getByUserJoin,
   getByUserCountJoin: getByUserCountJoin,
   getById_login: getById_login,
-  searchNearBy: searchNearBy
+  searchNearBy: searchNearBy,
+  getByUserFavorite: getByUserFavorite,
+  getByUserCountFavorite: getByUserCountFavorite
 };
