@@ -4,7 +4,11 @@
     font-family: 'Verdana', sans-serif;
     font-size: 12px;
     line-height: 26px;
-    margin-left: 20px;
+    font-weight: 550;
+}
+
+.informationHeader {
+    font-weight: 800;
 }
 </style>
 
@@ -29,34 +33,28 @@
                         </span>
                         Travel
 
-                        <div class="pull-right" style="margin-left: 20px; padding-top: 0px; margin-top: -6px">
-                            <a href="" data-toggle="dropdown">
-                                <span style="color: black;" class="icon-menu7"></span>
+                        <div class="pull-right">
+
+                            <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
+                                <em class="text-muted text-size-mini pull-right">
+                                    Reported
+                                </em>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a href="" ng-click="ctrl.favorite()">
-                                        Favorite
-                                        <span class="icon-star-empty3 pull-right" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)<0"></span>
-                                        <span style="color: #F7CA18;" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)>=0" class="icon-star-full2 pull-right"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" ng-click="ctrl.report()" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)<0">
-                                        Report
-                                        <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
-                                    </a>
-                                    <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
-                                        You has reported
-                                        <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
-                                    </a>
-                                </li>
-                            </ul>
+
+                            <a href="" ng-click="ctrl.report()" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)<0">
+                                <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
+                            </a>
+
+                            <a href="" ng-click="ctrl.favorite()">
+                                <span class="icon-star-empty3 pull-right" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)<0"></span>
+                                <span style="color: #F7CA18;" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)>=0" class="icon-star-full2 pull-right"></span>
+                            </a>
+
                         </div>
 
-                        <em class="text-muted text-size-mini pull-right">
+                        <em class="text-muted text-size-mini pull-right" style="margin-right: 10px;">
                             <i class=" icon-database-time2"></i>
-                            Created: {{ctrl.getFormatedDate(ctrl.post.created)}}
+                            Created: {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.created)}}
                         </em>
 
                     </h4>
@@ -68,69 +66,69 @@
 
                     <!-- start place -->
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Start:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Start:</span>
                         </div>
-                        <div class="col-md-10">
-                            {{ctrl.post.startPlace}}
+                        <div class="col-md-9">
+                            {{ctrl.post.start.place}}
                         </div>
                     </div>
                     <!-- end start place -->
 
                     <!-- end place -->
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            End:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">End:</span>
                         </div>
-                        <div class="col-md-10">
-                            {{ctrl.post.endPlace}}
+                        <div class="col-md-9">
+                            {{ctrl.post.end.place}}
                         </div>
                     </div>
                     <!-- end place -->
 
                     <!-- start time -->
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Time:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Time:</span>
                         </div>
-                        <div class="col-md-10">
-                            {{ctrl.getFormatedDate(ctrl.post.startTime)}}
+                        <div class="col-md-9">
+                            {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.startTime)}}
                         </div>
                     </div>
                     <!-- end start time -->
 
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Vehicle:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Vehicle:</span>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             {{ctrl.post.vehicle}}
                         </div>
                     </div>
 
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Seats:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Available seats:</span>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             {{ctrl.post.freeSeats}}
                         </div>
                     </div>
 
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Cost:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Cost:</span>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             {{ctrl.post.cost}}
                         </div>
                     </div>
 
                     <div class="row postContent">
-                        <div class="col-md-2">
-                            Note:
+                        <div class="col-md-3">
+                            <span class="pull-right informationHeader">Notes:</span>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <textarea class="form-control" rows="3" cols="5" ng-model="ctrl.post.note"></textarea>
                         </div>
                     </div>
@@ -141,16 +139,16 @@
                     <div class="row">
 
                         <!-- join button -->
-                        <ul class="icons-list pull-left">
+                        <ul class="icons-list pull-left" style="margin-right: 10px;">
 
                             <li>
                                 <label class="label bg-slate" ng-click="ctrl.join()">
                                     <a href="" style="color:white;">
                                         <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
-                                            Unjoin {{ctrl.post.join.length}}
+                                            Unjoin ({{ctrl.post.join.length}})
                                         </span>
                                         <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)<0">
-                                            Join {{ctrl.post.join.length}}
+                                            Join ({{ctrl.post.join.length}})
                                         </span>
                                     </a>
                                 </label>
@@ -241,7 +239,7 @@
                                         </p>
                                     </div>
                                     <span class="media-annotation display-block mt-10">
-                                        Updated: {{ctrl.getFormatedDate(comment.created)}}
+                                        Updated: {{ctrl.goWithMeServices.getFormatedDate(comment.created)}}
                                         <a href="#">
                                             <i class="icon-pin-alt position-right text-muted"></i>
                                         </a>

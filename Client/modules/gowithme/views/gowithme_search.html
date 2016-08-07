@@ -1,161 +1,161 @@
 <div style="margin-left:20px; margin-top:20px; margin-right: 20px;">
-  <!-- search event -->
-  <div class="row">
+    <!-- search event -->
+    <div class="row">
 
-    <form class="form">
+        <form class="form">
 
-      <!-- start point -->
-      <div class="form-group form-group-sm col-md-2">
-        <label for="placeStart">Start
-          <i class="pe-7s-map-marker"></i>
-        </label>
+            <!-- start point -->
+            <div class="form-group form-group-sm col-md-2">
+                <label for="placeStart">Start
+                    <i class="pe-7s-map-marker"></i>
+                </label>
 
-        <ui-select id="placeStart" on-select="ctrl.placeSelected('start')" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
-          <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
-          <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-            <div ng-bind-html="place.name | highlight: $select.search"></div>
-            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-          </ui-select-choices>
-        </ui-select>
+                <ui-select id="placeStart" on-select="ctrl.placeSelected('start')" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
+                    <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                    <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
+                        <div ng-bind-html="place.name | highlight: $select.search"></div>
+                        <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                    </ui-select-choices>
+                </ui-select>
 
-      </div>
-      <!-- end start point -->
-
-
-      <!-- change start radius -->
-      <div class="form-group form-group-sm col-md-1">
-        <label for="startRadius">Radius (m)</label>
-        <slider style="margin-top:4px;" id="startRadius" ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
-      </div>
-      <!-- end change radius -->
+            </div>
+            <!-- end start point -->
 
 
-      <!-- end point -->
-      <div class="form-group form-group-sm col-md-2">
-        <label for="endPlace">End
-          <i class="pe-7s-map-marker"></i>
-        </label>
-
-        <ui-select id="endPlace" on-select="ctrl.placeSelected('end')" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
-          <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
-          <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-            <div ng-bind-html="place.name | highlight: $select.search"></div>
-            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-          </ui-select-choices>
-        </ui-select>
-
-      </div>
-      <!-- end end point -->
+            <!-- change start radius -->
+            <div class="form-group form-group-sm col-md-1">
+                <label for="startRadius">Radius (m)</label>
+                <slider style="margin-top:4px;" id="startRadius" ng-model="ctrl.map.markers.start.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('start')"></slider>
+            </div>
+            <!-- end change radius -->
 
 
-      <!-- change end radius -->
-      <div class="form-group form-group-sm  col-md-1">
-        <label for="endRadius">Radius (m)</label>
+            <!-- end point -->
+            <div class="form-group form-group-sm col-md-2">
+                <label for="endPlace">End
+                    <i class="pe-7s-map-marker"></i>
+                </label>
 
-        <slider style="margin-top:4px;" id="endRadius" ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
+                <ui-select id="endPlace" on-select="ctrl.placeSelected('end')" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
+                    <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                    <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
+                        <div ng-bind-html="place.name | highlight: $select.search"></div>
+                        <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                    </ui-select-choices>
+                </ui-select>
 
-      </div>
-      <!-- end change radius -->
-
-
-      <!-- start date -->
-      <div class="form-group form-group-sm col-md-3">
-        <label for="startDate">Start time</label>
-        <p class="input-group">
-          <input id="startDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenStart = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-          <kk-timepicker id="startTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
-        </p>
-      </div>
-      <!-- end date -->
+            </div>
+            <!-- end end point -->
 
 
-      <!-- end date -->
-      <div class="form-group form-group-sm col-md-3">
-        <label for="endDate">End time</label>
-        <p class="input-group">
-          <input id="endDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenEnd = true">
-              <i class="glyphicon glyphicon-calendar"></i>
-            </button>
-          </span>
-          <kk-timepicker id="endTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
-        </p>
-      </div>
-      <!-- end date -->
+            <!-- change end radius -->
+            <div class="form-group form-group-sm  col-md-1">
+                <label for="endRadius">Radius (m)</label>
 
-    </form>
+                <slider style="margin-top:4px;" id="endRadius" ng-model="ctrl.map.markers.end.radius" min="0" max="5000" on-stop-slide="ctrl.radiusChanged('end')"></slider>
 
-  </div>
-  <!-- end search event -->
+            </div>
+            <!-- end change radius -->
 
-  <div class="row">
-    <div class="col-md-12">
-      <leaflet lf-center="ctrl.map.center " paths="ctrl.map.paths" markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="350px " width="100% "></leaflet>
+
+            <!-- start date -->
+            <div class="form-group form-group-sm col-md-3">
+                <label for="startDate">Start time</label>
+                <p class="input-group">
+                    <input id="startDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenStart = true">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                    <kk-timepicker id="startTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
+                </p>
+            </div>
+            <!-- end date -->
+
+
+            <!-- end date -->
+            <div class="form-group form-group-sm col-md-3">
+                <label for="endDate">End time</label>
+                <p class="input-group">
+                    <input id="endDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpenEnd = true">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                    <kk-timepicker id="endTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
+                </p>
+            </div>
+            <!-- end date -->
+
+        </form>
+
     </div>
-  </div>
+    <!-- end search event -->
 
-  <!-- search results -->
-  <div class="row clearfix" ng-show="ctrl.searchResults.length>0">
-    <br>
-    <div class="col-md-3" ng-repeat="result in ctrl.searchResults">
-      <div class="panel text-grey">
-        <div class="panel-heading border-slate border-lg">
-          <div class="row">
-            <div class="col-md-2">
-              <img ng-src="{{result.user.image}}" width="30px" height="30px" class="img-circle">
-            </div>
-            <div class="col-md-10">
-              <a href="" ui-sref="post({type: 'travel', eventId: result._id})">
-                <h5 class="panel-title" style="color:#7f8c8d;">{{result.user.name}}</h5>
-              </a>
-            </div>
-          </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <leaflet lf-center="ctrl.map.center " paths="ctrl.map.paths" markers="ctrl.map.markers " layers="ctrl.map.layers " bounds="ctrl.map.bounds " height="350px " width="100% "></leaflet>
         </div>
-        <div class="panel-body">
-
-          <div class="row" ng-init="ctrl.getGeoCode(result.start)">
-            <div class="col-md-3">Start:</div>
-            <div class="col-md-9">{{result.start.place}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-3" ng-init="ctrl.getGeoCode(result.end)">To:</div>
-            <div class="col-md-9">{{result.end.place}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-3">Time:</div>
-            <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-3">Vehicle:</div>
-            <div class="col-md-9">{{result.vehicle}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-3">Seats</div>
-            <div class="col-md-9">{{result.freeSeats}}</div>
-          </div>
-
-        </div>
-        <div class="panel-footer">
-          <div class="row">
-            <div class="col-md-3">Cost</div>
-            <div class="col-md-9">{{result.cost}}</div>
-          </div>
-        </div>
-      </div>
     </div>
 
-  </div>
-  <!-- end search results -->
+    <!-- search results -->
+    <div class="row clearfix" ng-show="ctrl.searchResults.length>0">
+        <br>
+        <div class="col-md-3" ng-repeat="result in ctrl.searchResults">
+            <div class="panel text-grey">
+                <div class="panel-heading border-slate border-lg">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img ng-src="{{result.user.image}}" width="30px" height="30px" class="img-circle">
+                        </div>
+                        <div class="col-md-10">
+                            <a href="" ui-sref="post({type: 'travel', eventId: result._id})">
+                                <h5 class="panel-title" style="color:#7f8c8d;">{{result.user.name}}</h5>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="row" ng-init="ctrl.services.getGeoCode(ctrl.map, result.start, result.end)">
+                        <div class="col-md-3">Start:</div>
+                        <div class="col-md-9">{{result.start.place}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">To:</div>
+                        <div class="col-md-9">{{result.end.place}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Time:</div>
+                        <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Vehicle:</div>
+                        <div class="col-md-9">{{result.vehicle}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Seats</div>
+                        <div class="col-md-9">{{result.freeSeats}}</div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-3">Cost</div>
+                        <div class="col-md-9">{{result.cost}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end search results -->
 
 </div>

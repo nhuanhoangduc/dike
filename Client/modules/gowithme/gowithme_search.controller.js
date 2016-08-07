@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices, $q, $stateParams, toastr) {
+  .controller('goWithMeSearchCtrl', function(mapServices, restfulServices, $scope, UserServices, $q, $stateParams, toastr, GoWithMeServices) {
     var _this = this;
     var id = $stateParams.id;
 
@@ -11,13 +11,7 @@ app
     this.request.startTime = new Date();
     this.request.endTime = new Date();
     this.moment = moment;
-
-
-    this.autoComplete = function(place) {
-      _this.map.autoComplete(place, function(err, response) {
-        _this.places = response.data;
-      });
-    };
+    this.services = GoWithMeServices;
 
     this.placeSelected = function(name) {
       var marker = this.map.markers[name];
@@ -95,27 +89,7 @@ app
 
       });
     };
-
-    /* convert lat lng to place  */
-    this.getGeoCode = function(point) {
-      point.place = '';
-
-      _this.map.geoCode(point.lat, point.lng, function(err, response) {
-        point.place = response.data;
-      });
-    };
-
-
-    /* set text field data from lat lng*/
-    var setTextField = function(marker, lat, lng) {
-      if (!marker.place)
-        marker.place = {};
-
-      // get geo code
-      _this.map.geoCode(lat, lng, function(err, response) {
-        marker.place.name = response.data.slice(0, 34);
-      });
-    };
+    
 
     // set event dragend to marker
     $scope.$on('leafletDirectiveMarker.dragend', function(event, control) {
@@ -128,7 +102,7 @@ app
       //_this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
 
       // set text field data
-      setTextField(_this.map.markers[control.modelName], control.model.lat, control.model.lng);
+      _this.services.setTextField(_this.map, _this.map.markers[control.modelName]);
 
       // update circle
       _this.map.paths[control.modelName].latlngs = [control.model.lat, control.model.lng];
@@ -166,17 +140,19 @@ app
           var travel = res.data;
           _this.searchResults.push(travel);
 
-          _this.map.markers.start = travel.start;
+          _this.map.markers.start.lat = travel.start.lat;
+          _this.map.markers.start.lng = travel.start.lng;
           _this.map.markers.start.radius = 2;
 
-          _this.map.markers.end = travel.end;
+          _this.map.markers.end.lat = travel.end.lat;
+          _this.map.markers.end.lng = travel.end.lng;
           _this.map.markers.end.radius = 2;
 
           // init data for start text field
-          setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+          _this.services.setTextField(_this.map, _this.map.markers.start);
 
           // init data for end text field
-          setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+          _this.services.setTextField(_this.map, _this.map.markers.end);
 
           // add start circle
           _this.map.paths.start = {
@@ -214,10 +190,10 @@ app
       } else {
 
         // init data for start text field
-        setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+        _this.services.setTextField(_this.map, _this.map.markers.start);
 
         // init data for end text field
-        setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+        _this.services.setTextField(_this.map, _this.map.markers.end);
 
         // add start circle
         _this.map.paths.start = {

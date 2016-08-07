@@ -1,9 +1,10 @@
 app
-  .controller('GoWithMeCtrl', function(restfulServices, toastr, moment, $stateParams, mapServices) {
+  .controller('GoWithMeCtrl', function(restfulServices, mapServices, toastr, moment, $stateParams, mapServices, GoWithMeServices) {
     var _this = this;
 
     this.travels = [];
-    this.moment = moment;
+    this.services = GoWithMeServices;
+    this.map = mapServices;
 
 
     restfulServices.get('/travel/nearby', [$stateParams.startLat, $stateParams.startLng, $stateParams.endLat, $stateParams.endLng], function(err, res) {
@@ -13,20 +14,5 @@ app
       _this.travels = res.data;
       console.log(res.data);
     });
-
-
-    /* convert lat lng to place  */
-    this.getGeoCode = function(start, end) {
-      start.place = '';
-      end.place = '';
-
-      mapServices.geoCode(start.lat, start.lng, function(err, response) {
-        start.place = response.data;
-      });
-
-      mapServices.geoCode(end.lat, end.lng, function(err, response) {
-        end.place = response.data;
-      });
-    };
 
   });

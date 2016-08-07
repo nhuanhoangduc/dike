@@ -1,25 +1,8 @@
 var mongoose = require('../configs/database');
 var Schema = mongoose.Schema;
+var eventInterface = require('./eventInterface');
 
-var travelSchema = new Schema({
-  user: { type: Schema.Types.ObjectId, ref: 'users' },
-
-  join: [{ type: Schema.Types.ObjectId, ref: 'users' }],
-
-  created: Date,
-
-  note: String,
-
-  commentUsers: [],
-
-  reports: [{ type: Schema.Types.ObjectId, ref: 'users' }],
-
-  favorites: [],
-
-  disable: {
-    type: Boolean,
-    default: false
-  },
+var travels = {
 
   typeOfUser: {
     type: String,
@@ -36,7 +19,7 @@ var travelSchema = new Schema({
     lng: Number
   },
 
-  vehicle: { type: String, enum: ['car', 'motorbike', 'bicycle', 'bus', 'walk'] },
+  vehicle: { type: String, enum: ['Car', 'Motorbike', 'Bicycle', 'Bus', 'Walk'] },
 
   freeSeats: {
     type: Number,
@@ -50,11 +33,15 @@ var travelSchema = new Schema({
   },
 
   cost: {
-    type: Number,
+    type: String,
     require: true
   }
 
-});
+}
+
+var schema = eventInterface(travels);
+
+var travelSchema = new Schema(schema);
 
 travelSchema.index({ start: '2d' });
 travelSchema.index({ end: '2d' });

@@ -25,9 +25,9 @@
               </label>
               <div class="col-md-8">
 
-                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
+                <ui-select on-select="ctrl.services.placeSelected(ctrl.map, ctrl.map.markers.start)" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
                   <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
                     <div ng-bind-html="place.name | highlight: $select.search"></div>
                     <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
                   </ui-select-choices>
@@ -45,9 +45,9 @@
               </label>
               <div class="col-md-8">
 
-                <ui-select on-select="ctrl.placeSelected(ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
+                <ui-select on-select="ctrl.services.placeSelected(ctrl.map, ctrl.map.markers.end)" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
                   <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,34)}}</ui-select-match>
-                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                  <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
                     <div ng-bind-html="place.name | highlight: $select.search"></div>
                     <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
                   </ui-select-choices>
@@ -84,11 +84,11 @@
                 <label class="col-md-3 control-label">Vehicle</label>
                 <div class="col-md-5">
                   <select ng-model="ctrl.request.vehicle" class="form-control bg-slate">
-                    <option value="car">Car</option>
-                    <option value="motorbike">Motorbike</option>
-                    <option value="bicycle">Bicycle</option>
-                    <option value="bus">Bus</option>
-                    <option value="walk">Walk</option>
+                    <option value="Car">Car</option>
+                    <option value="Motorbike">Motorbike</option>
+                    <option value="Bicycle">Bicycle</option>
+                    <option value="Bus">Bus</option>
+                    <option value="Walk">Walk</option>
                   </select>
                 </div>
               </div>

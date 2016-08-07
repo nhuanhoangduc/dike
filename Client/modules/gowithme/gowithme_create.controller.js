@@ -1,5 +1,5 @@
 app
-  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices, toastr, $stateParams, $state) {
+  .controller('goWithMeCreateCtrl', function(mapServices, restfulServices, $scope, UserServices, toastr, $stateParams, $state, GoWithMeServices) {
     var _this = this;
 
     this.map = mapServices;
@@ -7,34 +7,9 @@ app
     this.request = {};
     this.request.startTime = new Date();
     this.id = $stateParams.id;
-
-    this.autoComplete = function(place) {
-      _this.map.autoComplete(place, function(err, response) {
-        if (err)
-          return toastr.error('Check your connection', 'Error');
-        _this.places = response.data;
-      });
-    };
-
-    this.placeSelected = function(marker) {
-      _this.map.getLocation(marker.place.placeId, function(err, response) {
-        if (err)
-          return toastr.error('Check your connection, can not get place', 'Error');
-
-        var lat = response.data.lat;
-        var lng = response.data.lng;
-
-        marker.lat = lat;
-        marker.lng = lng;
-
-        // bound to markers
-        _this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
-      });
-    };
+    this.services = GoWithMeServices;
 
 
-    /* date picker popup */
-    // date format
     this.dateFormat = 'dd-MM-yyyy';
 
     // user input
@@ -78,18 +53,6 @@ app
 
     };
 
-    /* set text field data from lat lng*/
-    var setTextField = function(marker, lat, lng) {
-      if (!marker.place)
-        marker.place = {};
-
-      // get geo code
-      _this.map.geoCode(lat, lng, function(err, response) {
-        if (err)
-          return toastr.error('Check your connection, can not get lat lng', 'Error');
-        marker.place.name = response.data.slice(0, 34);
-      });
-    };
 
     // set event dragend to marker
     $scope.$on('leafletDirectiveMarker.dragend', function(event, control) {
@@ -102,7 +65,7 @@ app
       _this.map.boundMarkers(_this.map.markers.start, _this.map.markers.end);
 
       // set text field data
-      setTextField(_this.map.markers[control.modelName], control.model.lat, control.model.lng);
+      _this.services.setTextField(_this.map, _this.map.markers[control.modelName]);
 
     });
 
@@ -111,10 +74,10 @@ app
     (function() {
 
       // init data for start text field
-      setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+      _this.services.setTextField(_this.map, _this.map.markers.start);
 
       // init data for end text field
-      setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+      _this.services.setTextField(_this.map, _this.map.markers.end);
 
       // update user
       UserServices.getCurrentUser(function() {});
@@ -141,10 +104,10 @@ app
           _this.map.markers.end.lng = _this.request.end.lng;
 
           // init data for start text field
-          setTextField(_this.map.markers.start, _this.map.markers.start.lat, _this.map.markers.start.lng);
+          _this.services.setTextField(_this.map, _this.map.markers.start);
 
           // init data for end text field
-          setTextField(_this.map.markers.end, _this.map.markers.end.lat, _this.map.markers.end.lng);
+          _this.services.setTextField(_this.map, _this.map.markers.end);
 
           _this.request.startTime = new Date(_this.request.startTime);
         });

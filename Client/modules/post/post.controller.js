@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment) {
+  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, mapServices, GoWithMeServices) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -8,27 +8,8 @@ app
     this.comments = [];
     this.moment = moment;
     this.isJoin = false;
-
-
-    /* convert lat lng to place  */
-    this.getGeoCode = function(start, end) {
-      _this.post.startPlace = '';
-      _this.post.endPlace = '';
-
-      mapServices.geoCode(start.lat, start.lng, function(err, response) {
-        _this.post.startPlace = response.data;
-      });
-
-      mapServices.geoCode(end.lat, end.lng, function(err, response) {
-        _this.post.endPlace = response.data;
-      });
-    };
-
-
-    // parse date data to string that people can easy to read information
-    this.getFormatedDate = function(date) {
-      return _this.moment(date).format('HH:mm, DD-MM-YYYY');
-    };
+    this.map = mapServices;
+    this.goWithMeServices = GoWithMeServices;
 
 
     /* load all comments for this post */
@@ -183,7 +164,7 @@ app
         _this.post = response.data;
 
         if (_this.type === 'travel') {
-          _this.getGeoCode(_this.post.start, _this.post.end);
+          _this.goWithMeServices.getGeoCode(_this.map, _this.post.start, _this.post.end);
         }
 
         // init comments
