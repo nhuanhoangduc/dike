@@ -59,6 +59,13 @@
                             </a>
                         </li>
 
+                        <li ng-class="{'active': ctrl.menu === 'favorite'}" ng-click="ctrl.menu = 'favorite'">
+                            <a href="">
+                                <i class=" icon-bubble-dots3 position-left"></i> Favorite Events
+                                <span class="badge badge-warning badge-inline position-right">{{ctrl.favoriteTravelCount}}</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -210,7 +217,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="travel in ctrl.joinTravels" style="color: #879394; font-size: 12px;">
+                                        <tr ng-repeat="travel in ctrl.favoriteTravles" style="color: #879394; font-size: 12px;">
                                             <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
                                                 <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
                                                     #{{$index+1}}
@@ -231,6 +238,45 @@
 
                             </div>
                             <!-- /join events -->
+
+
+                            <!-- favorite events -->
+                            <div ng-show="ctrl.menu === 'favorite'">
+                                Travels
+                                <!-- travel -->
+                                <table class="table tasks-list table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Created</th>
+                                            <th>Start</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="travel in ctrl.favoriteTravels" style="color: #879394; font-size: 12px;">
+                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
+                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
+                                                    #{{$index+1}}
+                                                </a>
+                                            </th>
+                                            <th>{{travel.start.place}}</th>
+                                            <th>{{travel.end.place}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
+                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
+                                            <th>
+                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
+                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- finish travel -->
+
+                            </div>
+                            <!-- /favorite events -->
 
 
                         </div>

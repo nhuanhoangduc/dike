@@ -15,6 +15,9 @@ router.get('/getbyusercount', userServices.checkLogin, travelServices.getByUserC
 router.get('/join/getbyuser', userServices.checkLogin, travelServices.getByUserJoin);
 router.get('/join/getbyusercount', userServices.checkLogin, travelServices.getByUserCountJoin);
 
+router.get('/favorite/getbyuser', userServices.checkLogin, travelServices.getByUserFavorite);
+router.get('/favorite/getbyusercount', userServices.checkLogin, travelServices.getByUserCountFavorite);
+
 /* find one */
 router.get('/:id', userServices.checkLogin, travelServices.getById_login);
 router.get('/public/:id', travelServices.getById);

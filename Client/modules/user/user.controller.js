@@ -15,6 +15,9 @@ app
     this.joinTravels = [];
     this.joinTravelCount = 0;
 
+    this.favoriteTravels = [];
+    this.favoriteTravelCount = 0;
+
     this.updateUser = function() {
       restfulServices.put('/users', this.user, function(err, res) {
         UserServices.getCurrentUser(function() {});
@@ -112,6 +115,25 @@ app
 
     };
 
+
+    this.loadFavoriteTravels = function() {
+
+      restfulServices.get('/travel/favorite/getbyuser', [], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.favoriteTravels = res.data;
+      });
+
+      restfulServices.get('/travel/favorite/getbyusercount', [], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.favoriteTravelCount = res.data;
+      });
+
+    };
+
     /* end join travel */
 
 
@@ -124,6 +146,7 @@ app
       _this.loadTravel();
       _this.loadComments();
       _this.loadJoinTravels();
+      _this.loadFavoriteTravels();
 
     })();
 
