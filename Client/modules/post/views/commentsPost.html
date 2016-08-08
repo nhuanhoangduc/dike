@@ -22,8 +22,8 @@
                         <input type="radio" name="radio-unstyled-inline-left" checked="checked" ng-model="ctrl.isJoin" ng-value="false" ng-change="ctrl.changeComment()"> Comments
                     </label>
 
-                    <label class="radio-inline">
-                        <input type="radio" name="radio-unstyled-inline-left" ng-model="ctrl.isJoin" ng-value="true" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0 || ctrl.user._id === ctrl.post.user._id" ng-change="ctrl.changeComment()"> Joint Comments
+                    <label class="radio-inline" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0 || ctrl.user._id === ctrl.post.user._id" ng-change="ctrl.changeComment()">
+                        <input type="radio" name="radio-unstyled-inline-left" ng-model="ctrl.isJoin" ng-value="true"> Joint Comments
                     </label>
                 </div>
 
