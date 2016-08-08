@@ -59,52 +59,79 @@
 
                 <div class="row">
 
-                    <div class="col-md-5">
-                        <!-- start point -->
-                        <div class="form-group">
-                            <label for="placeStart">Start
-                                <i class="pe-7s-map-marker"></i>
-                            </label>
+                    <div class="col-md-6">
+                        <div class="row">
 
-                            <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.start)" ng-model="ctrl.start" theme="bootstrap">
-                                <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
-                                <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-                                    <div ng-bind-html="place.name | highlight: $select.search"></div>
-                                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-                                </ui-select-choices>
-                            </ui-select>
+                            <div class="col-md-12">
+                                <!-- start point -->
+                                <div class="form-group">
+                                    <label for="placeStart">Start
+                                        <i class="pe-7s-map-marker"></i>
+                                    </label>
 
-                        </div>
-                        <!-- end start point -->
-                    </div>
+                                    <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.start)" ng-model="ctrl.start" theme="bootstrap">
+                                        <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                                        <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                                            <div ng-bind-html="place.name | highlight: $select.search"></div>
+                                            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                                        </ui-select-choices>
+                                    </ui-select>
 
-                    <div class="col-md-5">
-                        <!-- start point -->
-                        <div class="form-group">
-                            <label for="placeStart">End
-                                <i class="pe-7s-map-marker"></i>
-                            </label>
+                                </div>
+                                <!-- end start point -->
+                            </div>
 
-                            <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.end)" ng-model="ctrl.end" theme="bootstrap">
-                                <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
-                                <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
-                                    <div ng-bind-html="place.name | highlight: $select.search"></div>
-                                    <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
-                                </ui-select-choices>
-                            </ui-select>
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group pull-right">
+                                        <label for="startRange">In range (km):</label>
+                                        <input type="text" class="form-control" id="startRange">
+                                    </div>
+                                </form>
+                            </div>
 
                         </div>
-                        <!-- end start point -->
                     </div>
 
-                    <div class="col-md-1">
-                        <button class="btn btn-info" style="margin-top: 26px;" ng-click="ctrl.submit()">Go</button>
+                    <div class="col-md-6">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <!-- end point -->
+                                <div class="form-group">
+                                    <label for="placeStart">End
+                                        <i class="pe-7s-map-marker"></i>
+                                    </label>
+
+                                    <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.end)" ng-model="ctrl.end" theme="bootstrap">
+                                        <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                                        <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                                            <div ng-bind-html="place.name | highlight: $select.search"></div>
+                                            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                                <!-- /end point-->
+                            </div>
+
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group pull-right">
+                                        <label for="startRange">In range (km):</label>
+                                        <input type="text" class="form-control" id="startRange">
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
 
             </div>
             <div class="modal-footer">
+                <button class="btn btn-info" ng-click="ctrl.submit()">Go</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
