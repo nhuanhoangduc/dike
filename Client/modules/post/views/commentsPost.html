@@ -1,0 +1,102 @@
+<style type="text/css">
+.username {
+    color: #34495e;
+    font-weight: 500;
+}
+
+.commentContent {
+    color: #7f8c8d;
+    font-weight: 500;
+    font-size: 12px;
+}
+</style>
+
+<div class="row">
+    <div class="panel panel-flat timeline-content">
+        <div class="panel-body">
+            <!-- header -->
+            <span>
+
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="radio-unstyled-inline-left" checked="checked" ng-model="ctrl.isJoin" ng-value="false" ng-change="ctrl.changeComment()"> Comments
+                    </label>
+
+                    <label class="radio-inline">
+                        <input type="radio" name="radio-unstyled-inline-left" ng-model="ctrl.isJoin" ng-value="true" ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0 || ctrl.user._id === ctrl.post.user._id" ng-change="ctrl.changeComment()"> Joint Comments
+                    </label>
+                </div>
+
+            </span>
+
+            <hr>
+            <!-- end header -->
+
+            <!-- show each comment -->
+            <ul class="media-list content-group">
+
+                <li class="media" ng-repeat="comment in ctrl.comments">
+
+                    <!-- user image -->
+                    <div class="media-left">
+                        <a href="assets/images/placeholder.jpg">
+                            <img ng-src="{{comment.user.image}}" class="img-circle" alt="">
+                        </a>
+                    </div>
+                    <!-- finish user image -->
+
+                    <!-- content -->
+                    <div class="media-body">
+                        <div class="media-content">
+                            <span>
+                                <a class="username" ng-href="https://www.facebook.com/{{comment.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                                    {{comment.user.name}}
+                                </a>
+                                <a href="" class="pull-right" data-toggle="tooltip" title="Delete" ng-show="comment.user._id.toString() === ctrl.user._id.toString()" ng-click="ctrl.deleteComment(comment._id)">
+                                    <i class="icon-bin2" style="color:#2c3e50; font-size: 12px;"></i>
+                                </a>
+                            </span>
+                            <p class="commentContent">
+                                {{comment.comment}}
+                            </p>
+                        </div>
+                        <span class="media-annotation display-block mt-10" style="font-size: 11px;">
+                            Updated: {{ctrl.goWithMeServices.getFormatedDate(comment.created)}}
+                            <a href="#">
+                                <i class="icon-pin-alt position-right text-muted"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <hr>
+                    <!-- finish content -->
+
+                </li>
+
+            </ul>
+            <!-- end show comment -->
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- post comment -->
+<div class="row">
+    <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 text-right pull-right">
+
+        <!-- post button -->
+        <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
+            <b>
+                <i class="icon-circle-right2"></i>
+            </b> Send
+        </button>
+        <!-- end post button -->
+
+    </div>
+</div>
+<!-- end post comment -->

@@ -1,0 +1,34 @@
+<div class="thumbnail">
+    <!-- image -->
+    <div class="thumb thumb-rounded thumb-slide">
+        <img ng-src="{{ctrl.post.user.image}}" alt="">
+
+    </div>
+    <!-- end image -->
+
+    <!-- information -->
+    <div class="caption text-center">
+
+        <!-- telephone -->
+        <h6 class="text-semibold no-margin">
+            {{ctrl.post.user.name}}
+            <small class="display-block">Tel: {{ctrl.post.user.phone || 'Not set'}}</small>
+            <small class="display-block">Location: {{ctrl.post.user.location || 'Not set'}}</small>
+            <small class="display-block">Status: {{ctrl.post.user.status || 'Not set'}}</small>
+        </h6>
+        <!-- end telephone -->
+
+        <!-- link to facebook account -->
+        <ul class="icons-list mt-15">
+            <li>
+                <a ng-href="https://www.facebook.com/{{ctrl.post.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                    <i class="icon-facebook2"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- end link facebook account -->
+
+    </div>
+    <!-- end information -->
+
+</div>

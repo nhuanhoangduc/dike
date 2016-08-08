@@ -1,0 +1,166 @@
+<div class="panel panel-flat border-top-info border-bottom-info row">
+
+    <!-- header -->
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-info">
+                <i class="icon-bike"></i>
+            </span>
+            Travel
+
+            <div class="pull-right">
+
+                <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
+                    <em class="text-muted text-size-mini pull-right">
+                        Reported
+                    </em>
+                </a>
+
+                <a href="" ng-click="ctrl.report()" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)<0">
+                    <span style="color: #c0392b;" class="icon-minus-circle2 pull-right"></span>
+                </a>
+
+                <a href="" ng-click="ctrl.favorite()">
+                    <span class="icon-star-empty3 pull-right" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)<0"></span>
+                    <span style="color: #F7CA18;" ng-show="ctrl.post.favorites.indexOf(ctrl.user._id)>=0" class="icon-star-full2 pull-right"></span>
+                </a>
+
+            </div>
+
+            <em class="text-muted text-size-mini pull-right" style="margin-right: 10px;">
+                <i class=" icon-database-time2"></i>
+                Created: {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.created)}}
+            </em>
+
+        </h4>
+    </div>
+    <!-- end header -->
+
+    <!-- content -->
+    <div class="panel-body">
+
+        <!-- start place -->
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Start:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.post.start.place}}
+            </div>
+        </div>
+        <!-- end start place -->
+
+        <!-- end place -->
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">End:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.post.end.place}}
+            </div>
+        </div>
+        <!-- end place -->
+
+        <!-- start time -->
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Time:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.startTime)}}
+            </div>
+        </div>
+        <!-- end start time -->
+
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Vehicle:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.post.vehicle}}
+            </div>
+        </div>
+
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Available seats:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.post.freeSeats}}
+            </div>
+        </div>
+
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Cost:</span>
+            </div>
+            <div class="col-md-9 col-xs-9">
+                {{ctrl.post.cost}}
+            </div>
+        </div>
+
+        <div class="row postContent">
+            <div class="col-md-3 col-xs-3">
+                <span class="pull-right informationHeader">Note:</span>
+            </div>
+            <div class="col-md-8 col-xs-8">
+                <textarea class="form-control" rows="3" cols="5" ng-model="ctrl.post.note"></textarea>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- other controls -->
+        <div class="row">
+
+            <!-- join button -->
+            <ul class="icons-list pull-left" style="margin-right: 10px;">
+
+                <li>
+                    <label class="label bg-slate" ng-click="ctrl.join()">
+                        <a href="" style="color:white;">
+                            <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
+                                Unjoin ({{ctrl.post.join.length}})
+                            </span>
+                            <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)<0">
+                                Join ({{ctrl.post.join.length}})
+                            </span>
+                        </a>
+                    </label>
+                </li>
+
+
+            </ul>
+            <!-- end join button -->
+
+
+            <!-- edit and delete -->
+            <ul class="icons-list pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
+
+                <li class="text-primary-600">
+                    <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
+                        <i class="icon-pencil7"></i>
+                    </a>
+                </li>
+
+                <li class="text-danger-600">
+                    <a href="" ng-click="ctrl.deleteEvent()" title="Delete event">
+                        <i class="icon-trash"></i>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- finish edit and delete -->
+
+
+            <!-- fb share button -->
+            <fb-share class="pull-right"></fb-share>
+            <!-- finish fb share -->
+
+        </div>
+        <!-- finish other controls-->
+
+    </div>
+    <!-- end content -->
+
+</div>

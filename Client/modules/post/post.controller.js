@@ -177,11 +177,9 @@ app
     };
 
 
-    this.changeComment = function(isJoin) {
+    this.changeComment = function() {
 
-      this.isJoin = isJoin;
-
-      if (isJoin)
+      if (this.isJoin)
         _this.loadJoinComments();
       else
         _this.loadComments();
