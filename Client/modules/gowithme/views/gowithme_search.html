@@ -1,3 +1,18 @@
+<style type="text/css">
+.content: {
+    color: #7a7c7f;
+    font-family: 'Verdana', sans-serif;
+    font-size: 12px;
+    line-height: 26px;
+    font-weight: 550;
+}
+
+.informationHeader {
+    font-weight: 800;
+}
+</style>
+
+
 <div style="margin-left:20px; margin-top:20px; margin-right: 20px;">
     <!-- search event -->
     <div class="row">
@@ -104,52 +119,64 @@
     <div class="row clearfix" ng-show="ctrl.searchResults.length>0">
         <br>
         <div class="col-md-3" ng-repeat="result in ctrl.searchResults">
-            <div class="panel text-grey">
-                <div class="panel-heading border-slate border-lg">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img ng-src="{{result.user.image}}" width="30px" height="30px" class="img-circle">
+            <div class="panel">
+                <div class="panel-heading" style="background-color: #2c3e50; height: 30px;">
+                    <div class="row" style="margin-top: -8px;">
+                        <div class="col-md-3 col-xs-3">
+                            <img ng-src="{{result.user.image}}" width="20px" height="20px" class="img-circle">
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-9 col-xs-9">
                             <a href="" ui-sref="post({type: 'travel', eventId: result._id})">
-                                <h5 class="panel-title" style="color:#7f8c8d;">{{result.user.name}}</h5>
+                                <span style="color:white;">{{result.user.name}}</span>
                             </a>
                         </div>
                     </div>
 
                 </div>
-                <div class="panel-body">
+                <div class="panel-body content">
 
                     <div class="row" ng-init="ctrl.services.getGeoCode(ctrl.map, result.start, result.end)">
-                        <div class="col-md-3">Start:</div>
-                        <div class="col-md-9">{{result.start.place}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Start:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.start.place}}</div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">To:</div>
-                        <div class="col-md-9">{{result.end.place}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">To:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.end.place}}</div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">Time:</div>
-                        <div class="col-md-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Time:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{ctrl.getFormatedDate(result.startTime)}}</div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">Vehicle:</div>
-                        <div class="col-md-9">{{result.vehicle}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Vehicle:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.vehicle}}</div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">Seats</div>
-                        <div class="col-md-9">{{result.freeSeats}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Seats:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.freeSeats}}</div>
                     </div>
 
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-3">Cost</div>
-                        <div class="col-md-9">{{result.cost}}</div>
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Cost:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.cost}}</div>
                     </div>
                 </div>
             </div>
