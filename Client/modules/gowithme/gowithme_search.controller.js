@@ -12,6 +12,8 @@ app
     this.request.endTime = new Date();
     this.moment = moment;
     this.services = GoWithMeServices;
+    this.id = id;
+    
 
     this.placeSelected = function(name) {
       var marker = this.map.markers[name];
