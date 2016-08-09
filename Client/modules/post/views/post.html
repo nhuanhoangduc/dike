@@ -13,7 +13,7 @@
 </style>
 
 
-<div ng-show="ctrl.user._id" style="margin-left:20px; margin-top:20px; margin-right: 20px;">
+<div style="margin-left:20px; margin-top:20px; margin-right: 20px;">
 
     <!-- event information -->
     <div class="row">
@@ -28,7 +28,7 @@
 
 
             <!-- start comments -->
-            <comments-post></comments-post>
+            <comments-post ng-show="ctrl.user._id"></comments-post>
             <!-- end comments -->
 
         </div>
@@ -48,10 +48,3 @@
 </div>
 
 <br>
-
-
-
-
-<div ng-show="!ctrl.user._id">
-    Not login
-</div>

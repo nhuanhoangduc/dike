@@ -4,7 +4,7 @@ var userServices = require('../services/userServices');
 
 
 /* get info about a event */
-router.get('/:type/:eventId', userServices.checkLogin, postServices.getPost);
+router.get('/:type/:eventId', postServices.getPost);
 
 // join event
 router.get('/join/:type/:eventId', userServices.checkLogin, postServices.join);
