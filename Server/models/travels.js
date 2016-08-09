@@ -27,11 +27,6 @@ var travels = {
     require: true
   },
 
-  startTime: {
-    type: Date,
-    require: true
-  },
-
   cost: {
     type: String,
     require: true

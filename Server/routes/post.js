@@ -9,6 +9,9 @@ router.get('/:type/:eventId', postServices.getPost);
 // join event
 router.get('/join/:type/:eventId', userServices.checkLogin, postServices.join);
 
+// close event
+router.get('/close/:type/:eventId', userServices.checkLogin, postServices.close);
+
 // report event
 router.get('/report/:type/:eventId', userServices.checkLogin, postServices.report);
 

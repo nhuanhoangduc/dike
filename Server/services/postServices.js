@@ -25,12 +25,10 @@ var getPost = function(req, res, next) {
   var model = null;
   var type = req.params.type;
   var eventId = req.params.eventId;
-
-  if (type === 'travel')
-    model = Travels;
+  var model = getModel(type);
 
   if (!model)
-    return next({ message: 'Type is incorrect' });
+    return next({ message: 'Invalid event type' });
 
   model
     .findOne({ _id: eventId })
@@ -39,8 +37,37 @@ var getPost = function(req, res, next) {
       if (err)
         return next(err);
 
-      res.json(event);
+      var startDate = new Date(event.startTime);
+      var currentDate = new Date();
+
+      event._doc.isFinish = startDate < currentDate ? true : false;
+      return res.send(event);
+
     });
+};
+
+
+var close = function(req, res, next) {
+
+  var model = null;
+  var type = req.params.type;
+  var eventId = req.params.eventId;
+  var user = req.user;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
+    .update({ _id: eventId, user: user._id }, { closed: true }, function(err) {
+
+      if (err)
+        return next(err);
+
+      res.sendStatus(200);
+
+    });
+
 };
 
 
@@ -50,12 +77,10 @@ var join = function(req, res, next) {
   var type = req.params.type;
   var eventId = req.params.eventId;
   var user = req.user;
-
-  if (type === 'travel')
-    model = Travels;
+  var model = getModel(type);
 
   if (!model)
-    return next({ message: 'Type is incorrect' });
+    return next({ message: 'Invalid event type' });
 
   model
     .findOne({ _id: eventId })
@@ -87,12 +112,10 @@ var deletePost = function(req, res, next) {
   var model = null;
   var type = req.params.type;
   var eventId = req.params.eventId;
-
-  if (type === 'travel')
-    model = Travels;
+  var model = getModel(type);
 
   if (!model)
-    return next({ message: 'Type is incorrect' });
+    return next({ message: 'Invalid event type' });
 
   model
     .findOne({ _id: eventId })
@@ -211,5 +234,6 @@ module.exports = {
   deletePost: deletePost,
   join: join,
   report: report,
-  favorite: favorite
+  favorite: favorite,
+  close: close
 };

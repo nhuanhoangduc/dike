@@ -120,6 +120,24 @@ app
 
     };
 
+    // close an event
+    this.close = function() {
+
+      if (confirm('Are you sure you want to close this event?')) {
+
+        restfulServices.get('/post/close', [_this.type, _this.post._id], function(err, res) {
+          if (err)
+            return toastr.error(err.message, 'Error');
+
+          toastr.warning('You has closed your event', 'Success');
+          _this.getEvent();
+
+        });
+
+      }
+
+    };
+
     // favorite an event
     this.favorite = function() {
 

@@ -23,6 +23,16 @@ var eventSchema = {
     default: false
   },
 
+  closed: {
+    type: Boolean,
+    default: false
+  },
+
+  startTime: {
+    type: Date,
+    require: true
+  },
+
 };
 
 

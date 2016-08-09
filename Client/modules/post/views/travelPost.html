@@ -3,9 +3,25 @@
     <!-- header -->
     <div class="panel-heading">
         <h4 class="panel-title">
-            <span class="label label-info">
-                <i class="icon-bike"></i>
+            <!-- status -->
+
+            <span class="label label-success" ng-show="!ctrl.post.closed && !ctrl.post.isFinish&& !ctrl.post.disable">
+                Available
             </span>
+
+            <span class="label label-info" ng-show="ctrl.post.closed && !ctrl.post.isFinish&& !ctrl.post.disable">
+                Closed
+            </span>
+
+            <span class="label bg-slate" ng-show="ctrl.post.isFinish">
+                Finish {{ctrl.currentDate}}
+            </span>
+
+            <span class="label label-danger" ng-show="ctrl.post.disable">
+                Block
+            </span>
+
+            <!-- /status -->
             Travel
 
             <div class="pull-right" ng-show="ctrl.user._id">
@@ -116,7 +132,7 @@
             <!-- join button -->
             <ul class="icons-list pull-left" style="margin-right: 10px;">
 
-                <li>
+                <li ng-disabled="ctrl.post.disable || ctrl.post.closed">
                     <label class="label bg-slate" ng-click="ctrl.join()">
                         <a href="" style="color:white;">
                             <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">
@@ -140,6 +156,12 @@
                 <li class="text-primary-600">
                     <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
                         <i class="icon-pencil7"></i>
+                    </a>
+                </li>
+
+                <li class="text-teal-600" ng-show="!ctrl.post.closed">
+                    <a href="" ng-click="ctrl.close()" title="Close event">
+                        <i class="icon-checkmark-circle"></i>
                     </a>
                 </li>
 
