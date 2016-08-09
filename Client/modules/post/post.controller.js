@@ -189,7 +189,7 @@ app
 
     this.facebookShare = function() {
 
-      var postUrl = 'http://www.fudiemhen.com/#/post/' + this.type + '/' + this.eventId;
+      var postUrl = 'http%3A%2F%2Fwww.fudiemhen.com%2F%23%2Fpost%2F' + this.type + '/' + this.eventId;
       var fbShareUrl = 'http://www.facebook.com/sharer.php?s=100&p[title]=GoWithMe&p[summary]=Go&p[url]=' + postUrl + '&p[images][0]=YOUR_IMAGE_TO_SHARE_OBJECT';
 
       window.open(fbShareUrl, 'newwindow', 'width=500, height=400');
