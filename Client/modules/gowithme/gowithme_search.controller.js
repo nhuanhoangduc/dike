@@ -135,7 +135,7 @@ app
 
       if (id) {
 
-        restfulServices.get('/travel/public', [id], function(err, res) {
+        restfulServices.get('/event/travel/public', [id], function(err, res) {
           if (err)
             return toastr.error(err.message, 'Lỗi');
 

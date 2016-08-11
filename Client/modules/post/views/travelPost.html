@@ -17,14 +17,14 @@
                 Finish {{ctrl.currentDate}}
             </span>
 
-            <span class="label label-danger" ng-show="ctrl.post.disable">
+            <span class="label label-danger" ng-show="ctrl.post.disable && !ctrl.post.isFinish">
                 Block
             </span>
 
             <!-- /status -->
             Travel
 
-            <div class="pull-right" ng-show="ctrl.user._id">
+            <div class="pull-right" ng-show="ctrl.user._id" ng-hide="ctrl.post.disable || ctrl.post.closed || ctrl.post.isFinish">
 
                 <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
                     <em class="text-muted text-size-mini pull-right">
@@ -132,7 +132,7 @@
             <!-- join button -->
             <ul class="icons-list pull-left" style="margin-right: 10px;">
 
-                <li ng-disabled="ctrl.post.disable || ctrl.post.closed">
+                <li ng-disabled="ctrl.post.disable || ctrl.post.closed || ctrl.post.isFinish">
                     <label class="label bg-slate" ng-click="ctrl.join()">
                         <a href="" style="color:white;">
                             <span ng-show="ctrl.post.join.indexOf(ctrl.user._id)>=0">

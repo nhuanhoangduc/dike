@@ -85,14 +85,14 @@
 
 <!-- post comment -->
 <div class="row">
-    <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment"></textarea>
+    <textarea name="enter-message" class="form-control content-group col-md-12" rows="3" cols="1" placeholder="Enter your message..." ng-model="ctrl.comment" ng-disabled="ctrl.post.closed && !ctrl.isJoin" ng-show="!ctrl.post.isFinish&& !ctrl.post.disable"></textarea>
 </div>
 
 <div class="row">
     <div class="col-xs-6 text-right pull-right">
 
         <!-- post button -->
-        <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()">
+        <button ng-show="!ctrl.post.isFinish&& !ctrl.post.disable" type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right" ng-click="ctrl.postComment()" ng-disabled="ctrl.post.closed && !ctrl.isJoin">
             <b>
                 <i class="icon-circle-right2"></i>
             </b> Send

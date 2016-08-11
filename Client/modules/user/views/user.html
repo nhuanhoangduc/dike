@@ -136,38 +136,9 @@
 
                             <!-- events -->
                             <div ng-show="ctrl.menu === 'event'">
-                                Travels
-                                <!-- travel -->
-                                <table class="table tasks-list table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Start</th>
-                                            <th>End</th>
-                                            <th>Created</th>
-                                            <th>Start</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="travel in ctrl.travels" style="color: #879394; font-size: 12px;">
-                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
-                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
-                                                    #{{$index+1}}
-                                                </a>
-                                            </th>
-                                            <th>{{travel.start.place}}</th>
-                                            <th>{{travel.end.place}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
-                                            <th>
-                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
-                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- finish travel -->
+
+                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <event-profile></event-profile>
 
                             </div>
                             <!-- finish event -->
@@ -203,38 +174,9 @@
 
                             <!-- join events -->
                             <div ng-show="ctrl.menu === 'join'">
-                                Travels
-                                <!-- travel -->
-                                <table class="table tasks-list table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Start</th>
-                                            <th>End</th>
-                                            <th>Created</th>
-                                            <th>Start</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="travel in ctrl.favoriteTravles" style="color: #879394; font-size: 12px;">
-                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
-                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
-                                                    #{{$index+1}}
-                                                </a>
-                                            </th>
-                                            <th>{{travel.start.place}}</th>
-                                            <th>{{travel.end.place}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
-                                            <th>
-                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
-                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- finish travel -->
+
+                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <event-join-profile></event-join-profile>
 
                             </div>
                             <!-- /join events -->
@@ -242,38 +184,9 @@
 
                             <!-- favorite events -->
                             <div ng-show="ctrl.menu === 'favorite'">
-                                Travels
-                                <!-- travel -->
-                                <table class="table tasks-list table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Start</th>
-                                            <th>End</th>
-                                            <th>Created</th>
-                                            <th>Start</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="travel in ctrl.favoriteTravels" style="color: #879394; font-size: 12px;">
-                                            <th ng-init="ctrl.getGeoCode(travel.start, travel.end)">
-                                                <a href="" ui-sref="post({type:'travel', eventId: travel._id})">
-                                                    #{{$index+1}}
-                                                </a>
-                                            </th>
-                                            <th>{{travel.start.place}}</th>
-                                            <th>{{travel.end.place}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.created)}}</th>
-                                            <th>{{ctrl.getFormatedDate(travel.startTime)}}</th>
-                                            <th>
-                                                <label ng-show="ctrl.isFinish(travel.startTime)" class="label bg-slate">Finish</label>
-                                                <label ng-show="!ctrl.isFinish(travel.startTime)" class="label bg-primary">Available</label>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- finish travel -->
+
+                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <event-favorite-profile></event-favorite-profile>
 
                             </div>
                             <!-- /favorite events -->

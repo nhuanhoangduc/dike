@@ -31,7 +31,7 @@ app
 
       if (_this.id) { // update
 
-        restfulServices.put('/travel', _this.request, function(err, response) {
+        restfulServices.put('/event/travel', _this.request, function(err, response) {
           if (err)
             return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
 
@@ -41,7 +41,7 @@ app
 
       } else { // add new
 
-        restfulServices.post('/travel', _this.request, function(err, response) {
+        restfulServices.post('/event/travel', _this.request, function(err, response) {
           if (err)
             return toastr.error(err.data.message ? err.data.message : err.data, 'Error');
 
@@ -89,7 +89,7 @@ app
       }
 
       if (_this.id) {
-        restfulServices.get('/travel', [_this.id], function(err, response) {
+        restfulServices.get('/event/travel', [_this.id], function(err, response) {
           if (err)
             return toastr.error(err.data.message, 'Error');
           console.log(response.data);

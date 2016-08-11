@@ -7,51 +7,97 @@ var _ = require('underscore');
 var polyline = require('polyline');
 
 
+/* events */
+var getModel = function(type) {
+
+  var model = null;
+
+  switch (type) {
+
+    case 'travel':
+      model = Travels;
+      break;
+
+  }
+
+  return model;
+
+};
+
+
 /* get by user */
 var getByUser = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .find({
       user: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
+
       if (err)
         return next(err);
 
       res.json(travels);
+
     });
 };
 
 
 var getByUserCount = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .count({
       user: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
+
       if (err)
         return next(err);
 
       res.json(travels);
+
     });
 };
 
 
 var getByUserJoin = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .find({
       join: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
 
@@ -65,31 +111,49 @@ var getByUserJoin = function(req, res, next) {
 
 
 var getByUserCountJoin = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .count({
       join: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
+
       if (err)
         return next(err);
 
       res.json(travels);
+
     });
 };
 
 
 var getByUserFavorite = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .find({
       favorites: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
 
@@ -103,25 +167,36 @@ var getByUserFavorite = function(req, res, next) {
 
 
 var getByUserCountFavorite = function(req, res, next) {
+
   var user = req.user;
   var userId = user._id;
 
-  Travels
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .count({
       favorites: userId
     })
+    .populate('user')
     .lean()
     .exec(function(err, travels) {
+
       if (err)
         return next(err);
 
       res.json(travels);
+
     });
 };
 
 
 /* create new */
 var create = function(req, res, next) {
+
   var event = req.body;
 
   if (!event.startTime || !event.cost)
@@ -132,8 +207,10 @@ var create = function(req, res, next) {
   event.commentUsers = [req.session.passport.user._id];
 
   if (event.typeOfUser === 'customer') { // customer
+
     delete event.freeSeats;
     delete event.vehicle;
+
   } else { // driver
 
     if (!event.freeSeats || !event.vehicle)
@@ -142,16 +219,20 @@ var create = function(req, res, next) {
   }
 
   Travels.create(event, function(err, event) {
+
     if (err)
       return next(err);
 
     return res.json(event);
+
   });
+
 };
 
 
 /* update */
 var update = function(req, res, next) {
+
   var event = req.body;
 
   if (!event.startTime || !event.cost)
@@ -162,8 +243,10 @@ var update = function(req, res, next) {
   event.commentUsers = [req.session.passport.user._id];
 
   if (event.typeOfUser === 'customer') { // customer
+
     delete event.freeSeats;
     delete event.vehicle;
+
   } else { // driver
 
     if (!event.freeSeats || !event.vehicle)
@@ -175,6 +258,7 @@ var update = function(req, res, next) {
     .findOne({ _id: event._id })
     .lean()
     .exec(function(err, travel) {
+
       if (err)
         return next(err);
 
@@ -185,10 +269,12 @@ var update = function(req, res, next) {
         return next({ message: 'Only user who created this event can edit' });
 
       Travels.update({ _id: event._id }, event, function(err) {
+
         if (err)
           return next(err);
 
         return res.sendStatus(200);
+
       });
 
     });
@@ -198,10 +284,19 @@ var update = function(req, res, next) {
 
 // find a travel event with id
 var getById_login = function(req, res, next) {
-  Travels
+
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .findOne({ _id: req.params.id })
     .lean()
+    .populate('user')
     .exec(function(err, travel) {
+
       if (err)
         return next(err);
 
@@ -209,20 +304,30 @@ var getById_login = function(req, res, next) {
         return next({ message: 'Only user who created this event can edit' });
 
       res.json(travel);
+
     });
 };
 
 // find a travel event with id
 var getById = function(req, res, next) {
-  Travels
+
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
     .findOne({ _id: req.params.id })
     .populate('user')
     .lean()
     .exec(function(err, travel) {
+
       if (err)
         return next(err);
 
       res.json(travel);
+
     });
 };
 
@@ -261,11 +366,13 @@ var searchNearBy = function(req, res, next) {
         })
         .populate('user')
         .exec(function(err, startResults) {
+
           if (err)
             return done(err);
 
           search.start = startResults;
           done();
+
         });
     },
 
@@ -284,15 +391,18 @@ var searchNearBy = function(req, res, next) {
             }
           }]
         }, function(err, endResults) {
+
           if (err)
             return done(err);
 
           search.end = endResults;
           return done();
+
         });
     }
 
   ], function(err) {
+
     if (err)
       return next(err);
 
@@ -317,7 +427,9 @@ var searchNearBy = function(req, res, next) {
       nextItem();
 
     }, function() {
+
       res.json(results);
+
     });
 
   });

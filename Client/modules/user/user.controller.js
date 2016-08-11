@@ -6,20 +6,17 @@ app
     this.user = UserServices.user;
     this.menu = 'profile';
 
-    this.travels = [];
-    this.travelCount = 0;
+    this.events = {
+      travel: {},
+    };
 
-    this.comments = [];
-    this.commentCount = 0;
+    this.currentEvent = 'travel';
 
-    this.joinTravels = [];
-    this.joinTravelCount = 0;
-
-    this.favoriteTravels = [];
-    this.favoriteTravelCount = 0;
 
     this.updateUser = function() {
+
       restfulServices.put('/users', this.user, function(err, res) {
+
         UserServices.getCurrentUser(function() {});
 
         if (err)
@@ -28,23 +25,87 @@ app
         toastr.success('User has updated', 'Success');
 
       });
+
     };
 
 
-    this.loadTravel = function() {
-      restfulServices.get('/travel/getbyuser', [], function(err, res) {
+    this.loadEvent = function(eventType, event) {
+
+      restfulServices.get('/event/' + eventType + '/getbyuser', [], function(err, res) {
+
         if (err)
           return toastr.error(err.data.message, 'Error');
 
-        _this.travels = res.data;
+        event.list = res.data;
+
       });
 
-      restfulServices.get('/travel/getbyusercount', [], function(err, res) {
+      restfulServices.get('/event/' + eventType + '/getbyusercount', [], function(err, res) {
+
         if (err)
           return toastr.error(err.data.message, 'Error');
 
-        _this.travelCount = res.data;
+        event.count = res.data;
+
       });
+
+    };
+
+
+    this.loadJoinEvents = function(eventType, event) {
+
+      restfulServices.get('/event/' + eventType + '/join/getbyuser', [], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        event.joins = res.data;
+
+      });
+
+      restfulServices.get('/event/' + eventType + '/join/getbyusercount', [], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        event.joinCount = res.data;
+
+      });
+
+    };
+
+
+    this.loadFavoriteEvents = function(eventType, event) {
+
+      restfulServices.get('/event/' + eventType + '/favorite/getbyuser', [], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        event.favorites = res.data;
+
+      });
+
+      restfulServices.get('/event/' + eventType + '/favorite/getbyusercount', [], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        event.favoriteCount = res.data;
+
+      });
+
+    };
+
+
+    this.loadEvents = function() {
+
+      for (event in _this.events) {
+        _this.loadEvent(event, _this.events[event]);
+        _this.loadJoinEvents(event, _this.events[event]);
+        _this.loadFavoriteEvents(event, _this.events[event]);
+      }
+
     };
 
 
@@ -78,61 +139,32 @@ app
 
 
     this.loadComments = function() {
+
       restfulServices.get('/comments/getbyuser', [], function(err, res) {
+
         if (err)
           return toastr.error(err.data.message, 'Error');
 
         _this.comments = res.data;
+
       });
 
       restfulServices.get('/comments/getbyusercount', [], function(err, res) {
+
         if (err)
           return toastr.error(err.data.message, 'Error');
 
         _this.commentCount = res.data;
+
       });
+
     };
 
 
     /* join travel */
 
-    // load join travels and join travel count 
-    this.loadJoinTravels = function() {
-
-      restfulServices.get('/travel/join/getbyuser', [], function(err, res) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.joinTravels = res.data;
-      });
-
-      restfulServices.get('/travel/join/getbyusercount', [], function(err, res) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.joinTravelCount = res.data;
-      });
-
-    };
 
 
-    this.loadFavoriteTravels = function() {
-
-      restfulServices.get('/travel/favorite/getbyuser', [], function(err, res) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.favoriteTravels = res.data;
-      });
-
-      restfulServices.get('/travel/favorite/getbyusercount', [], function(err, res) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.favoriteTravelCount = res.data;
-      });
-
-    };
 
     /* end join travel */
 
@@ -143,10 +175,8 @@ app
       // update user
       UserServices.getCurrentUser(function() {});
 
-      _this.loadTravel();
+      _this.loadEvents();
       _this.loadComments();
-      _this.loadJoinTravels();
-      _this.loadFavoriteTravels();
 
     })();
 
