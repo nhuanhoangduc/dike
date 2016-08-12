@@ -1,31 +1,56 @@
-<table class="table tasks-list table-lg" ng-show="ctrl.currentEvent='travel'">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>User</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Created</th>
-            <th>Start</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="event in ctrl.events[ctrl.currentEvent].joins" style="color: #879394; font-size: 12px;">
-            <th ng-init="ctrl.getGeoCode(event.start, event.end)">
-                <a href="" ui-sref="post({type:'travel', eventId: event._id})">
-                    #{{$index+1}}
-                </a>
-            </th>
-            <th>{{event.user.name}}</th>
-            <th>{{event.start.place}}</th>
-            <th>{{event.end.place}}</th>
-            <th>{{ctrl.getFormatedDate(event.created)}}</th>
-            <th>{{ctrl.getFormatedDate(event.startTime)}}</th>
-            <th>
-                <label ng-show="ctrl.isFinish(event.startTime)" class="label bg-slate">Finish</label>
-                <label ng-show="!ctrl.isFinish(event.startTime)" class="label bg-primary">Available</label>
-            </th>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+
+    <div class="col-md-12 col-xs-12">
+
+        <table class="table tasks-list table-lg" ng-show="ctrl.currentEvent='travel'">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Created</th>
+                    <th>Start</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in ctrl.events[ctrl.currentEvent].joins" style="color: #879394; font-size: 12px;">
+                    <th ng-init="ctrl.getGeoCode(event.start, event.end)">
+                        <a href="" ui-sref="post({type:'travel', eventId: event._id})">
+                            #{{$index+1}}
+                        </a>
+                    </th>
+                    <th>
+                        <a ng-href="https://www.facebook.com/{{event.user.facebookId}}" data-popup="tooltip" title="Facebook account">
+                            {{event.user.name}}
+                        </a>
+                    </th>
+                    <th>{{event.start.place}}</th>
+                    <th>{{event.end.place}}</th>
+                    <th>{{ctrl.getFormatedDate(event.created)}}</th>
+                    <th>{{ctrl.getFormatedDate(event.finishTime)}}</th>
+                    <th>
+                        <span class="label label-success" ng-show="event.status==='available' && !ctrl.isFinish(event.finishTime)">
+                            Available
+                        </span>
+
+                        <span class="label label-info" ng-show="event.status==='closed' && !ctrl.isFinish(event.finishTime)">
+                            Closed
+                        </span>
+
+                        <span class="label bg-slate" ng-show="ctrl.isFinish(event.finishTime)">
+                            Finish
+                        </span>
+
+                        <span class="label label-danger" ng-show="event.status==='blocked' && !ctrl.isFinish(event.finishTime)">
+                            Block
+                        </span>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

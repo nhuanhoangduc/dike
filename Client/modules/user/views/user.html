@@ -40,8 +40,8 @@
 
                         <li ng-class="{'active': ctrl.menu === 'event'}" ng-click="ctrl.menu = 'event'">
                             <a href="">
-                                <i class="icon-calendar3 position-left"></i> Events
-                                <span class="badge badge-info badge-inline position-right">{{ctrl.travelCount}}</span>
+                                <i class="icon-calendar3 position-left"></i> My events
+                                <span class="badge badge-info badge-inline position-right">{{ctrl.totalEvent}}</span>
                             </a>
                         </li>
 
@@ -54,15 +54,15 @@
 
                         <li ng-class="{'active': ctrl.menu === 'join'}" ng-click="ctrl.menu = 'join'">
                             <a href="">
-                                <i class=" icon-bubble-dots3 position-left"></i> Join Events
-                                <span class="badge badge-warning badge-inline position-right">{{ctrl.joinTravelCount}}</span>
+                                <i class="icon-make-group position-left"></i> Join Events
+                                <span class="badge badge-success badge-inline position-right">{{ctrl.totalEventJoin}}</span>
                             </a>
                         </li>
 
                         <li ng-class="{'active': ctrl.menu === 'favorite'}" ng-click="ctrl.menu = 'favorite'">
                             <a href="">
-                                <i class=" icon-bubble-dots3 position-left"></i> Favorite Events
-                                <span class="badge badge-warning badge-inline position-right">{{ctrl.favoriteTravelCount}}</span>
+                                <i class=" icon-star-half position-left"></i> Favorite Events
+                                <span class="badge badge-primary badge-inline position-right">{{ctrl.totalEventFavorite}}</span>
                             </a>
                         </li>
 
@@ -80,14 +80,6 @@
                 <div class="col-lg-9">
 
                     <div class="panel panel-flat border-left-success">
-                        <div class="panel-heading">
-                            <h6 class="panel-title" ng-show="ctrl.menu === 'profile'">Change your user information</h6>
-                            <h6 class="panel-title" ng-show="ctrl.menu === 'event'">
-                                Events
-                                <hr>
-                            </h6>
-                            <h6 class="panel-title" ng-show="ctrl.menu === 'comment'">Your comments</h6>
-                        </div>
 
                         <div class="panel-body">
 
@@ -137,7 +129,11 @@
                             <!-- events -->
                             <div ng-show="ctrl.menu === 'event'">
 
-                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <div class="form-group">
+                                    <label for="event">Select type:</label>
+                                    <select id="event" class="form-control" ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                </div>
+
                                 <event-profile></event-profile>
 
                             </div>
@@ -175,7 +171,11 @@
                             <!-- join events -->
                             <div ng-show="ctrl.menu === 'join'">
 
-                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <div class="form-group">
+                                    <label for="join">Select type:</label>
+                                    <select id="join" class="form-control" ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                </div>
+
                                 <event-join-profile></event-join-profile>
 
                             </div>
@@ -185,7 +185,11 @@
                             <!-- favorite events -->
                             <div ng-show="ctrl.menu === 'favorite'">
 
-                                <select ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                <div class="form-group">
+                                    <label for="favorite">Select type:</label>
+                                    <select id="favorite" class="form-control" ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                </div>
+
                                 <event-favorite-profile></event-favorite-profile>
 
                             </div>

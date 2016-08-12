@@ -10,6 +10,10 @@ app
       travel: {},
     };
 
+    this.totalEvent = 0;
+    this.totalEventJoin = 0;
+    this.totalEventFavorite = 0;
+
     this.currentEvent = 'travel';
 
 
@@ -46,6 +50,7 @@ app
           return toastr.error(err.data.message, 'Error');
 
         event.count = res.data;
+        _this.totalEvent += event.count;
 
       });
 
@@ -69,6 +74,7 @@ app
           return toastr.error(err.data.message, 'Error');
 
         event.joinCount = res.data;
+        _this.totalEventJoin += event.joinCount;
 
       });
 
@@ -92,6 +98,7 @@ app
           return toastr.error(err.data.message, 'Error');
 
         event.favoriteCount = res.data;
+        _this.totalEventFavorite += event.favoriteCount;
 
       });
 
@@ -107,6 +114,7 @@ app
       }
 
     };
+
 
 
     /* convert lat lng to place  */
