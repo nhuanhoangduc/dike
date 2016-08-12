@@ -18,7 +18,7 @@
 }
 </style>
 
-<div id="share">
+<div id="share" ng-show="ctrl.post.status==='available' && !ctrl.post.isFinish">
     <a class="click" href="" ng-click="ctrl.facebookShare()">
         <span class="icon-facebook"></span>
         <span style="padding-top:5px;">share</span>

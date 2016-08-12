@@ -91,6 +91,9 @@ app
       if (this.user._id === this.post.user._id)
         return;
 
+      if (this.post.status !== 'available' || this.post.isFinish)
+        return;
+
       restfulServices.get('/post/join', [_this.type, _this.post._id], function(err, res) {
         if (err)
           return toastr.error(err.message, 'Error');

@@ -21,10 +21,10 @@
             <th>{{event.start.place}}</th>
             <th>{{event.end.place}}</th>
             <th>{{ctrl.getFormatedDate(event.created)}}</th>
-            <th>{{ctrl.getFormatedDate(event.startTime)}}</th>
+            <th>{{ctrl.getFormatedDate(event.finishTime)}}</th>
             <th>
-                <label ng-show="ctrl.isFinish(event.startTime)" class="label bg-slate">Finish</label>
-                <label ng-show="!ctrl.isFinish(event.startTime)" class="label bg-primary">Available</label>
+                <label ng-show="ctrl.isFinish(event.finishTime)" class="label bg-slate">Finish</label>
+                <label ng-show="!ctrl.isFinish(event.finishTime)" class="label bg-primary">Available</label>
             </th>
         </tr>
     </tbody>

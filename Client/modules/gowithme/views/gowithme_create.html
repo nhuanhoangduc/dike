@@ -80,7 +80,7 @@
                         <div ng-show="ctrl.request.typeOfUser === 'driver'">
 
                             <!-- type of vehicle -->
-                            <div class="form-group form-group-sm row" ng-init="ctrl.request.vehicle = 'motorbike'">
+                            <div class="form-group form-group-sm row" ng-init="ctrl.request.vehicle = 'Motorbike'">
                                 <label class="col-md-3 control-label">Vehicle</label>
                                 <div class="col-md-5">
                                     <select ng-model="ctrl.request.vehicle" class="form-control bg-slate">
@@ -134,7 +134,7 @@
                             <label class="col-md-3 control-label">Start date</label>
                             <div class="col-md-6">
                                 <p class="input-group">
-                                    <input type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
+                                    <input type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.finishTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" />
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen = true">
                                             <i class="glyphicon glyphicon-calendar"></i>
@@ -151,7 +151,7 @@
                             <label class="col-md-3 control-label" style="margin-top:35px;">Start time</label>
                             <div class="col-md-6">
                                 <p class="input-group">
-                                    <uib-timepicker ng-model="ctrl.request.startTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
+                                    <uib-timepicker ng-model="ctrl.request.finishTime" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
                                 </p>
                             </div>
                         </div>

@@ -130,11 +130,11 @@ app
     };
 
 
-    this.isFinish = function(startTime) {
+    this.isFinish = function(finishTime) {
       var now = _this.moment();
-      startTime = _this.moment(startTime);
+      finishTime = _this.moment(finishTime);
 
-      return (now > startTime);
+      return (now > finishTime);
     };
 
 

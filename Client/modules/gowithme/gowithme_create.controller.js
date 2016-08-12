@@ -5,7 +5,7 @@ app
     this.map = mapServices;
     this.places = ['hà nội'];
     this.request = {};
-    this.request.startTime = new Date();
+    this.request.finishTime = new Date();
     this.id = $stateParams.id;
     this.services = GoWithMeServices;
 
@@ -109,7 +109,7 @@ app
           // init data for end text field
           _this.services.setTextField(_this.map, _this.map.markers.end);
 
-          _this.request.startTime = new Date(_this.request.startTime);
+          _this.request.finishTime = new Date(_this.request.finishTime);
         });
       }
 

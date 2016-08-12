@@ -34,13 +34,17 @@ var getPost = function(req, res, next) {
     .findOne({ _id: eventId })
     .populate('user')
     .exec(function(err, event) {
+
       if (err)
         return next(err);
 
-      var startDate = new Date(event.startTime);
+      if (!event)
+        return next({ message: 'Cannot find event' });
+
+      var finishTime = new Date(event.finishTime);
       var currentDate = new Date();
 
-      event._doc.isFinish = startDate < currentDate ? true : false;
+      event._doc.isFinish = finishTime < currentDate ? true : false;
       return res.send(event);
 
     });
@@ -59,7 +63,7 @@ var close = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .update({ _id: eventId, user: user._id }, { closed: true }, function(err) {
+    .update({ _id: eventId, user: user._id }, { status: 'closed' }, function(err) {
 
       if (err)
         return next(err);
@@ -88,6 +92,9 @@ var join = function(req, res, next) {
 
       if (err)
         return next(err);
+
+      if (!event)
+        return next({ message: 'Cannot find event' });
 
       var index = event.join.indexOf(user._id);
 
@@ -123,6 +130,9 @@ var deletePost = function(req, res, next) {
     .exec(function(err, event) {
       if (err)
         return next(err);
+
+      if (!event)
+        return next({ message: 'Cannot find event' });
 
       if (event.user._id.toString() !== req.user._id)
         return next({ message: 'Only user who has created this event can delete it.' });
@@ -174,6 +184,9 @@ var report = function(req, res, next) {
       if (err)
         return next(err);
 
+      if (!event)
+        return next({ message: 'Cannot find event' });
+
       var index = event.reports.indexOf(user._id);
 
       if (index >= 0)
@@ -209,6 +222,9 @@ var favorite = function(req, res, next) {
 
       if (err)
         return next(err);
+
+      if (!event)
+        return next({ message: 'Cannot find event' });
 
       var index = event.favorites.indexOf(user._id);
 

@@ -4,31 +4,27 @@ var Schema = mongoose.Schema;
 
 var eventSchema = {
 
-  user: { type: Schema.Types.ObjectId, ref: 'users' },
+  user: { type: Schema.Types.ObjectId, ref: 'users' }, // not in view
 
-  join: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+  join: [{ type: Schema.Types.ObjectId, ref: 'users' }], // not in view
 
-  created: Date,
+  created: Date, // not in view
 
   note: String,
 
-  commentUsers: [],
+  commentUsers: [], // not in view
 
-  reports: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+  reports: [{ type: Schema.Types.ObjectId, ref: 'users' }], // not in view
 
-  favorites: [],
+  favorites: [], // not in view
 
-  disable: {
-    type: Boolean,
-    default: false
-  },
+  status: {
+    type: String,
+    default: 'available',
+    enum: ['available', 'closed', 'blocked']
+  }, // not in view
 
-  closed: {
-    type: Boolean,
-    default: false
-  },
-
-  startTime: {
+  finishTime: {
     type: Date,
     require: true
   },

@@ -104,7 +104,7 @@ var blockEvent = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .update({ _id: id }, { disable: true }, function(err) {
+    .update({ _id: id }, { status: 'blocked' }, function(err) {
 
       if (err)
         return next(err);

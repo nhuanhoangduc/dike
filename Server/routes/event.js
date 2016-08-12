@@ -9,6 +9,8 @@ router.post('/:type', userServices.checkLogin, eventServices.create);
 /* update */
 router.put('/:type', userServices.checkLogin, eventServices.update);
 
+
+/* user profile */
 router.get('/:type/getbyuser', userServices.checkLogin, eventServices.getByUser);
 router.get('/:type/getbyusercount', userServices.checkLogin, eventServices.getByUserCount);
 
@@ -17,6 +19,7 @@ router.get('/:type/join/getbyusercount', userServices.checkLogin, eventServices.
 
 router.get('/:type/favorite/getbyuser', userServices.checkLogin, eventServices.getByUserFavorite);
 router.get('/:type/favorite/getbyusercount', userServices.checkLogin, eventServices.getByUserCountFavorite);
+/* finish user profile */
 
 /* find one */
 router.get('/:type/:id', userServices.checkLogin, eventServices.getById_login);

@@ -198,27 +198,41 @@ var getByUserCountFavorite = function(req, res, next) {
 var create = function(req, res, next) {
 
   var event = req.body;
+  var type = req.params.type;
+  var model = getModel(type);
+  var currentDate = new Date();
 
-  if (!event.startTime || !event.cost)
-    return next({ message: 'Null value' });
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  if (type === 'travel') {
+
+    if (!event.finishTime || !event.cost)
+      return next({ message: 'Null value' });
+
+    if (event.typeOfUser === 'customer') { // customer
+
+      delete event.freeSeats;
+      delete event.vehicle;
+
+    } else { // driver
+
+      if (!event.freeSeats || !event.vehicle)
+        return next({ message: 'Null value' });
+
+    }
+
+  }
 
   event.user = req.session.passport.user._id;
   event.created = new Date();
   event.commentUsers = [req.session.passport.user._id];
 
-  if (event.typeOfUser === 'customer') { // customer
 
-    delete event.freeSeats;
-    delete event.vehicle;
+  if (!event.finishTime || (new Date(event.finishTime)) <= currentDate)
+    return next({ message: 'Finish date must greater current date' });
 
-  } else { // driver
-
-    if (!event.freeSeats || !event.vehicle)
-      return next({ message: 'Null value' });
-
-  }
-
-  Travels.create(event, function(err, event) {
+  model.create(event, function(err, event) {
 
     if (err)
       return next(err);
@@ -235,7 +249,7 @@ var update = function(req, res, next) {
 
   var event = req.body;
 
-  if (!event.startTime || !event.cost)
+  if (!event.finishTime || !event.cost)
     return next({ message: 'Start time or cost is null value' });
 
   event.user = req.session.passport.user._id;
@@ -287,6 +301,7 @@ var getById_login = function(req, res, next) {
 
   var type = req.params.type;
   var model = getModel(type);
+  var user = req.user;
 
   if (!model)
     return next({ message: 'Invalid event type' });
@@ -294,16 +309,18 @@ var getById_login = function(req, res, next) {
   model
     .findOne({ _id: req.params.id })
     .lean()
-    .populate('user')
-    .exec(function(err, travel) {
+    .exec(function(err, event) {
 
       if (err)
         return next(err);
 
-      if (travel.user.toString() !== req.user._id.toString())
+      if (!event)
+        return next({ message: 'Cannot find event' });
+
+      if (event.user.toString() !== req.user._id.toString())
         return next({ message: 'Only user who created this event can edit' });
 
-      res.json(travel);
+      res.json(event);
 
     });
 };
@@ -321,12 +338,15 @@ var getById = function(req, res, next) {
     .findOne({ _id: req.params.id })
     .populate('user')
     .lean()
-    .exec(function(err, travel) {
+    .exec(function(err, event) {
 
       if (err)
         return next(err);
 
-      res.json(travel);
+      if (!event)
+        return next({ message: 'Cannot find event' });
+
+      res.json(event);
 
     });
 };
