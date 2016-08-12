@@ -1,5 +1,5 @@
 app
-  .controller('postController', function($stateParams, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, mapServices, GoWithMeServices) {
+  .controller('postController', function($stateParams, $uibModal, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, mapServices, GoWithMeServices) {
     var _this = this;
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
@@ -10,6 +10,22 @@ app
     this.isJoin = false;
     this.map = mapServices;
     this.goWithMeServices = GoWithMeServices;
+
+
+
+    this.openTripView = function() {
+
+      var modalInstance = $uibModal.open({
+        templateUrl: '/post/views/tripView.modal.html',
+        controller: 'TripViewCtrl as ctrl',
+        resolve: {
+          id: function() {
+            return _this.post._id;
+          }
+        }
+      });
+
+    };
 
 
     /* load all comments for this post */
