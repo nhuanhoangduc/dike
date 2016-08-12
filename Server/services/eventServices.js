@@ -379,7 +379,7 @@ var searchNearBy = function(req, res, next) {
               $maxDistance: (3000 / 35) / 6371
             }
           }, {
-            startTime: {
+            finishTime: {
               $gte: startTime
             }
           }]
@@ -406,7 +406,7 @@ var searchNearBy = function(req, res, next) {
               $maxDistance: (3000 / 35) / 6371
             }
           }, {
-            startTime: {
+            finishTime: {
               $gte: startTime
             }
           }]
