@@ -13,7 +13,7 @@ app
     this.moment = moment;
     this.services = GoWithMeServices;
     this.id = id;
-    
+
 
     this.placeSelected = function(name) {
       var marker = this.map.markers[name];
@@ -48,6 +48,14 @@ app
     this.submit = function() {
       delete _this.map.paths.direction;
 
+      var startTime = _this.moment(_this.request.startTime);
+      startTime.minute(0);
+      startTime.hour(0);
+
+      var endTime = _this.moment(_this.request.endTime);
+      endTime.minute(59);
+      endTime.hour(23);
+
       var params = [
         _this.map.markers.start.lat,
         _this.map.markers.start.lng,
@@ -55,8 +63,8 @@ app
         _this.map.markers.end.lat,
         _this.map.markers.end.lng,
         _this.map.markers.end.radius,
-        _this.request.startTime,
-        _this.request.endTime
+        startTime.format(),
+        endTime.format()
       ];
 
       restfulServices.get('/map/travelsearch', params, function(err, response) {
@@ -91,7 +99,7 @@ app
 
       });
     };
-    
+
 
     // set event dragend to marker
     $scope.$on('leafletDirectiveMarker.dragend', function(event, control) {

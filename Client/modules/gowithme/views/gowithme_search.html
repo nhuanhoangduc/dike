@@ -20,13 +20,13 @@
         <form class="form">
 
             <!-- start point -->
-            <div class="form-group form-group-sm col-md-2">
+            <div class="form-group form-group-sm col-md-3">
                 <label for="placeStart">Start
                     <i class="pe-7s-map-marker"></i>
                 </label>
 
                 <ui-select id="placeStart" on-select="ctrl.placeSelected('start')" ng-model="ctrl.map.markers.start.place" theme="bootstrap">
-                    <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                    <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,48)}}</ui-select-match>
                     <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
                         <div ng-bind-html="place.name | highlight: $select.search"></div>
                         <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
@@ -46,13 +46,13 @@
 
 
             <!-- end point -->
-            <div class="form-group form-group-sm col-md-2">
+            <div class="form-group form-group-sm col-md-3">
                 <label for="endPlace">End
                     <i class="pe-7s-map-marker"></i>
                 </label>
 
                 <ui-select id="endPlace" on-select="ctrl.placeSelected('end')" ng-model="ctrl.map.markers.end.place" theme="bootstrap">
-                    <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                    <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,48)}}</ui-select-match>
                     <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.services.autoComplete(ctrl.map, $select.search, ctrl.places)" refresh-delay="0">
                         <div ng-bind-html="place.name | highlight: $select.search"></div>
                         <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
@@ -74,7 +74,7 @@
 
 
             <!-- start date -->
-            <div class="form-group form-group-sm col-md-3">
+            <div class="form-group form-group-sm col-md-2">
                 <label for="startDate">Start time</label>
                 <p class="input-group">
                     <input id="startDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpenStart" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
@@ -83,14 +83,13 @@
                             <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                     </span>
-                    <kk-timepicker id="startTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
                 </p>
             </div>
             <!-- end date -->
 
 
             <!-- end date -->
-            <div class="form-group form-group-sm col-md-3">
+            <div class="form-group form-group-sm col-md-2">
                 <label for="endDate">End time</label>
                 <p class="input-group">
                     <input id="endDate" type="text" class="form-control" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpenEnd" alt-input-formats="ctrl.altInputFormats" ng-required="true" close-text="Close" ng-change="ctrl.submit()" />
@@ -99,7 +98,6 @@
                             <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                     </span>
-                    <kk-timepicker id="endTime" ng-disabled="false" ng-model="ctrl.endTime"></kk-timepicker>
                 </p>
             </div>
             <!-- end date -->

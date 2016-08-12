@@ -128,11 +128,11 @@ var travelSearch = function(req, res, next) {
               $maxDistance: (startRadius / 35) / 6371
             }
           }, {
-            startTime: {
+            finishTime: {
               $gte: startTime
             }
           }, {
-            startTime: {
+            finishTime: {
               $lte: endTime
             }
           }]
@@ -156,11 +156,11 @@ var travelSearch = function(req, res, next) {
             $maxDistance: (endRadius / 35) / 6371
           }
         }, {
-          startTime: {
+          finishTime: {
             $gte: startTime
           }
         }, {
-          startTime: {
+          finishTime: {
             $lte: endTime
           }
         }]
