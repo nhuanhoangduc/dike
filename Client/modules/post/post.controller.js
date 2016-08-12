@@ -193,6 +193,7 @@ app
 
 
     this.getEvent = function() {
+
       postServices.getEvent(_this.type, _this.eventId, function(err, response) {
 
         if (err)
@@ -202,6 +203,15 @@ app
 
         if (_this.type === 'travel') {
           _this.goWithMeServices.getGeoCode(_this.map, _this.post.start, _this.post.end);
+
+          restfulServices.get('/map/direction', [_this.post.start.lat, _this.post.start.lng, _this.post.end.lat, _this.post.end.lng], function(err, res) {
+            if (err)
+              return;
+
+            _this.post.info = 'Distance: ' + res.data.distance + ' - Duration: ' + res.data.duration;
+
+          });
+
         }
 
         // init comments
@@ -211,6 +221,7 @@ app
           _this.loadComments();
 
       });
+
     };
 
 

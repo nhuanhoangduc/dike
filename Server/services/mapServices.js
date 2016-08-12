@@ -218,7 +218,7 @@ var direction = function(req, res, next) {
   var url = 'https://maps.googleapis.com/maps/api/directions/json?';
   url += 'origin=' + startLat + ',' + startLng;
   url += '&destination=' + endLat + ',' + endLng;
-  url += '&mode=walking';
+  url += '&mode=driving';
   url += '&key=' + key;
 
   console.log(url);
