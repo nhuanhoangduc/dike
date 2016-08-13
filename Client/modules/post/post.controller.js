@@ -115,7 +115,7 @@ app
         if (err)
           return toastr.error(err.data.message, 'Error');
 
-        toastr.success('You has joint this event', 'Success');
+        toastr.success('Success');
         _this.getEvent();
 
       });
