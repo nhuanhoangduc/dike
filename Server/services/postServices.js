@@ -1,6 +1,8 @@
 var Travels = require('../models/travels');
 var Studies = require('../models/study');
 var Comments = require('../models/comments');
+
+var facebook = require('../services/facebookServices');
 var async = require('async');
 
 
@@ -95,6 +97,7 @@ var join = function(req, res, next) {
 
   model
     .findOne({ _id: eventId })
+    .populate('user')
     .exec(function(err, event) {
 
       if (err)
@@ -117,7 +120,14 @@ var join = function(req, res, next) {
         if (err)
           return next(err);
 
+        var template = user.name + ' has joined your event';
+
+        facebook.createNotification(model.user.facebookId, template, 'http://www.google.vn', function() {
+          return nextUser();
+        });
+
         res.sendStatus(200);
+
       });
 
     });
