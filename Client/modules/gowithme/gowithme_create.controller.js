@@ -8,6 +8,7 @@ app
     this.request.finishTime = new Date();
     this.id = $stateParams.id;
     this.services = GoWithMeServices;
+    this.user = UserServices.user;
 
 
     this.dateFormat = 'dd-MM-yyyy';
