@@ -57,7 +57,7 @@ var checkAdmin = function(req, res, next) {
 
 var logout = function(req, res, next) {
   req.session.destroy();
-  res.sendStatus(200);
+  res.redirect('/');
 };
 
 
