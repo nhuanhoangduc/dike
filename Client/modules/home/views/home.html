@@ -70,7 +70,7 @@
                                     </label>
 
                                     <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.start)" ng-model="ctrl.start" theme="bootstrap">
-                                        <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                                        <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,60)}}</ui-select-match>
                                         <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
                                             <div ng-bind-html="place.name | highlight: $select.search"></div>
                                             <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
@@ -104,7 +104,7 @@
                                     </label>
 
                                     <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.end)" ng-model="ctrl.end" theme="bootstrap">
-                                        <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,28)}}</ui-select-match>
+                                        <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,60)}}</ui-select-match>
                                         <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
                                             <div ng-bind-html="place.name | highlight: $select.search"></div>
                                             <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
