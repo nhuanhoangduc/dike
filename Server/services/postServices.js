@@ -91,6 +91,7 @@ var join = function(req, res, next) {
   var eventId = req.params.eventId;
   var user = req.user;
   var model = getModel(type);
+  var isJoin = true;
 
   if (!model)
     return next({ message: 'Invalid event type' });
@@ -108,9 +109,10 @@ var join = function(req, res, next) {
 
       var index = event.join.indexOf(user._id.toString());
 
-      if (index >= 0)
+      if (index >= 0) {
         event.join.splice(index, 1);
-      else
+        isJoin = false;
+      } else
         event.join.push(user._id);
 
       if (event.join.length > event.slots)
@@ -120,7 +122,7 @@ var join = function(req, res, next) {
         if (err)
           return next(err);
 
-        var template = user.name + ' has joined your event';
+        var template = user.name + ' has ' + (isJoin ? isJoin : 'disjoint') + ' your event';
 
         facebook.createNotification(event.user.facebookId, template, 'http://www.google.vn', function() {});
 
