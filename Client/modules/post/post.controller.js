@@ -18,6 +18,7 @@ app
       var modalInstance = $uibModal.open({
         templateUrl: '/post/views/tripView.modal.html',
         controller: 'TripViewCtrl as ctrl',
+        size: 'lg',
         resolve: {
           id: function() {
             return _this.post._id;
