@@ -51,10 +51,19 @@
 
 <div class="row postContent">
     <div class="col-md-3 col-xs-3">
-        <span class="pull-right informationHeader">Available seats:</span>
+        <span class="pull-right informationHeader">Total seats:</span>
     </div>
     <div class="col-md-9 col-xs-9">
         {{ctrl.post.slots}}
+    </div>
+</div>
+
+<div class="row postContent">
+    <div class="col-md-3 col-xs-3">
+        <span class="pull-right informationHeader">Available seats:</span>
+    </div>
+    <div class="col-md-9 col-xs-9">
+        {{ctrl.post.slots - ctrl.post.join.length}}
     </div>
 </div>
 

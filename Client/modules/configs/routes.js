@@ -31,7 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'goWithMeSearchCtrl as ctrl'
     })
     .state('user', { // user profile
-      url: "/user",
+      url: "/user?menu&type",
       templateUrl: '/user/views/user.html',
       controller: 'userController as ctrl'
     })

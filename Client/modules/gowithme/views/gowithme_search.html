@@ -163,9 +163,16 @@
 
                     <div class="row">
                         <div class="col-md-3 col-xs-3">
-                            <span class="informationHeader pull-right">Seats:</span>
+                            <span class="informationHeader pull-right">Total seats:</span>
                         </div>
                         <div class="col-md-9 col-xs-9">{{result.slots}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-xs-3">
+                            <span class="informationHeader pull-right">Available seats:</span>
+                        </div>
+                        <div class="col-md-9 col-xs-9">{{result.slots - result.join.length}}</div>
                     </div>
 
                 </div>

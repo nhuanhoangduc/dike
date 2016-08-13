@@ -110,6 +110,9 @@ var join = function(req, res, next) {
       else
         event.join.push(user._id);
 
+      if (event.join.length > event.slots)
+        return next({ message: 'This event has full slots' });
+
       model.update({ _id: event._id }, { join: event.join }, function(err) {
         if (err)
           return next(err);

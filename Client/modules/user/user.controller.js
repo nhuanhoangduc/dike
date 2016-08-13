@@ -1,10 +1,10 @@
 app
-  .controller('userController', function(UserServices, restfulServices, toastr, mapServices, moment) {
+  .controller('userController', function(UserServices, restfulServices, toastr, mapServices, moment, $stateParams) {
     var _this = this;
     this.moment = moment;
 
     this.user = UserServices.user;
-    this.menu = 'profile';
+    this.menu = $stateParams.menu || 'profile';
 
     this.events = {
       travel: {},
@@ -14,7 +14,7 @@ app
     this.totalEventJoin = 0;
     this.totalEventFavorite = 0;
 
-    this.currentEvent = 'travel';
+    this.currentEvent = $stateParams.type || 'travel';
 
 
     this.updateUser = function() {

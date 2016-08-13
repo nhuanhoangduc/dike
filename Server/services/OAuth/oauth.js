@@ -4,7 +4,7 @@ module.exports = {
   facebook: {
     id: '1914286842131314',
     secret: '15de6083544e73e2e3d7f2adf7bf5141',
-    token: '615fe1beaa113e967a01a03bb053fd5b',
+    token: '1914286842131314|UHVM5Ba95gHnaCQ4150aIhpwpcQ',
     callbackURL: 'http://www.fudiemhen.com/users/login/facebook/callback',
 
 
