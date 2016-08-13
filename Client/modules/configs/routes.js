@@ -43,5 +43,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('admin', { // view a event post
       url: "/admin",
       templateUrl: '/admin/views/admin.html'
+    })
+    .state('study_list', { // study list all
+      url: "/study",
+      templateUrl: '/study/views/study.list.html',
+      controller: 'StudyListCtrl as ctrl'
+    })
+    .state('study_edit', { // study list all
+      url: "/study/edit?id",
+      templateUrl: '/study/views/study.add.html',
+      controller: 'StudyAddCtrl as ctrl'
     });
 });

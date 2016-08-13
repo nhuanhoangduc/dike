@@ -1,0 +1,80 @@
+<style type="text/css">
+.studyEvent {
+    border-bottom: 1px solid #bdc3c7;
+    color: #7f8c8d;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.studyTitle {
+    font-size: 17px;
+}
+
+.studyInfo {
+    font-size: 12px;
+}
+</style>
+
+<div class="row" style="background-color:white;">
+
+    <div class="col-md-offset-2 col-md-7" style="padding-bottom: 50px; padding-right: 25px; padding-left: 25px;">
+
+        <div class="row studyEvent">
+            <div class="col-md-12">
+                <span style="color: #34495e; font-size: 20px;">New study events</span>
+                <a href="" ui-sref="study_edit" class="btn border-success text-success-800 btn-flat pull-right">
+                    <i class="icon-pencil4"></i>
+                    Create
+                </a>
+            </div>
+        </div>
+
+        <div class="row studyEvent" ng-repeat="event in ctrl.studies">
+
+            <div class="col-md-2">
+                <div class="row">
+
+                    <div class="col-md-6 col-xs-2">
+                        <i class="icon-eye2" style="color: #16a085;"></i>
+                        {{event.views}}
+                    </div>
+
+                    <div class="col-md-6 col-xs-2">
+                        <i class="icon-star-full2" style="color: #f1c40f;"></i>
+                        {{event.favorites.length}}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-10">
+
+                <div class="row studyTitle">
+                    <div class="col-md-12">
+                        <a href="" ui-sref="post({type: 'study', eventId: event._id})">{{event.title}}</a>
+                    </div>
+                </div>
+
+                <div class="row studyInfo">
+                    <div class="col-md-12">
+
+                        <span class="pull-left">
+                            Created by
+                            <span style="font-style: italic;">{{event.user.name}}</span>
+                        </span>
+
+                        <span class="pull-right">
+                            Finish: {{ctrl.goWithMeServices.getFormatedDate(event.finishTime)}}
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

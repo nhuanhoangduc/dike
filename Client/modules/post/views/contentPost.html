@@ -55,7 +55,9 @@
     <!-- content -->
     <div class="panel-body">
 
-        <travel-post></travel-post>
+        <travel-post ng-if="ctrl.type === 'travel'"></travel-post>
+
+        <study-post ng-if="ctrl.type === 'study'"></study-post>
 
         <hr>
 

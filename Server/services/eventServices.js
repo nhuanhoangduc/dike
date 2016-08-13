@@ -1,11 +1,12 @@
 var request = require('request');
 var key = 'AIzaSyDAJenglprl19UfLIr2vXugmM1BMqWFJME';
 var urlencode = require('urlencode');
-var Travels = require('../models/travels');
 var async = require('async');
 var _ = require('underscore');
 var polyline = require('polyline');
 
+var Travels = require('../models/travels');
+var Studies = require('../models/study');
 
 /* events */
 var getModel = function(type) {
@@ -16,6 +17,10 @@ var getModel = function(type) {
 
     case 'travel':
       model = Travels;
+      break;
+
+    case 'study':
+      model = Studies;
       break;
 
   }
@@ -252,9 +257,7 @@ var update = function(req, res, next) {
   if (!event.finishTime || !event.cost)
     return next({ message: 'Start time or cost is null value' });
 
-  event.user = req.session.passport.user._id;
-  event.created = new Date();
-  event.commentUsers = [req.session.passport.user._id];
+
 
   if (event.typeOfUser === 'customer') { // customer
 
@@ -267,6 +270,10 @@ var update = function(req, res, next) {
       return next({ message: 'FreeSeats or vehicle is null value' });
 
   }
+
+  event.user = req.session.passport.user._id;
+  event.created = new Date();
+  event.commentUsers = [req.session.passport.user._id];
 
   Travels
     .findOne({ _id: event._id })
@@ -457,6 +464,33 @@ var searchNearBy = function(req, res, next) {
 };
 
 
+var getAll = function(req, res, next) {
+
+  var type = req.params.type;
+  var model = getModel(type);
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
+    .find({
+      status: 'available'
+    })
+    .lean()
+    .populate('user')
+    .sort({ created: -1 })
+    .exec(function(err, results) {
+
+      if (err)
+        return next(err);
+
+      res.json(results);
+
+    });
+
+};
+
+
 
 module.exports = {
   create: create,
@@ -469,5 +503,6 @@ module.exports = {
   getById_login: getById_login,
   searchNearBy: searchNearBy,
   getByUserFavorite: getByUserFavorite,
-  getByUserCountFavorite: getByUserCountFavorite
+  getByUserCountFavorite: getByUserCountFavorite,
+  getAll: getAll
 };

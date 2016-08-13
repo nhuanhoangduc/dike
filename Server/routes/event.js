@@ -2,6 +2,9 @@ var router = require('express').Router();
 var eventServices = require('../services/eventServices');
 var userServices = require('../services/userServices');
 
+/*get all*/
+router.get('/:type', eventServices.getAll);
+
 
 /* create new */
 router.post('/:type', userServices.checkLogin, eventServices.create);

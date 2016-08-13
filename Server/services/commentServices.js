@@ -1,5 +1,6 @@
 var Comments = require('../models/comments');
 var Travels = require('../models/travels');
+var Studies = require('../models/study');
 var Users = require('../models/users');
 
 var facebook = require('../services/facebookServices');
@@ -14,6 +15,10 @@ var getModelEvent = function(type) {
   switch (type) {
     case 'travel':
       model = Travels;
+      break;
+
+    case 'study':
+      model = Studies;
       break;
   }
 
@@ -212,7 +217,7 @@ var getByUserCount = function(req, res, next) {
       res.json(count);
 
     });
-    
+
 };
 
 

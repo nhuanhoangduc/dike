@@ -1,4 +1,5 @@
 var Travels = require('../models/travels');
+var Studies = require('../models/study');
 var Comments = require('../models/comments');
 var async = require('async');
 
@@ -12,6 +13,10 @@ var getModel = function(type) {
 
     case 'travel':
       model = Travels;
+      break;
+
+    case 'study':
+      model = Studies;
       break;
 
   }
@@ -43,8 +48,10 @@ var getPost = function(req, res, next) {
 
       var finishTime = new Date(event.finishTime);
       var currentDate = new Date();
-
       event._doc.isFinish = finishTime < currentDate ? true : false;
+
+      model.update({ _id: eventId }, { views: event.views + 1 }, function() {});
+
       return res.send(event);
 
     });

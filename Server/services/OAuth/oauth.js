@@ -8,10 +8,10 @@ module.exports = {
     callbackURL: 'http://www.fudiemhen.com/users/login/facebook/callback',
 
 
-    // id: '1927238587502806',
-    // secret: '9257fc3bae5048cc164f20914e328494',
-    // token: '1927238587502806|CR-0pLbwKr6HjRrTZvIRDFzsyNo',
-    //callbackURL: 'http://' + host.domain + ':' + host.port + '/users/login/facebook/callback',
+    // id: '1088168141219088',
+    // secret: 'd0a6673d113be857caca7f03ec877cf0',
+    // token: '3303a2121c18525a2782dd6a762e8311',
+    // callbackURL: 'http://localhost:3000/users/login/facebook/callback',
 
   }
 };

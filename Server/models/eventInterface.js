@@ -12,6 +12,11 @@ var eventSchema = {
 
   note: String,
 
+  views: {
+    type: Number,
+    default: 0
+  },
+
   commentUsers: [], // not in view
 
   reports: [{ type: Schema.Types.ObjectId, ref: 'users' }], // not in view
@@ -28,6 +33,11 @@ var eventSchema = {
     type: Date,
     require: true
   },
+
+  slots: {
+    type: Number,
+    default: 1
+  }
 
 };
 
