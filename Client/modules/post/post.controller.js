@@ -46,7 +46,7 @@ app
       restfulServices.get('/comments/join', [_this.type, _this.eventId, ], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.comments = res.data;
 
@@ -113,7 +113,7 @@ app
 
       restfulServices.get('/post/join', [_this.type, _this.post._id], function(err, res) {
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         toastr.success('You has joint this event', 'Success');
         _this.getEvent();
@@ -129,7 +129,7 @@ app
 
         restfulServices.get('/post/report', [_this.type, _this.post._id], function(err, res) {
           if (err)
-            return toastr.error(err.message, 'Error');
+            return toastr.error(err.data.message, 'Error');
 
           toastr.warning('You has reported this event', 'Success');
           _this.getEvent();
@@ -147,7 +147,7 @@ app
 
         restfulServices.get('/post/close', [_this.type, _this.post._id], function(err, res) {
           if (err)
-            return toastr.error(err.message, 'Error');
+            return toastr.error(err.data.message, 'Error');
 
           toastr.warning('You has closed your event', 'Success');
           _this.getEvent();
@@ -163,7 +163,7 @@ app
 
       restfulServices.get('/post/favorite', [_this.type, _this.post._id], function(err, res) {
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         if (_this.post.favorites.indexOf(_this.user._id) < 0)
           toastr.info('Added to your favorites', 'Success');

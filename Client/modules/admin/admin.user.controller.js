@@ -13,7 +13,7 @@ app
       restfulServices.get('/admin/users', [], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.users = res.data;
 
@@ -27,7 +27,7 @@ app
       restfulServices.get('/admin/users/block', [], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.users = res.data;
 
@@ -51,7 +51,7 @@ app
       restfulServices.get('/admin/users/block', [id], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         toastr.warning('User has blocked', 'Success');
         _this.loadUsers();
@@ -66,7 +66,7 @@ app
       restfulServices.get('/admin/users/unblock', [id], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         toastr.success('User has unblocked', 'Success');
         _this.loadUsers();

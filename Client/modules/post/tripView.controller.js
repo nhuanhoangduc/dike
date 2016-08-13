@@ -22,7 +22,7 @@ app
 
         restfulServices.get('/event/travel/public', [id], function(err, res) {
           if (err)
-            return toastr.error(err.message, 'Lỗi');
+            return toastr.error(err.data.message, 'Lỗi');
 
           var travel = res.data;
 

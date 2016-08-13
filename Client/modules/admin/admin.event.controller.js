@@ -14,7 +14,7 @@ app
       restfulServices.get('/admin/events', [_this.type], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.events = res.data;
 
@@ -28,7 +28,7 @@ app
       restfulServices.get('/admin/events/disable', [_this.type], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.events = res.data;
 
@@ -42,7 +42,7 @@ app
       restfulServices.get('/admin/events/report', [_this.type], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         _this.events = res.data;
 
@@ -68,7 +68,7 @@ app
       restfulServices.get('/admin/events/block', [_this.type, id], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         toastr.warning('Event has blocked', 'Success');
         _this.loadEvents();
@@ -83,7 +83,7 @@ app
       restfulServices.get('/admin/events/unblock', [_this.type, id], function(err, res) {
 
         if (err)
-          return toastr.error(err.message, 'Error');
+          return toastr.error(err.data.message, 'Error');
 
         toastr.success('Event has unblocked', 'Success');
         _this.loadEvents();

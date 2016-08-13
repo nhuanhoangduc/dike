@@ -18,7 +18,7 @@ app
       mapServices.getLocation(object.placeId, function(err, response) {
 
         if (err)
-          toastr.error(err.message, 'Error');
+          toastr.error(err.data.message, 'Error');
 
         object.lat = response.data.lat;
         object.lng = response.data.lng;

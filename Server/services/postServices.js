@@ -106,7 +106,7 @@ var join = function(req, res, next) {
       if (!event)
         return next({ message: 'Cannot find event' });
 
-      var index = event.join.indexOf(user._id);
+      var index = event.join.indexOf(user._id.toString());
 
       if (index >= 0)
         event.join.splice(index, 1);
@@ -122,9 +122,7 @@ var join = function(req, res, next) {
 
         var template = user.name + ' has joined your event';
 
-        facebook.createNotification(model.user.facebookId, template, 'http://www.google.vn', function() {
-          return nextUser();
-        });
+        facebook.createNotification(event.user.facebookId, template, 'http://www.google.vn', function() {});
 
         res.sendStatus(200);
 
