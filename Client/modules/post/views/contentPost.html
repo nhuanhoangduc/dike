@@ -24,7 +24,7 @@
             <!-- /status -->
             {{ctrl.type.toUpperCase()}}
 
-            <div class="pull-right" ng-show="ctrl.user._id  && ctrl.post.status !== 'blocked' && !ctrl.post.isFinish">
+            <div class="pull-right" ng-show="ctrl.user._id && ctrl.post.status !== 'blocked' && !ctrl.post.isFinish && ctrl.user._id !== ctrl.post.user._id">
 
                 <a href="" ng-show="ctrl.post.reports.indexOf(ctrl.user._id)>=0">
                     <em class="text-muted text-size-mini pull-right">

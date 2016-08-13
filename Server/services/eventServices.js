@@ -217,12 +217,12 @@ var create = function(req, res, next) {
 
     if (event.typeOfUser === 'customer') { // customer
 
-      delete event.freeSeats;
+      delete event.slots;
       delete event.vehicle;
 
     } else { // driver
 
-      if (!event.freeSeats || !event.vehicle)
+      if (!event.slots || !event.vehicle)
         return next({ message: 'Null value' });
 
     }
@@ -261,13 +261,13 @@ var update = function(req, res, next) {
 
   if (event.typeOfUser === 'customer') { // customer
 
-    delete event.freeSeats;
+    delete event.slots;
     delete event.vehicle;
 
   } else { // driver
 
-    if (!event.freeSeats || !event.vehicle)
-      return next({ message: 'FreeSeats or vehicle is null value' });
+    if (!event.slots || !event.vehicle)
+      return next({ message: 'slots or vehicle is null value' });
 
   }
 
