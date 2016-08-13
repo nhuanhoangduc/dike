@@ -131,7 +131,7 @@ var create = function(req, res, next) {
                 return;
 
               var template = params.name + ' has comment in the post';
-              facebook.createNotification(user.facebookId, template, '/', function() {
+              facebook.createNotification(user.facebookId, template, 'http://www.google.vn', function() {
                 return nextUser();
               });
 
