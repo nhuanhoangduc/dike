@@ -28,7 +28,7 @@ router.get('/:type/favorite/getbyusercount', userServices.checkLogin, eventServi
 router.get('/:type/:id', userServices.checkLogin, eventServices.getById_login);
 router.get('/:type/public/:id', eventServices.getById);
 
-router.get('/travel/nearby/:startLat/:startLng/:endLat/:endLng', eventServices.searchNearBy);
+router.get('/travel/nearby/:startLat/:startLng/:endLat/:endLng/:startRadius/:endRadius', eventServices.searchNearBy);
 
 
 module.exports = router;

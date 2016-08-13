@@ -47,7 +47,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -85,7 +85,7 @@
                                 <form class="form-inline">
                                     <div class="form-group pull-right">
                                         <label for="startRange">In range (km):</label>
-                                        <input type="text" class="form-control" id="startRange">
+                                        <input type="text" class="form-control" id="startRange" ng-model="ctrl.startRadius">
                                     </div>
                                 </form>
                             </div>
@@ -118,8 +118,8 @@
                             <div class="col-md-12">
                                 <form class="form-inline">
                                     <div class="form-group pull-right">
-                                        <label for="startRange">In range (km):</label>
-                                        <input type="text" class="form-control" id="startRange">
+                                        <label for="endRange">In range (km):</label>
+                                        <input type="text" class="form-control" id="endRange" ng-model="ctrl.endRadius">
                                     </div>
                                 </form>
                             </div>

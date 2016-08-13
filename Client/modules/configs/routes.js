@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'HomeCtrl as ctrl'
     })
     .state('gowithme', { // go with me create
-      url: "/gowithme?startLat&startLng&endLat&endLng",
+      url: "/gowithme?startLat&startLng&endLat&endLng&startRadius&endRadius",
       templateUrl: '/gowithme/views/gowithme.html',
       controller: 'GoWithMeCtrl as ctrl'
     })

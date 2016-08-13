@@ -4,6 +4,9 @@ app
     var _this = this;
     this.places = [];
 
+    this.startRadius = 5;
+    this.endRadius = 5;
+
     this.autoComplete = function(place) {
       mapServices.autoComplete(place, function(err, response) {
         _this.places = response.data;
@@ -28,7 +31,7 @@ app
 
       if (this.start && this.end) {
 
-        var url = 'http://' + $window.location.host + '/#/gowithme?startLat=' + this.start.lat + '&startLng=' + this.start.lng + '&endLat=' + this.end.lat + '&endLng=' + this.end.lng;
+        var url = 'http://' + $window.location.host + '/#/gowithme?startLat=' + this.start.lat + '&startLng=' + this.start.lng + '&endLat=' + this.end.lat + '&endLng=' + this.end.lng + '&startRadius=' + this.startRadius + '&endRadius=' + this.endRadius;
         $window.open(url);
 
       }

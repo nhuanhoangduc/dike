@@ -8,6 +8,8 @@ var polyline = require('polyline');
 var Travels = require('../models/travels');
 var Studies = require('../models/study');
 
+var geolib = require('geolib');
+
 /* events */
 var getModel = function(type) {
 
@@ -366,6 +368,9 @@ var searchNearBy = function(req, res, next) {
   var startParams = [req.params.startLat, req.params.startLng];
   var endParams = [req.params.endLat, req.params.endLng];
 
+  var startRadius = req.params.startRadius;
+  var endRadius = req.params.endRadius;
+
   var startTime = new Date();
 
   var typeOfUser = req.params.typeOfUser;
@@ -383,7 +388,7 @@ var searchNearBy = function(req, res, next) {
           $and: [{
             start: {
               $near: startParams,
-              $maxDistance: (3000 / 35) / 6371
+              $maxDistance: (startRadius * 1000 / 35) / 6371
             }
           }, {
             finishTime: {
@@ -410,7 +415,7 @@ var searchNearBy = function(req, res, next) {
           $and: [{
             end: {
               $near: endParams,
-              $maxDistance: (3000 / 35) / 6371
+              $maxDistance: (endRadius * 1000 / 35) / 6371
             }
           }, {
             finishTime: {
@@ -448,6 +453,25 @@ var searchNearBy = function(req, res, next) {
         return nextItem();
 
       if (id.toString() === search.end[index]._id.toString()) {
+        var startRange = geolib.getDistance({
+          latitude: req.params.startLat,
+          longitude: req.params.startLng
+        }, {
+          latitude: start.start.lat,
+          longitude: start.start.lng,
+        });
+
+        var endRange = geolib.getDistance({
+          latitude: req.params.endLat,
+          longitude: req.params.endLng
+        }, {
+          latitude: start.end.lat,
+          longitude: start.end.lng,
+        });
+
+        start._doc.startRange = startRange / 1000;
+        start._doc.endRange = endRange / 1000;
+
         results.push(start);
       }
 
@@ -455,6 +479,7 @@ var searchNearBy = function(req, res, next) {
 
     }, function() {
 
+      results = _.sortBy(results, 'startRange');
       res.json(results);
 
     });

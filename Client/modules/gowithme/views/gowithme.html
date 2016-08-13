@@ -46,13 +46,13 @@
 
                 <div class="row searchFont " ng-init="ctrl.services.getGeoCode(ctrl.map, travel.start, travel.end) ">
                     <div class="col-md-12 ">
-                        <i class="icon-location3 "></i> From: {{travel.start.place}} ~ 1-3km
+                        <i class="icon-location3 "></i> From: {{travel.start.place}} ~ {{travel.startRange}} - {{travel.startRange+1}}km
                     </div>
                 </div>
 
                 <div class="row searchFont ">
                     <div class="col-md-12 ">
-                        <i class="icon-location3 "></i> To: {{travel.end.place}} ~ 1-3km
+                        <i class="icon-location3 "></i> To: {{travel.end.place}} ~ {{travel.endRange}} - {{travel.endRange+1}}km
                     </div>
                 </div>
 

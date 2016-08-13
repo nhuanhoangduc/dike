@@ -7,7 +7,7 @@ app
     this.map = mapServices;
 
 
-    restfulServices.get('/event/travel/nearby', [$stateParams.startLat, $stateParams.startLng, $stateParams.endLat, $stateParams.endLng], function(err, res) {
+    restfulServices.get('/event/travel/nearby', [$stateParams.startLat, $stateParams.startLng, $stateParams.endLat, $stateParams.endLng, $stateParams.startRadius, $stateParams.endRadius], function(err, res) {
       if (err)
         toastr.error(err.message, 'Error');
 
