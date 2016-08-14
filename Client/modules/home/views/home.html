@@ -1,6 +1,20 @@
 <div style="background: white;color: black; height: 1000px">
 
-    <div class="row" style="padding-top: 50px; padding-left: 50px;">
+    <!--  slider -->
+    <div class="row" style="background-color: #27ae60;">
+        <div class="col-md-offset-4 col-md-8 col-xs-offset-4 col-xs-8">
+            <div style="">
+                <div uib-carousel active="true" interval="ctrl.slideInterval" no-wrap="noWrapSlides">
+                    <div uib-slide ng-repeat="slide in ctrl.slides track by $index" index="$index">
+                        <img ng-src="{{ctrl.getImageUrl($index+1)}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /slider -->
+
+    <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
 
         <div class="col-md-offset-2 col-md-4">
 
@@ -41,6 +55,12 @@
         </div>
 
     </div>
+
+    <!-- footer -->
+    <div class="row" style="background-color: #2c3e50; height: 200px;">
+        hoang duc nhuan
+    </div>
+    <!-- /footer -->
 
 </div>
 

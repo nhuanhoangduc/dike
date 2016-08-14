@@ -6,6 +6,12 @@ app
 
     this.startRadius = 5;
     this.endRadius = 5;
+    this.slides = new Array(5);
+    this.slideInterval = 5000;
+
+    this.getImageUrl = function(index) {
+      return '/slides/' + index + '.png';
+    };
 
     this.autoComplete = function(place) {
       mapServices.autoComplete(place, function(err, response) {
