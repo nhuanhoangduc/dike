@@ -122,7 +122,7 @@ var join = function(req, res, next) {
         if (err)
           return next(err);
 
-        var template = user.name + ' has ' + (isJoin ? isJoin : 'disjoint') + ' your event';
+        var template = user.name + ' has ' + (isJoin ? 'join' : 'disjoint') + ' your event';
 
         facebook.createNotification(event.user.facebookId, template, 'http://www.google.vn', function() {});
 
