@@ -37,7 +37,7 @@ var getAll = function(req, res, next) {
   Comments
     .find({ eventId: id, type: type, join: false })
     .populate('user')
-    .sort({ 'created': -1 })
+    .sort({ 'created': 1 })
     .lean()
     .exec(function(err, comments) {
 
