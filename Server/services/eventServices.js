@@ -7,8 +7,10 @@ var polyline = require('polyline');
 
 var Travels = require('../models/travels');
 var Studies = require('../models/study');
+var Users = require('../models/users');
 
 var geolib = require('geolib');
+var facebook = require('../services/facebookServices');
 
 /* events */
 var getModel = function(type) {
@@ -300,7 +302,7 @@ var update = function(req, res, next) {
 
   model
     .findOne({ _id: event._id })
-    .lean()
+    .populate('user')
     .exec(function(err, result) {
 
       if (err)
@@ -309,8 +311,34 @@ var update = function(req, res, next) {
       if (!result)
         return next({ message: 'Cannot find this event' });
 
-      if (result.user.toString() !== req.user._id.toString())
+      if (result.user._id.toString() !== req.user._id.toString())
         return next({ message: 'Only user who created this event can edit' });
+
+      var joins = result.join;
+
+      // create facebook notification
+      Users
+        .find({ _id: { $in: joins } })
+        .lean()
+        .exec(function(err, users) {
+
+          if (err)
+            return cb(err);
+
+          async.each(users, function(user, nextUser) {
+
+            if (user._id.toString() === result.user._id.toString())
+              return;
+
+            var template = result.user.name + ' has edited his/her post';
+            facebook.createNotification(user.facebookId, template, 'http://www.google.vn', function() {
+              return nextUser();
+            });
+
+          });
+
+        });
+      // end facebook notification
 
       model.update({ _id: event._id }, event, function(err) {
 
