@@ -32,7 +32,22 @@
         </div>
     </div>
 
-    <div class=" row " style="margin-bottom: 20px; " ng-repeat="travel in ctrl.travels ">
+    <div class="row" ng-show="ctrl.travels.length > 0">
+        <div class="col-md-offset-2 col-md-6">
+            <div class="pull-right">
+                <div class="radio-inline">
+                    <input type="radio" id="inlineRadio1" class="styled" ng-model="ctrl.sort" ng-value="'startRange'" checked>
+                    <label for="inlineRadio1">Nearest start point </label>
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" id="inlineRadio2" class="styled" ng-model="ctrl.sort" ng-value="'endRange'">
+                    <label for="inlineRadio2">Nearest end point </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" row " style="margin-bottom: 20px; " ng-repeat="travel in ctrl.travels | orderBy : ctrl.sort">
         <a href=" " ui-sref="gowithme_search({id: travel._id}) ">
             <div class="col-md-offset-2 col-md-6 searchresult" ng-class="{ 'hoversearch': travel.changeBackground} " ng-mouseover="travel.changeBackground=true " ng-mouseleave="travel.changeBackground=false ">
 

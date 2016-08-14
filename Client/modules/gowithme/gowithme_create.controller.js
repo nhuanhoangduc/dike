@@ -9,6 +9,7 @@ app
     this.id = $stateParams.id;
     this.services = GoWithMeServices;
     this.user = UserServices.user;
+    this.request.typeOfUser = 'driver';
 
 
     this.dateFormat = 'dd-MM-yyyy';

@@ -5,6 +5,7 @@ app
     this.travels = [];
     this.services = GoWithMeServices;
     this.map = mapServices;
+    this.sort = 'startRange';
 
 
     restfulServices.get('/event/travel/nearby', [$stateParams.startLat, $stateParams.startLng, $stateParams.endLat, $stateParams.endLng, $stateParams.startRadius, $stateParams.endRadius], function(err, res) {
