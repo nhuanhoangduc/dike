@@ -12,6 +12,7 @@
                     <th>Created</th>
                     <th>Start</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,9 @@
                         <span class="label label-danger" ng-show="event.status==='blocked' && !ctrl.isFinish(event.finishTime)">
                             Block
                         </span>
+                    </th>
+                    <th>
+                        <a href="" ng-click="ctrl.favorite(event._id)">Remove</a>
                     </th>
                 </tr>
             </tbody>

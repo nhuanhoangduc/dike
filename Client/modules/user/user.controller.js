@@ -107,6 +107,10 @@ app
 
     this.loadEvents = function() {
 
+      this.totalEvent = 0;
+      this.totalEventJoin = 0;
+      this.totalEventFavorite = 0;
+
       for (event in _this.events) {
         _this.loadEvent(event, _this.events[event]);
         _this.loadJoinEvents(event, _this.events[event]);
@@ -169,12 +173,34 @@ app
     };
 
 
-    /* join travel */
+    // join an event
+    this.join = function(eventId) {
+
+      restfulServices.get('/post/join', [_this.currentEvent, eventId], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        toastr.success('Success');
+        _this.loadEvents();
+
+      });
+
+    };
 
 
+    // favorite an event
+    this.favorite = function(eventId) {
 
+      restfulServices.get('/post/favorite', [_this.currentEvent, eventId], function(err, res) {
+        if (err)
+          return toastr.error(err.data.message, 'Error');
 
-    /* end join travel */
+        toastr.info('Removed from your favorites', 'Success');
+        _this.loadEvents();
+
+      });
+
+    };
 
 
     // init
