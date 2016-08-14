@@ -23,4 +23,13 @@ app
 
     };
 
+  })
+  .directive('statusUser', function() {
+
+    return {
+
+      templateUrl: '/user/views/statusUser.directive.html'
+
+    };
+
   });

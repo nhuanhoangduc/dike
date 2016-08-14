@@ -1,0 +1,15 @@
+<span class="label label-success" ng-show="event.status==='available' && !ctrl.isFinish(event.finishTime)">
+    Available
+</span>
+
+<span class="label label-info" ng-show="event.status==='closed' && !ctrl.isFinish(event.finishTime)">
+    Closed
+</span>
+
+<span class="label bg-slate" ng-show="ctrl.isFinish(event.finishTime)">
+    Finish
+</span>
+
+<span class="label label-danger" ng-show="event.status==='blocked' && !ctrl.isFinish(event.finishTime)">
+    Block
+</span>
