@@ -209,6 +209,12 @@ var create = function(req, res, next) {
   var model = getModel(type);
   var currentDate = new Date();
 
+  try {
+    event.slots = parseInt(event.slots);
+  } catch (ex) {
+    return next(ex);
+  }
+
   if (!model)
     return next({ message: 'Invalid event type' });
 
@@ -258,6 +264,12 @@ var update = function(req, res, next) {
   var type = req.params.type;
   var model = getModel(type);
   var currentDate = new Date();
+
+  try {
+    event.slots = parseInt(event.slots);
+  } catch (ex) {
+    return next(ex);
+  }
 
   if (!model)
     return next({ message: 'Invalid event type' });

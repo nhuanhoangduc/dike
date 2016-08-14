@@ -9,15 +9,38 @@
 <!-- end start place -->
 
 <div class="row postContent">
-    <div class="col-md-offset-2 col-md-8">
-        <p>{{ctrl.post.note}}</p>
+    <div class="col-md-3 col-xs-3">
+        <span class="pull-right informationHeader">Content:</span>
+    </div>
+    <div class="col-md-7 col-xs-9">
+        {{ctrl.post.note}}
+    </div>
+</div>
+
+<div class="row postContent">
+    <div class="col-md-3 col-xs-3">
+        <span class="pull-right informationHeader">Total slots:</span>
+    </div>
+    <div class="col-md-9 col-xs-9">
+        {{ctrl.post.slots}}
+    </div>
+</div>
+
+<div class="row postContent">
+    <div class="col-md-3 col-xs-3">
+        <span class="pull-right informationHeader">Available slots:</span>
+    </div>
+    <div class="col-md-9 col-xs-9">
+        {{ctrl.post.slots - ctrl.post.join.length}}
     </div>
 </div>
 
 <!-- start time -->
 <div class="row postContent">
-    <div class="col-md-offset-2 col-md-8">
-        <span class="informationHeader">Finish:</span>
+    <div class="col-md-3 col-xs-3">
+        <span class="pull-right informationHeader">Finish event:</span>
+    </div>
+    <div class="col-md-9 col-xs-9">
         {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.finishTime)}}
     </div>
 </div>
