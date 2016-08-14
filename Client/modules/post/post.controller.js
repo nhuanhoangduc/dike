@@ -29,6 +29,16 @@ app
     };
 
 
+    this.update = function() {
+      var type = this.type;
+
+      if (type === 'travel')
+        type = 'gowithme';
+
+      $state.go(type + '_edit', { id: this.post._id });
+    };
+
+
     /* load all comments for this post */
     this.loadComments = function() {
       postServices.getComments(_this.type, _this.eventId, function(err, response) {

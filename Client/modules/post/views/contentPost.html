@@ -89,12 +89,12 @@
             <ul class="icons-list pull-left" ng-show="ctrl.user._id === ctrl.post.user._id">
 
                 <li class="text-primary-600">
-                    <a href="" ui-sref="gowithme_edit({id: ctrl.post._id})" title="Edit event">
+                    <a href="" ng-click="ctrl.update()" title="Edit event" ng-show="ctrl.post.status === 'available' && !ctrl.post.isFinish">
                         <i class="icon-pencil7"></i>
                     </a>
                 </li>
 
-                <li class="text-teal-600" ng-show="!ctrl.post.closed">
+                <li class="text-teal-600" ng-show="ctrl.post.status === 'available' && !ctrl.post.isFinish">
                     <a href="" ng-click="ctrl.close()" title="Close event">
                         <i class="icon-checkmark-circle"></i>
                     </a>

@@ -255,43 +255,52 @@ var create = function(req, res, next) {
 var update = function(req, res, next) {
 
   var event = req.body;
+  var type = req.params.type;
+  var model = getModel(type);
+  var currentDate = new Date();
 
-  if (!event.finishTime || !event.cost)
-    return next({ message: 'Start time or cost is null value' });
+  if (!model)
+    return next({ message: 'Invalid event type' });
 
+  if (type === 'travel') {
 
+    if (!event.finishTime || !event.cost)
+      return next({ message: 'Null value' });
 
-  if (event.typeOfUser === 'customer') { // customer
+    if (event.typeOfUser === 'customer') { // customer
 
-    delete event.slots;
-    delete event.vehicle;
+      delete event.slots;
+      delete event.vehicle;
 
-  } else { // driver
+    } else { // driver
 
-    if (!event.slots || !event.vehicle)
-      return next({ message: 'slots or vehicle is null value' });
+      if (!event.slots || !event.vehicle)
+        return next({ message: 'Null value' });
+
+    }
 
   }
 
-  event.user = req.session.passport.user._id;
-  event.created = new Date();
-  event.commentUsers = [req.session.passport.user._id];
 
-  Travels
+  if (!event.finishTime || (new Date(event.finishTime)) <= currentDate)
+    return next({ message: 'Finish date must greater current date' });
+
+
+  model
     .findOne({ _id: event._id })
     .lean()
-    .exec(function(err, travel) {
+    .exec(function(err, result) {
 
       if (err)
         return next(err);
 
-      if (!travel)
-        return next({ message: 'Cannot find travel event' });
+      if (!result)
+        return next({ message: 'Cannot find this event' });
 
-      if (travel.user.toString() !== req.user._id.toString())
+      if (result.user.toString() !== req.user._id.toString())
         return next({ message: 'Only user who created this event can edit' });
 
-      Travels.update({ _id: event._id }, event, function(err) {
+      model.update({ _id: event._id }, event, function(err) {
 
         if (err)
           return next(err);
