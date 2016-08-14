@@ -8,6 +8,7 @@ app
 
     this.events = {
       travel: {},
+      study: {}
     };
 
     this.totalEvent = 0;
@@ -123,6 +124,9 @@ app
 
     /* convert lat lng to place  */
     this.getGeoCode = function(start, end) {
+      if (!start || !end)
+        return;
+
       start.place = '';
       end.place = '';
 

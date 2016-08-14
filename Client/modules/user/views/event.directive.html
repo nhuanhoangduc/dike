@@ -2,7 +2,7 @@
 
     <div class="col-md-12 col-xs-12">
 
-        <table class="table tasks-list table-lg" ng-show="ctrl.currentEvent='travel'">
+        <table class="table tasks-list table-lg" ng-if="ctrl.currentEvent==='travel'">
             <thead>
                 <tr>
                     <th>#</th>
@@ -22,6 +22,33 @@
                     </th>
                     <th>{{event.start.place}}</th>
                     <th>{{event.end.place}}</th>
+                    <th>{{ctrl.getFormatedDate(event.created)}}</th>
+                    <th>{{ctrl.getFormatedDate(event.finishTime)}}</th>
+                    <th>
+                        <status-user></status-user>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table tasks-list table-lg" ng-if="ctrl.currentEvent==='study'">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Created</th>
+                    <th>Finish</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in ctrl.events[ctrl.currentEvent].list" style="color: #879394; font-size: 12px;">
+                    <th>
+                        <a href="" ui-sref="post({type:ctrl.currentEvent, eventId: event._id})">
+                            #{{$index+1}}
+                        </a>
+                    </th>
+                    <th>{{event.title}}</th>
                     <th>{{ctrl.getFormatedDate(event.created)}}</th>
                     <th>{{ctrl.getFormatedDate(event.finishTime)}}</th>
                     <th>

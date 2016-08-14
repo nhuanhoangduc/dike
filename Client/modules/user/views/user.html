@@ -131,7 +131,7 @@
 
                                 <div class="form-group">
                                     <label for="event">Select type:</label>
-                                    <select id="event" class="form-control" ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent"></select>
+                                    <select id="event" class="form-control" ng-options="event as event.toUpperCase() for (event, value) in ctrl.events" ng-model="ctrl.currentEvent" ng-change="ctrl.loadEvents()"></select>
                                 </div>
 
                                 <event-profile></event-profile>
