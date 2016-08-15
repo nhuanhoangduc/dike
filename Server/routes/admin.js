@@ -6,10 +6,7 @@ var adminServices = require('../services/adminServices');
 
 /* event */
 
-router.get('/events/:type', adminServices.getEvents);
-router.get('/events/report/:type', adminServices.getReportedEvents);
-
-router.get('/events/disable/:type', adminServices.getDisabledEvents);
+router.post('/events/:type', adminServices.getEvents);
 
 router.get('/events/unblock/:type/:id', adminServices.unBlockEvent);
 router.get('/events/block/:type/:id', adminServices.blockEvent);
@@ -24,6 +21,9 @@ router.get('/users/block', adminServices.getBlockedUsers);
 
 router.get('/users/block/:id', adminServices.blockUser);
 router.get('/users/unblock/:id', adminServices.unBlockUser);
+
+router.get('/users/autocomplete', adminServices.userAutoComplete);
+router.get('/users/autocomplete/:name', adminServices.userAutoComplete);
 
 /*user */
 

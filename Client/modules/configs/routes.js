@@ -40,9 +40,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: '/post/views/post.html',
       controller: 'postController as ctrl'
     })
-    .state('admin', { // view a event post
+    .state('admin', { // admin home
       url: "/admin",
       templateUrl: '/admin/views/admin.html'
+    })
+    .state('admin_event', { // event management
+      url: "/admin/event",
+      templateUrl: '/admin/views/event.admin.html',
+      controller: 'AdminEventCtrl as ctrl'
+    })
+    .state('admin_user', { // user management
+      url: "/admin/user",
+      templateUrl: '/admin/views/user.admin.html',
+      controller: 'AdminUserCtrl as ctrl'
     })
     .state('study_list', { // study list all
       url: "/study",

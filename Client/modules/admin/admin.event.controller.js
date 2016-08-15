@@ -1,5 +1,5 @@
 app
-  .controller('adminEventCtrl', function(restfulServices, toastr, moment) {
+  .controller('AdminEventCtrl', function(restfulServices, toastr, moment) {
 
     var _this = this;
 
@@ -7,58 +7,91 @@ app
     this.action = 'available';
     this.events = [];
     this.moment = moment;
+    this.types = ['travel', 'study'];
+    this.users = [];
+    this.user = {};
+    this.from = new Date();
+    this.to = new Date();
+    this.allTime = true;
 
 
-    this.loadAvailableEvents = function() {
+    this.userComplete = function(name) {
 
-      restfulServices.get('/admin/events', [_this.type], function(err, res) {
-
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.events = res.data;
-
-      });
-
-    };
-
-
-    this.loadBlockedEvents = function() {
-
-      restfulServices.get('/admin/events/disable', [_this.type], function(err, res) {
+      restfulServices.get('/admin/users/autocomplete', [name], function(err, res) {
 
         if (err)
           return toastr.error(err.data.message, 'Error');
 
-        _this.events = res.data;
+        _this.users = res.data;
 
       });
 
     };
-
-
-    this.loadReportedEvents = function() {
-
-      restfulServices.get('/admin/events/report', [_this.type], function(err, res) {
-
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.events = res.data;
-
-      });
-
-    };
-
 
     this.loadEvents = function() {
 
-      if (_this.action === 'available')
-        _this.loadAvailableEvents();
-      else if (_this.action === 'blocked')
-        _this.loadBlockedEvents();
-      else
-        _this.loadReportedEvents();
+      var request = {};
+
+      if (_this.action === 'available') {
+
+        request = {
+          query: { status: 'available' },
+          sort: { created: -1 },
+          populate: 'user'
+        };
+
+      } else if (_this.action === 'blocked') {
+
+        request = {
+          query: { status: 'blocked' },
+          sort: { created: -1 },
+          populate: 'user'
+        };
+
+      } else {
+
+        request = {
+          query: { 'reports.0': { '$exists': true } },
+          sort: { reports: -1 },
+          populate: 'user reports'
+        };
+
+      }
+
+      if (this.user._id)
+        request.query.user = this.user._id;
+
+      if (!this.allTime) {
+
+        var startTime = moment(_this.from);
+        startTime.minute(0);
+        startTime.hour(0);
+
+        var endTime = moment(_this.to);
+        endTime.minute(59);
+        endTime.hour(23);
+
+        request.query.$and = [{
+          finishTime: {
+            $gte: startTime
+          }
+        }, {
+          finishTime: {
+            $lte: endTime
+          }
+        }];
+
+      }
+
+      restfulServices.post('/admin/events/' + _this.type, request, function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.events = res.data;
+
+      });
+
 
     };
 

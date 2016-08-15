@@ -1,0 +1,149 @@
+<div class="row" style="margin-top: 20px;">
+
+    <div class="col-sm-offset-1 col-sm-10">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Event management</h6>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <!-- Small size -->
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select ng-change="ctrl.loadEvents()" ng-model="ctrl.type" class="form-control" data-style="btn-default btn-sm" data-width="100%">
+                                <option ng-value="{{type}}" ng-repeat="type in ctrl.types">{{type}}</option>
+                            </select>
+                        </div>
+                        <!-- /small size -->
+
+                    </div>
+
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>User</label>
+
+                            <ui-select id="placeStart" on-select="ctrl.loadEvents()" ng-model="ctrl.user" theme="bootstrap">
+                                <ui-select-match placeholder="Username">{{$select.selected.name.slice(0,20)}}</ui-select-match>
+                                <ui-select-choices repeat="user in ctrl.users" refresh="ctrl.userComplete($select.search)" refresh-delay="0">
+                                    <div ng-bind-html="user.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">From</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.from" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" ng-change="ctrl.loadEvents()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen = true">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">To</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.to" is-open="ctrl.datePickerOpen1" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" ng-change="ctrl.loadEvents()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen1 = true">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label class="checkbox-inline" style="padding-top: 33px;">
+                            <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="ctrl.allTime" ng-change="ctrl.loadEvents()"> All time
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- options -->
+                        <div class="form-group" style="padding-left: 5px;">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="optradio" value="available" ng-model="ctrl.action" ng-change="ctrl.loadEvents()">Available</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="optradio" value="blocked" ng-model="ctrl.action" ng-change="ctrl.loadEvents()">Blocked</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="optradio" value="reported" ng-model="ctrl.action" ng-change="ctrl.loadEvents()">Reported</label>
+                            </div>
+                        </div>
+                        <!-- /options -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table tasks-list">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Created</th>
+                                    <th>Finish</th>
+                                    <th>Status</th>
+                                    <th ng-show="ctrl.action==='reported'">
+                                        Reported by
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="event in ctrl.events" style="color: #879394; font-size: 12px;">
+                                    <th>
+                                        <a href="" ui-sref="post({type:ctrl.type, eventId: event._id})">
+                                            #{{$index+1}}
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a ng-href="https://www.facebook.com/{{event.user.facebookId}}">
+                                            {{event.user.name}}
+                                        </a>
+                                    </th>
+                                    <th>{{ctrl.getFormatedDate(event.created)}}</th>
+                                    <th>{{ctrl.getFormatedDate(event.finishTime)}}</th>
+                                    <th>
+                                        <status-user></status-user>
+                                    </th>
+                                    <th ng-show="ctrl.action==='reported'">
+                                        <div ng-repeat="user in event.reports">
+                                            <a ng-href="https://www.facebook.com/{{user.facebookId}}">
+                                                {{user.name}},
+                                            </a>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <button class="btn btn-xs btn-danger" ng-click="ctrl.blockEvent(event._id)" ng-show="event.status==='available'">Block</button>
+                                        <button class="btn btn-xs btn-success" ng-click="ctrl.unBlockEvent(event._id)" ng-show="event.status==='blocked'">Unblock</button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

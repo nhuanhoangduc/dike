@@ -1,5 +1,5 @@
 app
-  .controller('adminUserCtrl', function(restfulServices, toastr, moment) {
+  .controller('AdminUserCtrl', function(restfulServices, toastr, moment) {
 
     var _this = this;
 

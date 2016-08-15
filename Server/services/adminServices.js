@@ -1,4 +1,5 @@
 var Travels = require('../models/travels');
+var Studies = require('../models/study');
 var Users = require('../models/users');
 
 
@@ -13,6 +14,10 @@ var getModel = function(type) {
       model = Travels;
       break;
 
+    case 'study':
+      model = Studies;
+      break;
+
   }
 
   return model;
@@ -23,65 +28,18 @@ var getEvents = function(req, res, next) {
 
   var type = req.params.type;
   var model = getModel(type);
+  var query = req.body.query;
+  var sort = req.body.sort;
+  var populate = req.body.populate;
 
   if (!model)
     return next({ message: 'Invalid event type' });
 
   model
-    .find({ disable: false })
+    .find(query)
     .lean()
-    .populate('user')
-    .sort({ created: -1 })
-    .exec(function(err, events) {
-
-      if (err)
-        return next(err);
-
-      return res.json(events);
-
-    });
-
-};
-
-
-var getReportedEvents = function(req, res, next) {
-
-  var type = req.params.type;
-  var model = getModel(type);
-
-  if (!model)
-    return next({ message: 'Invalid event type' });
-
-  model
-    .find({ 'reports.0': { '$exists': true } })
-    .lean()
-    .populate('user reports')
-    .sort({ reports: -1 })
-    .exec(function(err, events) {
-
-      if (err)
-        return next(err);
-
-      return res.json(events);
-
-    });
-
-};
-
-
-var getDisabledEvents = function(req, res, next) {
-
-  var type = req.params.type;
-  var model = getModel(type);
-
-  if (!model)
-    return next({ message: 'Invalid event type' });
-
-  model
-    .find({ disable: true })
-    .lean()
-    .populate('user')
-    .sort({ created: -1 })
+    .populate(populate)
+    .sort(sort)
     .exec(function(err, events) {
 
       if (err)
@@ -126,7 +84,7 @@ var unBlockEvent = function(req, res, next) {
     return next({ message: 'Invalid event type' });
 
   model
-    .update({ _id: id }, { disable: false }, function(err) {
+    .update({ _id: id }, { status: 'available' }, function(err) {
 
       if (err)
         return next(err);
@@ -140,6 +98,24 @@ var unBlockEvent = function(req, res, next) {
 
 
 /* user */
+
+var userAutoComplete = function(req, res, next) {
+
+  var name = req.params.name || '';
+
+  Users
+    .find({ $text: { $search: name } }, { score: { $meta: 'textScore' } })
+    .sort({ score: { $meta: 'textScore' } })
+    .exec(function(err, users) {
+
+      if (err)
+        return next(err);
+
+      res.json(users);
+
+    });
+
+};
 
 var getUsers = function(req, res, next) {
 
@@ -211,14 +187,12 @@ var unBlockUser = function(req, res, next) {
 
 module.exports = {
   getEvents: getEvents,
-  getReportedEvents: getReportedEvents,
-  getDisabledEvents: getDisabledEvents,
-
   unBlockEvent: unBlockEvent,
   blockEvent: blockEvent,
 
   getUsers: getUsers,
   getBlockedUsers: getBlockedUsers,
   unBlockUser: unBlockUser,
-  blockUser: blockUser
+  blockUser: blockUser,
+  userAutoComplete: userAutoComplete
 };

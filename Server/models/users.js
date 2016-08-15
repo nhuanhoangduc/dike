@@ -22,4 +22,6 @@ var userSchema = new Schema({
   lastLogin: Date
 });
 
+userSchema.index({ name: 'text' });
+
 module.exports = mongoose.model('users', userSchema);
