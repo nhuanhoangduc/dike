@@ -5,6 +5,8 @@ app
 
     this.request = {};
     this.request.finishTime = new Date();
+    this.request.startTime = new Date();
+    this.request.endTime = new Date();
     this.id = $stateParams.id || null;
 
 
@@ -13,7 +15,7 @@ app
     this.altInputFormats = ['dd-MM-yyyy'];
 
     this.submit = function() {
-      
+
       _this.request.finishTime = moment(_this.request.finishTime);
       _this.request.finishTime.minute(59);
       _this.request.finishTime.hour(23);
@@ -53,6 +55,8 @@ app
 
         _this.request = res.data;
         _this.request.finishTime = new Date(_this.request.finishTime);
+        _this.request.startTime = new Date(_this.request.startTime);
+        _this.request.endTime = new Date(_this.request.endTime);
 
       });
 

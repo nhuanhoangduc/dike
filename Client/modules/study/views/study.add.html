@@ -17,7 +17,7 @@
 
 <div class="row" style="background-color:white;">
 
-    <div class="col-md-offset-2 col-md-7" style="padding-bottom: 50px; padding-right: 25px; padding-left: 25px;">
+    <div class="col-md-offset-2 col-md-8" style="padding-bottom: 50px; padding-right: 25px; padding-left: 25px;">
 
         <div class="row studyEvent">
             <div class="col-md-12">
@@ -26,39 +26,101 @@
         </div>
 
         <div class="row studyEvent">
-            <div class="col-md-offset-2 col-md-8">
+            <div class="col-md-offset-1 col-md-8">
 
                 <form class="form-horizontal" role="form">
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Title:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3" for="email">
+                            <span class="pull-right">Title:</span>
+                        </label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="email" placeholder="Enter title" ng-model="ctrl.request.title">
                         </div>
                     </div>
 
-                    <div class="form-group form-group-sm row">
-                        <label class="col-md-2 control-label">Note</label>
-                        <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">
+                            <span class="pull-right">Teacher:</span>
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="email" placeholder="Enter teacher" ng-model="ctrl.request.teacher">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">
+                            <span class="pull-right">Duration:</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="email" placeholder="Enter duration" ng-model="ctrl.request.duration">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <span class="pull-right">Note:</span>
+                        </label>
+                        <div class="col-sm-9">
                             <textarea class="form-control" rows="3" ng-model="ctrl.request.note"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="slot">Slots:</label>
-                        <div class="col-sm-10">
+                        <label class="control-label col-sm-3" for="slot">
+                            <span class="pull-right">Available seats:</span>
+                        </label>
+                        <div class="col-sm-3">
                             <input type="text" class="form-control" id="slot" placeholder="Enter title" ng-model="ctrl.request.slots">
                         </div>
                     </div>
 
-                    <!-- finish date -->
+                    <!-- start time -->
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="date">Finish</label>
+                        <label class="col-md-3 control-label" for="date">
+                            <span class="pull-right">Start time:</span>
+                        </label>
                         <div class="col-md-5">
                             <p class="input-group">
-                                <input id="date" type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.finishTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" date-disabled="'true'" />
+                                <input id="date" type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.startTime" is-open="ctrl.datePickerOpen" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" date-disabled="'true'" />
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen = true">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /start time  -->
+
+                    <!-- finish date -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="date">
+                            <span class="pull-right">Finish time:</span>
+                        </label>
+                        <div class="col-md-5">
+                            <p class="input-group">
+                                <input id="date" type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.endTime" is-open="ctrl.datePickerOpen1" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" date-disabled="'true'" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen1 = true">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- end date -->
+
+                    <!-- finish date -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="date">
+                            <span class="pull-right">Registration deadline:</span>
+                        </label>
+                        <div class="col-md-5">
+                            <p class="input-group">
+                                <input id="date" type="text" class="form-control bg-slate" uib-datepicker-popup="{{ctrl.dateFormat}}" ng-model="ctrl.request.finishTime" is-open="ctrl.datePickerOpen2" alt-input-formats="ctrl.altInputFormats " ng-required="true" close-text="Close" date-disabled="'true'" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.datePickerOpen2 = true">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </button>
                                 </span>
@@ -68,8 +130,9 @@
                     <!-- end date -->
 
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default" ng-click="ctrl.submit()">Submit</button>
+                        <div class="col-sm-offset-3 col-sm-10">
+                            <button type="submit" class="btn btn-primary" ng-click="ctrl.submit()">Submit</button>
+                            <button type="submit" class="btn btn-default" ui-sref="study_list">Cancel</button>
                         </div>
                     </div>
                 </form>
