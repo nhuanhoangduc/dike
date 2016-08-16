@@ -15,5 +15,7 @@ var commentSchema = new Schema({
   comment: String
 });
 
+commentSchema.index({ eventId: 1, type: 1, join: 1, created: 1 });
+
 
 module.exports = mongoose.model('comments', commentSchema);
