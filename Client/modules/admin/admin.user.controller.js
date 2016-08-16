@@ -1,5 +1,5 @@
 app
-  .controller('AdminUserCtrl', function(restfulServices, toastr, moment) {
+  .controller('AdminUserCtrl', function(restfulServices, toastr, moment, UserServices) {
 
     var _this = this;
 
@@ -14,7 +14,7 @@ app
 
     this.userSuggest = [];
 
-
+    this.currentUser = UserServices.user;
 
     this.loadUsers = function() {
 

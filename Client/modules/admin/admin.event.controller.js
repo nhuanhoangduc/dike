@@ -1,5 +1,5 @@
 app
-  .controller('AdminEventCtrl', function(restfulServices, toastr, moment) {
+  .controller('AdminEventCtrl', function(restfulServices, toastr, moment, UserServices) {
 
     var _this = this;
 
@@ -13,6 +13,8 @@ app
     this.from = new Date();
     this.to = new Date();
     this.allTime = true;
+
+    this.currentUser = UserServices.user;
 
 
     this.userComplete = function(name) {
