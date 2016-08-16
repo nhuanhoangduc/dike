@@ -94,7 +94,6 @@ app
         restfulServices.get('/event/travel', [_this.id], function(err, response) {
           if (err)
             return toastr.error(err.data.message, 'Error');
-          console.log(response.data);
 
           delete response.data.commentUsers;
           _this.request = response.data;

@@ -62,17 +62,20 @@ var logout = function(req, res, next) {
 
 
 var update = function(req, res, next) {
-  console.log(req.body);
+
   if (req.user._id !== req.body._id)
     return next({ message: 'Undefined user' });
 
   Users.update({ _id: req.body._id }, req.body, function(err) {
+    
     if (err)
       return next(err);
 
     req.session.passport.user = req.body;
     res.sendStatus(200);
+
   });
+
 };
 
 

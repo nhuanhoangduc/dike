@@ -1,6 +1,10 @@
 app
   .controller('postController', function($stateParams, $uibModal, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, mapServices, GoWithMeServices) {
+
     var _this = this;
+    var socket = io('http://localhost:3000');
+
+
     this.type = $stateParams.type;
     this.eventId = $stateParams.eventId;
     this.post = {};
@@ -10,7 +14,6 @@ app
     this.isJoin = false;
     this.map = mapServices;
     this.goWithMeServices = GoWithMeServices;
-
 
 
     this.openTripView = function() {
@@ -39,21 +42,19 @@ app
     };
 
 
-    /* load all comments for this post */
     this.loadComments = function() {
-      postServices.getComments(_this.type, _this.eventId, function(err, response) {
-        if (err)
-          return toastr.error(err.data.message, 'Error');
 
-        _this.comments = response.data;
-      });
-    };
+      var request = {
 
+        query: {
+          eventId: _this.eventId,
+          type: _this.type,
+          join: _this.isJoin
+        }
 
-    // load join comment
-    this.loadJoinComments = function() {
+      };
 
-      restfulServices.get('/comments/join', [_this.type, _this.eventId, ], function(err, res) {
+      restfulServices.post('/comments/getAll', request, function(err, res) {
 
         if (err)
           return toastr.error(err.data.message, 'Error');
@@ -81,10 +82,9 @@ app
           _this.comment = '';
 
           // init comments
-          if (_this.isJoin)
-            _this.loadJoinComments();
-          else
-            _this.loadComments();
+          _this.loadComments();
+
+          socket.emit('comment', { type: _this.type, eventId: _this.eventId });
 
         });
     };
@@ -99,12 +99,8 @@ app
             return toastr.error(err.data.message, 'Error');
 
           toastr.success('You has deleted your comment', 'Success');
-
-          // init comments
-          if (_this.isJoin)
-            _this.loadJoinComments();
-          else
-            _this.loadComments();
+          _this.loadComments();
+          socket.emit('comment', { type: _this.type, eventId: _this.eventId });
 
         });
 
@@ -127,6 +123,7 @@ app
 
         toastr.success('Success');
         _this.getEvent();
+        socket.emit('join', { type: _this.type, eventId: _this.eventId });
 
       });
 
@@ -161,6 +158,7 @@ app
 
           toastr.warning('You has closed your event', 'Success');
           _this.getEvent();
+          socket.emit('close', { type: _this.type, eventId: _this.eventId });
 
         });
 
@@ -226,10 +224,7 @@ app
         }
 
         // init comments
-        if (_this.isJoin)
-          _this.loadJoinComments();
-        else
-          _this.loadComments();
+        _this.loadComments();
 
       });
 
@@ -237,12 +232,7 @@ app
 
 
     this.changeComment = function() {
-
-      if (this.isJoin)
-        _this.loadJoinComments();
-      else
-        _this.loadComments();
-
+      _this.loadComments();
     };
 
 
@@ -256,6 +246,9 @@ app
     };
 
 
+
+
+
     /* init funtion */
     (function() {
 
@@ -264,6 +257,22 @@ app
 
       // get event with type and event id params
       _this.getEvent();
+
+      // config socket io event
+      var commentEvent = 'comment/' + _this.type + '/' + _this.eventId;
+      socket.on(commentEvent, function() {
+        _this.changeComment();
+      });
+
+      var joinEvent = 'join/' + _this.type + '/' + _this.eventId;
+      socket.on(joinEvent, function() {
+        _this.getEvent();
+      });
+
+      var closeEvent = 'close/' + _this.type + '/' + _this.eventId;
+      socket.on(closeEvent, function() {
+        _this.getEvent();
+      });
 
     })();
 

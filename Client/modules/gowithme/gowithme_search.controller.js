@@ -72,7 +72,6 @@ app
           return toastr.error('Check your connection', 'Error');
 
         _this.searchResults = response.data;
-        console.log(response.data);
 
         // delete current marker
         for (var key in _this.map.markers) {
@@ -186,7 +185,7 @@ app
           restfulServices.get('/map/direction', [travel.start.lat, travel.start.lng, travel.end.lat, travel.end.lng], function(err, res) {
             if (err)
               return;
-            console.log(res.data);
+
             _this.map.paths.direction = {
               color: 'red',
               weight: 5,

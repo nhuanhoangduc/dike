@@ -30,12 +30,10 @@ var getModelEvent = function(type) {
 // get all comments with type of event and event id
 var getAll = function(req, res, next) {
 
-  var type = req.params.type;
-  var id = req.params.eventid;
-
+  var query = req.body.query;
 
   Comments
-    .find({ eventId: id, type: type, join: false })
+    .find(query)
     .populate('user')
     .sort({ 'created': 1 })
     .lean()
@@ -50,29 +48,6 @@ var getAll = function(req, res, next) {
 
 };
 
-
-// get all comments user has joint
-var getAllJoin = function(req, res, next) {
-
-  var type = req.params.type;
-  var id = req.params.eventid;
-
-
-  Comments
-    .find({ eventId: id, type: type, join: true })
-    .populate('user')
-    .sort({ 'created': -1 })
-    .lean()
-    .exec(function(err, comments) {
-
-      if (err)
-        return next(err);
-
-      res.json(comments);
-
-    });
-
-};
 
 
 // create new event with type of event and event id
@@ -226,6 +201,5 @@ module.exports = {
   getAll: getAll,
   remove: remove,
   getByUser: getByUser,
-  getByUserCount: getByUserCount,
-  getAllJoin: getAllJoin
+  getByUserCount: getByUserCount
 };

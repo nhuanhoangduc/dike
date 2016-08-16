@@ -13,7 +13,7 @@ app
         toastr.error(err.data.message, 'Error');
 
       _this.travels = res.data;
-      console.log(res.data);
+
     });
 
   });
