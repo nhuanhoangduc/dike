@@ -10,9 +10,14 @@
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-8">
+
+                    <div class="col-sm-4">
+                        <input type="text" name="" ng-model="ctrl.userFilter" class="form-control" placeholder="Search user name" ng-change="ctrl.loadUsers()">
+                    </div>
+
+                    <div class="col-sm-8">
                         <!-- options -->
-                        <div class="form-group">
+                        <div class="form-group" style="padding-top: 8px;">
                             <div class="radio-inline">
                                 <label>
                                     <input type="radio" name="nhuan" value="available" ng-model="ctrl.action" ng-change="ctrl.loadUsers()">Available</label>
@@ -24,6 +29,7 @@
                         </div>
                         <!-- /options -->
                     </div>
+
                 </div>
 
                 <div class="row">

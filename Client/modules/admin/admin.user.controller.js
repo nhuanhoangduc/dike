@@ -25,6 +25,9 @@ app
       else
         request.query = { status: 'blocked' };
 
+      if (this.userFilter)
+        request.query.$text = { $search: this.userFilter };
+
       request.sort = { created: 1 };
 
       request.populate = '';
