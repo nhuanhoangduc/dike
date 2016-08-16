@@ -2,7 +2,7 @@ app
   .controller('postController', function($stateParams, $uibModal, $state, postServices, UserServices, restfulServices, toastr, mapServices, moment, mapServices, GoWithMeServices) {
 
     var _this = this;
-    var socket = io('http://localhost:3000');
+    var socket = io('http://www.fudiemhen.com');
 
 
     this.type = $stateParams.type;
