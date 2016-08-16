@@ -1,6 +1,7 @@
 var Travels = require('../models/travels');
 var Studies = require('../models/study');
 var Users = require('../models/users');
+var Admins = require('../models/admins');
 
 
 /* events */
@@ -119,9 +120,15 @@ var userAutoComplete = function(req, res, next) {
 
 var getUsers = function(req, res, next) {
 
+  var query = req.body.query;
+  var sort = req.body.sort;
+  var populate = req.body.populate;
+
   Users
-    .find({ disable: false })
+    .find(query)
     .lean()
+    .populate(populate)
+    .sort(sort)
     .exec(function(err, users) {
 
       if (err)
@@ -133,28 +140,13 @@ var getUsers = function(req, res, next) {
 
 };
 
-var getBlockedUsers = function(req, res, next) {
-
-  Users
-    .find({ disable: true })
-    .lean()
-    .exec(function(err, users) {
-
-      if (err)
-        return next(err);
-
-      res.json(users);
-
-    });
-
-};
 
 var blockUser = function(req, res, next) {
 
   var userId = req.params.id;
 
   Users
-    .update({ _id: userId }, { disable: true }, function(err) {
+    .update({ _id: userId }, { status: 'blocked' }, function(err) {
 
       if (err)
         return next(err);
@@ -170,12 +162,99 @@ var unBlockUser = function(req, res, next) {
   var userId = req.params.id;
 
   Users
-    .update({ _id: userId }, { disable: false }, function(err) {
+    .update({ _id: userId }, { status: 'available' }, function(err) {
 
       if (err)
         return next(err);
 
       res.sendStatus(200);
+
+    });
+
+};
+
+
+var loadAdmin = function(req, res, next) {
+
+  Admins.find({}, function(err, admins) {
+
+    var listFacebookId = [];
+
+    for (var i = 0; i < admins.length; i++) {
+      listFacebookId.push(admins[i].facebookId);
+    }
+
+    if (err)
+      return next(err);
+
+    Users.find({ facebookId: { $in: listFacebookId } }, function(err, users) {
+
+      if (err)
+        return next(err);
+
+      res.json(users);
+
+    });
+
+  });
+
+};
+
+
+var assignAdmin = function(req, res, next) {
+
+  var facebookId = req.params.facebookId;
+
+  Admins
+    .findOne({ facebookId: facebookId })
+    .lean()
+    .exec(function(err, user) {
+
+      if (err)
+        return next(err);
+
+      if (user)
+        return next({ message: 'User has assigned' });
+
+      Admins
+        .create({ facebookId: facebookId }, function(err) {
+
+          if (err)
+            return next(err);
+
+          res.sendStatus(200);
+
+        });
+
+    });
+
+};
+
+
+var unAssignAdmin = function(req, res, next) {
+
+  var facebookId = req.params.facebookId;
+
+  Admins
+    .findOne({ facebookId: facebookId })
+    .lean()
+    .exec(function(err, user) {
+
+      if (err)
+        return next(err);
+
+      if (!user)
+        return next({ message: 'User has not assigned' });
+
+      Admins
+        .remove({ facebookId: facebookId }, function(err) {
+
+          if (err)
+            return next(err);
+
+          res.sendStatus(200);
+
+        });
 
     });
 
@@ -191,8 +270,11 @@ module.exports = {
   blockEvent: blockEvent,
 
   getUsers: getUsers,
-  getBlockedUsers: getBlockedUsers,
   unBlockUser: unBlockUser,
   blockUser: blockUser,
-  userAutoComplete: userAutoComplete
+  userAutoComplete: userAutoComplete,
+
+  assignAdmin: assignAdmin,
+  loadAdmin: loadAdmin,
+  unAssignAdmin: unAssignAdmin
 };

@@ -4,44 +4,54 @@ app
     var _this = this;
 
     this.action = 'available';
-    this.users = [];
     this.moment = moment;
 
+    this.user = {};
+    this.users = [];
 
-    this.loadAvailableUsers = function() {
+    this.adminUser = {};
+    this.adminUsers = [];
 
-      restfulServices.get('/admin/users', [], function(err, res) {
+    this.userSuggest = [];
 
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.users = res.data;
-
-      });
-
-    };
-
-
-    this.loadBlockedUsers = function() {
-
-      restfulServices.get('/admin/users/block', [], function(err, res) {
-
-        if (err)
-          return toastr.error(err.data.message, 'Error');
-
-        _this.users = res.data;
-
-      });
-
-    };
 
 
     this.loadUsers = function() {
 
+      var request = {};
+
       if (_this.action === 'available')
-        _this.loadAvailableUsers();
+        request.query = { status: 'available' };
       else
-        _this.loadBlockedUsers();
+        request.query = { status: 'blocked' };
+
+      request.sort = { created: 1 };
+
+      request.populate = '';
+
+
+      restfulServices.post('/admin/users', request, function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.users = res.data;
+
+      });
+
+    };
+
+
+    this.loadAdminUsers = function() {
+
+      restfulServices.get('/admin/users/loadadmin', [], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.adminUsers = res.data;
+
+      });
 
     };
 
@@ -82,7 +92,52 @@ app
     };
 
 
+    this.userAutoComplete = function(name) {
+
+      restfulServices.get('/admin/users/autocomplete', [name], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.userSuggest = res.data;
+
+      });
+
+    };
+
+
+    this.assignAdmin = function() {
+
+      restfulServices.get('/admin/users/assignadmin', [_this.adminUser.facebookId], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.loadAdminUsers();
+        toastr.success(_this.adminUser.name + ' has became admin', 'Success');
+
+      });
+
+    };
+
+
+    this.unAssignAdmin = function(user) {
+
+      restfulServices.get('/admin/users/unassignadmin', [user.facebookId], function(err, res) {
+
+        if (err)
+          return toastr.error(err.data.message, 'Error');
+
+        _this.loadAdminUsers();
+        toastr.success(user.name + ' has became normal user', 'Success');
+
+      });
+
+    };
+
+
     this.loadUsers();
+    this.loadAdminUsers();
 
 
   });

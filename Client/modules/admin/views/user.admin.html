@@ -1,60 +1,123 @@
-<div class="col-md-5">
-    <!-- Daily financials -->
-    <div class="panel panel-flat">
-        <div class="panel-heading">
-            <h6 class="panel-title">Users manager</h6>
-        </div>
+<div class="row" style="margin-top: 20px;">
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <!-- options -->
-                    <div class="form-group" style="margin-top:30px;">
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="nhuan" value="available" ng-model="ctrl.action" ng-change="ctrl.loadUsers()">Available</label>
+    <!-- user management -->
+    <div class="col-sm-offset-1 col-sm-7">
+        <!-- Daily financials -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">User management</h6>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- options -->
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="nhuan" value="available" ng-model="ctrl.action" ng-change="ctrl.loadUsers()">Available</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="nhuan" value="blocked" ng-model="ctrl.action" ng-change="ctrl.loadUsers()">Blocked</label>
+                            </div>
                         </div>
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="nhuan" value="blocked" ng-model="ctrl.action" ng-change="ctrl.loadUsers()">Blocked</label>
-                        </div>
+                        <!-- /options -->
                     </div>
-                    <!-- /options -->
                 </div>
-            </div>
 
-            <div class="row">
-                <!-- travel -->
-                <table class="table tasks-list table-lg">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Last login</th>
-                            <th>Created</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="user in ctrl.users" style="color: #879394; font-size: 12px;">
-                            <th>#{{$index+1}}</th>
-                            <th>
-                                <a ng-href="https://www.facebook.com/{{user.facebookId}}">
-                                    {{user.name}}
-                                </a>
-                            </th>
-                            <th>{{ctrl.getFormatedDate(user.lastLogin)}}</th>
-                            <th>{{ctrl.getFormatedDate(user.created)}}</th>
-                            <th>
-                                <button class="btn btn-xs btn-danger" ng-click="ctrl.blockUser(user._id)" ng-show="!user.disable">Block</button>
-                                <button class="btn btn-xs btn-success" ng-click="ctrl.unBlockUser(user._id)" ng-show="user.disable">Unblock</button>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- finish travel -->
-            </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- travel -->
+                        <table class="table tasks-list table-lg">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Last login</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in ctrl.users" style="color: #879394; font-size: 12px;">
+                                    <th>#{{$index+1}}</th>
+                                    <th>
+                                        <a ng-href="https://www.facebook.com/{{user.facebookId}}">
+                                            {{user.name}}
+                                        </a>
+                                    </th>
+                                    <th>{{ctrl.getFormatedDate(user.lastLogin)}}</th>
+                                    <th>{{ctrl.getFormatedDate(user.created)}}</th>
+                                    <th>
+                                        <button class="btn btn-xs btn-danger" ng-click="ctrl.blockUser(user._id)" ng-show="user.status==='available'">Block</button>
+                                        <button class="btn btn-xs btn-success" ng-click="ctrl.unBlockUser(user._id)" ng-show="user.status==='blocked'">Unblock</button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- finish travel -->
+                    </div>
+                </div>
 
+            </div>
         </div>
+        <!-- /daily financials -->
     </div>
-    <!-- /daily financials -->
+    <!-- /user management -->
+
+    <!-- admin users -->
+    <div class="col-sm-3">
+        <!-- Daily financials -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Admin users</h6>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <ui-select id="placeStart" ng-model="ctrl.adminUser" theme="bootstrap">
+                            <ui-select-match placeholder="Username">{{$select.selected.name.slice(0,20)}}</ui-select-match>
+                            <ui-select-choices repeat="user in ctrl.userSuggest" refresh="ctrl.userAutoComplete($select.search)" refresh-delay="0">
+                                <div ng-bind-html="user.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-xs btn-info" ng-disabled="!ctrl.adminUser._id" ng-click="ctrl.assignAdmin()">Assign</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- travel -->
+                    <table class="table tasks-list table-lg">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in ctrl.adminUsers" style="color: #879394; font-size: 12px;">
+                                <th>#{{$index+1}}</th>
+                                <th>
+                                    <a ng-href="https://www.facebook.com/{{user.facebookId}}">
+                                        {{user.name}}
+                                    </a>
+                                </th>
+                                <th>
+                                    <button class="btn btn-xs bg-slate" ng-click="ctrl.unAssignAdmin(user)">Remove</button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- finish travel -->
+                </div>
+
+            </div>
+        </div>
+        <!-- /daily financials -->
+    </div>
+    <!-- /admin users -->
+
 </div>

@@ -11,6 +11,9 @@ var compression = require('compression');
 
 var app = express();
 
+// load admin users
+require('./adminUsers');
+
 // set environment
 app.set('env', process.env.environment);
 
