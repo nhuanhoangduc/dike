@@ -12,7 +12,7 @@
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Teacher:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.post.teacher}}
     </div>
 </div>
@@ -21,7 +21,7 @@
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Duration:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.post.duration}}
     </div>
 </div>
@@ -30,16 +30,16 @@
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Content:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.post.note}}
     </div>
 </div>
-
+<br>
 <div class="row postContent">
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Total seats:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.post.slots}}
     </div>
 </div>
@@ -48,9 +48,27 @@
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Available seats:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.post.slots - ctrl.post.join.length}}
     </div>
+</div>
+<br>
+<div class="row postContent">
+
+    <div class="col-md-4 col-xs-3">
+        <span class="pull-right informationHeader">From:</span>
+    </div>
+    <div class="col-md-3 col-xs-9">
+        <span class="pull-left">{{ctrl.goWithMeServices.getFormatedDate(ctrl.post.startTime)}}</span>
+    </div>
+
+    <div class="col-md-1 col-xs-3">
+        <span class="pull-right informationHeader">To:</span>
+    </div>
+    <div class="col-md-3 col-xs-9">
+        <span class="pull-left">{{ctrl.goWithMeServices.getFormatedDate(ctrl.post.endTime)}}</span>
+    </div>
+
 </div>
 
 <!-- start time -->
@@ -58,7 +76,7 @@
     <div class="col-md-4 col-xs-3">
         <span class="pull-right informationHeader">Registration deadline:</span>
     </div>
-    <div class="col-md-5 col-xs-9">
+    <div class="col-md-7 col-xs-9">
         {{ctrl.goWithMeServices.getFormatedDate(ctrl.post.finishTime)}}
     </div>
 </div>

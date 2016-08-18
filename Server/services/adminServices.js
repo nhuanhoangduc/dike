@@ -3,6 +3,10 @@ var Studies = require('../models/study');
 var Users = require('../models/users');
 var Admins = require('../models/admins');
 
+var async = require('async');
+
+var models = [Travels, Studies];
+
 
 /* events */
 var getModel = function(type) {
@@ -145,15 +149,53 @@ var blockUser = function(req, res, next) {
 
   var userId = req.params.id;
 
-  Users
-    .update({ _id: userId }, { status: 'blocked' }, function(err) {
+  async.parallel([
 
-      if (err)
-        return next(err);
+    function(nextFunc) {
+      Users
+        .update({ _id: userId }, { status: 'blocked' }, function(err) {
 
-      res.sendStatus(200);
+          if (err)
+            return nextFunc(err);
 
-    });
+          nextFunc();
+
+        });
+    },
+
+    function(nextFunc) {
+
+      async.each(models, function(model, nextModel) {
+
+        model
+          .update({ user: userId }, { status: 'blocked' }, function(err) {
+
+            if (err)
+              return nextModel(err);
+
+            nextModel();
+
+          });
+
+      }, function(err) {
+
+        if (err)
+          return nextFunc(err);
+
+        nextFunc();
+
+      });
+
+    }
+
+  ], function(err) {
+
+    if (err)
+      return next(err);
+
+    res.sendStatus(200);
+
+  });
 
 };
 

@@ -1,7 +1,9 @@
 app
-  .controller('StudyAddCtrl', function(restfulServices, $state, toastr, moment, $stateParams) {
+  .controller('StudyAddCtrl', function(UserServices, restfulServices, $state, toastr, moment, $stateParams) {
 
     var _this = this;
+
+    this.user = UserServices.user;
 
     this.request = {};
     this.request.finishTime = new Date();

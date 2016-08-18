@@ -4,7 +4,7 @@
 
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title">Event management</h6>
+                <h3 class="panel-title">Event management</h3>
             </div>
 
             <div class="panel-body">
@@ -12,7 +12,7 @@
                     <div class="col-sm-3">
                         <!-- Small size -->
                         <div class="form-group">
-                            <label>Type</label>
+                            <label>Event type</label>
                             <select ng-change="ctrl.loadEvents()" ng-model="ctrl.type" class="form-control" data-style="btn-default btn-sm" data-width="100%">
                                 <option ng-value="{{type}}" ng-repeat="type in ctrl.types">{{type}}</option>
                             </select>
@@ -24,7 +24,7 @@
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label>User</label>
+                            <label>Creator</label>
 
                             <ui-select id="placeStart" on-select="ctrl.loadEvents()" ng-model="ctrl.user" theme="bootstrap">
                                 <ui-select-match placeholder="Username">{{$select.selected.name.slice(0,20)}}</ui-select-match>

@@ -39,17 +39,17 @@
 
                     <li>
                         <a href="" ui-sref="user">
-                            <i class="icon-user-plus"></i> My profile</a>
+                            <i class="icon-user-plus" style="color: #1abc9c;"></i> My profile</a>
                     </li>
 
                     <li ng-show="ctrl.user.isAdmin">
                         <a href="" ui-sref="admin">
-                            <i class="icon-user-plus"></i> Admin </a>
+                            <i class="icon-user-lock" style="color: #8e44ad;"></i> Admin </a>
                     </li>
 
                     <li>
                         <a href="/users/logout">
-                            <i class="icon-switch2"></i> Logout</a>
+                            <i class="icon-switch2" style="color: #d35400;"></i> Logout</a>
                     </li>
 
                 </ul>
@@ -85,7 +85,7 @@
             <!-- travel -->
             <li class="dropdown" ng-class="{'active': ctrl.current === 'travel'}">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-bike position-left"></i> Travel
+                    <i class="icon-bike position-left" style="color: #16a085;"></i> Travel
                     <span class="caret"></span>
                 </a>
 
@@ -93,12 +93,12 @@
 
                     <li ng-show="ctrl.user._id">
                         <a href="" ui-sref="gowithme_create" ng-click="ctrl.current = 'travel'">
-                            <i class="icon-pencil4"></i> Create trip</a>
+                            <i class="icon-pencil4" style="color: #27ae60;"></i> Create trip</a>
                     </li>
 
                     <li>
                         <a href="" ui-sref="gowithme_search" ng-click="ctrl.current = 'travel'">
-                            <i class="icon-search4"></i> Search trip</a>
+                            <i class="icon-search4" style="color: #9b59b6;"></i> Search trip</a>
                     </li>
 
                 </ul>
@@ -106,16 +106,32 @@
             <!-- travel -->
 
             <!-- Study -->
-            <li ng-class="{'active': ctrl.current === 'study'}" ng-click="ctrl.current = 'study'">
-                <a href="" ui-sref="study_list">
-                    <i class="icon-books position-left"></i> Study</a>
+            <li class="dropdown" ng-class="{'active': ctrl.current === 'study'}">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-books position-left" style="color: #d35400;"></i> Study
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu width-200">
+
+                    <li ng-show="ctrl.user._id">
+                        <a href="" ui-sref="study_edit" ng-click="ctrl.current = 'study'">
+                            <i class="icon-pencil4" style="color: #27ae60;"></i> Create</a>
+                    </li>
+
+                    <li>
+                        <a href="" ui-sref="study_list" ng-click="ctrl.current = 'study'">
+                            <i class="icon-search4" style="color: #9b59b6;"></i> Search</a>
+                    </li>
+
+                </ul>
             </li>
             <!-- travel -->
 
             <!-- Study -->
             <li ng-show="ctrl.user._id">
                 <a href="" ui-sref="user({menu: 'event'})" ng-show="ctrl.user._id">
-                    <i class="icon-clipboard3"></i> My events</a>
+                    <i class="icon-clipboard3" style="color: #8e44ad;"></i> My events</a>
             </li>
             <!-- travel -->
 
