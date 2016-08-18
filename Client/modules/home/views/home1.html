@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="/home/css/style.css">
+
+
+<div class="slider">
+    <img src="/home/img/bg-main.jpg" min-width="100%" alt="" class="img-responsive" />
+</div>
+<!-- column content -->
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="big-box">
+                <div class="col-lg-12">
+                    <div class="col-md-offset-1 col-md-4">
+                        <div class="box-bg">
+                            <div class="wow bounceInLeft" data-wow-duration="2s" data-wow-delay="0.9s">
+                                <div class="align-center">
+                                    <a data-toggle="modal" href="#myModal">
+                                        <i class="fa fa-map-marker fa-5x" style="color: #27ae60;"></i>
+                                        <h4 class="text-bold">Trip sharing</h4>
+                                        <p>
+                                            “This life is for loving, sharing, learning, smiling, caring, forgiving, laughing, hugging, helping, dancing, wondering, healing, and even more loving. I choose to live life this way!”
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2 col-md-4">
+                        <div class="box-bg">
+                            <div class="wow bounceInLeft" data-wow-duration="2s" data-wow-delay="0.6s">
+                                <div class="align-center">
+                                    <a href="" ui-sref="study_list">
+                                        <i class="fa fa-key fa-5x" style="color: #d35400;"></i>
+                                        <h4 class="text-bold">Study</h4>
+                                        <p>
+                                            “It does not matter where you go and what you study, what matters most is what you share with yourself and the world.”
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="wow bounceInRight">
+                <div class="col-lg-6">
+                    <a href="#" class="thumbnail">
+                        <img src="/home/img/thumbnails/outline-1.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="wow bounceInLeft">
+                <div class="col-lg-6">
+                    <a href="#" class="thumbnail">
+                        <img src="/home/img/thumbnails/ipad.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="color: #2c3e50;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="color: #7f8c8d;">Pick a trip you want to go</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <!-- start point -->
+                                <div class="form-group">
+                                    <label for="placeStart">Start
+                                        <i class="pe-7s-map-marker"></i>
+                                    </label>
+
+                                    <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.start)" ng-model="ctrl.start" theme="bootstrap">
+                                        <ui-select-match placeholder="Start point">{{$select.selected.name.slice(0,60)}}</ui-select-match>
+                                        <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                                            <div ng-bind-html="place.name | highlight: $select.search"></div>
+                                            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                                <!-- end start point -->
+                            </div>
+
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group pull-right">
+                                        <label for="startRange" style="color: #2c3e50;">In range (km):</label>
+                                        <input type="text" class="form-control" id="startRange" ng-model="ctrl.startRadius">
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <!-- end point -->
+                                <div class="form-group">
+                                    <label for="placeStart">End
+                                        <i class="pe-7s-map-marker"></i>
+                                    </label>
+
+                                    <ui-select id="placeStart" on-select="ctrl.placeSelected(ctrl.end)" ng-model="ctrl.end" theme="bootstrap">
+                                        <ui-select-match placeholder="End point">{{$select.selected.name.slice(0,60)}}</ui-select-match>
+                                        <ui-select-choices repeat="place in ctrl.places" refresh="ctrl.autoComplete($select.search)" refresh-delay="0">
+                                            <div ng-bind-html="place.name | highlight: $select.search"></div>
+                                            <!-- <small ng-bind-html="place | highlight: $select.search"></small> -->
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                                <!-- /end point-->
+                            </div>
+
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group pull-right">
+                                        <label for="endRange" style="color: #2c3e50;">In range (km):</label>
+                                        <input type="text" class="form-control" id="endRange" ng-model="ctrl.endRadius">
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" ng-click="ctrl.submit()">Go</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="/home/js/jquery.isotope.min.js"></script>
+<script src="/home/js/fancybox/jquery.fancybox.pack.js"></script>
+<script src="/home/js/wow.min.js"></script>
+<script src="/home/js/functions.js"></script>
