@@ -443,6 +443,8 @@ var searchNearBy = function(req, res, next) {
             finishTime: {
               $gte: startTime
             }
+          }, {
+            status: 'available'
           }]
         })
         .populate('user')
@@ -470,6 +472,8 @@ var searchNearBy = function(req, res, next) {
             finishTime: {
               $gte: startTime
             }
+          }, {
+            status: 'available'
           }]
         }, function(err, endResults) {
 
