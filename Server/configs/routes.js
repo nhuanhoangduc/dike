@@ -10,7 +10,7 @@ var post = require('../routes/post');
 var event = require('../routes/event');
 var comment = require('../routes/comment');
 var admin = require('../routes/admin');
-var test = require('../routes/test');
+
 
 module.exports = function(app) {
 
@@ -21,7 +21,6 @@ module.exports = function(app) {
   app.use('/post', post);
   app.use('/comments', comment);
   app.use('/admin', admin);
-  app.use('/test', test);
   app.use('/event', event);
 
 };
