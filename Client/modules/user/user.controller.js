@@ -113,7 +113,7 @@ app
       this.totalEventFavorite = 0;
 
       for (event in _this.events) {
-        //_this.loadEvent(event, _this.events[event]);
+        _this.loadEvent(event, _this.events[event]);
         _this.loadJoinEvents(event, _this.events[event]);
         _this.loadFavoriteEvents(event, _this.events[event]);
       }
