@@ -4,11 +4,6 @@ var eventInterface = require('./eventInterface');
 
 var travels = {
 
-  typeOfUser: {
-    type: String,
-    enum: ['customer', 'driver']
-  },
-
   start: {
     lat: Number,
     lng: Number
@@ -20,12 +15,6 @@ var travels = {
   },
 
   vehicle: { type: String, enum: ['Car', 'Motorbike', 'Bicycle', 'Bus', 'Walk'] },
-
-  freeSeats: {
-    type: Number,
-    default: 1,
-    require: true
-  },
 
   cost: {
     type: String,
