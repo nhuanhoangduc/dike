@@ -55,6 +55,7 @@ var create = function(req, res, next) {
 
   var params = req.body;
   var event = getModelEvent(params.type);
+  var currentDate = new Date();
 
 
   Comments.create(params, function(err, comment) {
@@ -66,11 +67,23 @@ var create = function(req, res, next) {
 
       function(cb) {
         event.findOne({
-          _id: params.eventId
+          _id: params.eventId,
+
+          status: {
+            $ne: 'blocked'
+          },
+
+          finishTime: {
+            $gt: currentDate
+          }
+
         }, function(err, result) {
 
-          if (err || !result)
+          if (err)
             return cb(err);
+
+          if (!result)
+            return cb({ message: 'Cannot create comment' });
 
           return cb(null, result);
 
@@ -110,19 +123,24 @@ var create = function(req, res, next) {
                 return nextUser();
               });
 
+            }, function() {
+
             });
+
+            cb();
 
           });
 
       }
 
-    ], function() {
+    ], function(err) {
 
-      console.log('done');
+      if (err)
+        return next(err);
+
+      return res.sendStatus(200);
 
     });
-
-    res.json(comment);
 
   });
 };
