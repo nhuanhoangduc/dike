@@ -1,5 +1,4 @@
 var config = require('../configs/webToken');
-var loger = require('./loger');
 
 var verifyToken = function(req, res, next) {
   process.nextTick(function() {

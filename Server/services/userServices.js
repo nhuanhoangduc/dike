@@ -1,4 +1,3 @@
-var loger = require('./loger');
 var jwt = require('json-web-token');
 var webTokenConfig = require('../configs/webToken');
 var Users = require('../models/users');
@@ -9,7 +8,7 @@ var getCurrentUser = function() {
     if (req.session.passport && req.session.passport.user) {
       process.nextTick(function() {
 
-        loger.log(req.session.passport.user._id, req.ip, req.originalUrl, 'Get current user');
+        //loger.log(req.session.passport.user._id, req.ip, req.originalUrl, 'Get current user');
 
         var sessionId = req.session.id;
         jwt.encode(webTokenConfig.secretKey, { sessionId: sessionId }, function(err, token) {
