@@ -22,10 +22,19 @@
         <div class="row studyEvent">
             <div class="col-md-12">
                 <span style="color: #34495e; font-size: 20px;">New study events</span>
+
                 <a href="" ui-sref="study_edit" class="btn border-success text-success-800 btn-flat pull-right">
                     <i class="icon-pencil4"></i>
                     Create
                 </a>
+
+                <div class="form-group has-feedback col-md-5 col-sm-5 col-xs-5 pull-right">
+                    <input type="text" ng-model="ctrl.titleFilter" ng-change="ctrl.loadEvents()" class="form-control" placeholder="Search title">
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-size-base"></i>
+                    </div>
+                </div>
+
             </div>
         </div>
 

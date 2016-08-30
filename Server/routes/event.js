@@ -5,6 +5,9 @@ var userServices = require('../services/userServices');
 /*get all*/
 router.get('/:type', eventServices.getAll);
 
+/* searching */
+router.post('/search/:type', eventServices.search);
+
 
 /* create new */
 router.post('/:type', userServices.checkLogin, eventServices.create);

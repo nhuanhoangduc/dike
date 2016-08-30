@@ -542,6 +542,32 @@ var searchNearBy = function(req, res, next) {
 };
 
 
+var search = function(req, res, next) {
+
+  var type = req.params.type;
+  var model = getModel(type);
+  var query = req.body.query;
+
+  if (!model)
+    return next({ message: 'Invalid event type' });
+
+  model
+    .find(query, { score: { $meta: 'textScore' } })
+    .lean()
+    .populate('user')
+    .sort({ created: -1 })
+    .exec(function(err, results) {
+
+      if (err)
+        return next(err);
+
+      res.json(results);
+
+    });
+
+};
+
+
 var getAll = function(req, res, next) {
 
   var type = req.params.type;
@@ -573,6 +599,7 @@ var getAll = function(req, res, next) {
 module.exports = {
   create: create,
   update: update,
+  search: search,
   getById: getById,
   getByUser: getByUser,
   getByUserCount: getByUserCount,

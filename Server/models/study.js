@@ -32,4 +32,6 @@ var schema = eventInterface({
 
 var studySchema = new Schema(schema);
 
+studySchema.index({ title: 'text' });
+
 module.exports = mongoose.model('studies', studySchema);
