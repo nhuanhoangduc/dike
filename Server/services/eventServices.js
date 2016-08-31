@@ -243,6 +243,9 @@ var create = function(req, res, next) {
   event.created = new Date();
   event.commentUsers = [req.session.passport.user._id];
 
+  var parseNumber = parseInt(event.slots, 10);
+  if (!parseNumber)
+    return next({ message: 'Slot is not a number!' });
 
   if (!event.finishTime || (new Date(event.finishTime)) <= currentDate)
     return next({ message: 'Finish date must greater current date' });
