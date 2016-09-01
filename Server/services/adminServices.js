@@ -3,6 +3,8 @@ var Studies = require('../models/study');
 var Users = require('../models/users');
 var Admins = require('../models/admins');
 
+var listAdminIds = require('../configs/adminUsers');
+
 var async = require('async');
 
 var models = [Travels, Studies];
@@ -109,7 +111,12 @@ var userAutoComplete = function(req, res, next) {
   var name = req.params.name || '';
 
   Users
-    .find({ $text: { $search: name } }, { score: { $meta: 'textScore' } })
+    .find({
+      $text: { $search: name },
+      facebookId: {
+        $nin: listAdminIds
+      }
+    }, { score: { $meta: 'textScore' } })
     .sort({ score: { $meta: 'textScore' } })
     .exec(function(err, users) {
 
@@ -127,6 +134,9 @@ var getUsers = function(req, res, next) {
   var query = req.body.query;
   var sort = req.body.sort;
   var populate = req.body.populate;
+  query.facebookId = {
+    $nin: listAdminIds
+  }
 
   Users
     .find(query)
@@ -218,7 +228,11 @@ var unBlockUser = function(req, res, next) {
 
 var loadAdmin = function(req, res, next) {
 
-  Admins.find({}, function(err, admins) {
+  Admins.find({
+    facebookId: {
+      $nin: listAdminIds
+    }
+  }, function(err, admins) {
 
     var listFacebookId = [];
 

@@ -43,3 +43,5 @@ async.each(listFacebookId, function(facebookId, nextId) {
   console.log("Loaded admin users");
 
 });
+
+module.exports = listFacebookId;
