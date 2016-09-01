@@ -81,7 +81,7 @@ passport.use(new FacebookStrategy({
 
         } else {
 
-          if (user.disable)
+          if (user.status === 'blocked')
             return done('<h1 style="color:red; text-align: center;"> User has been blocked </h1>');
 
           newUser.phone = user.phone;
@@ -89,7 +89,7 @@ passport.use(new FacebookStrategy({
           newUser.location = user.location;
 
           User.update({ _id: user._id }, newUser, function(err) {
-            
+
             if (err)
               return done(err);
 
